@@ -1,0 +1,20 @@
+<div class="page page_choice">
+  <header>
+    <div class="dl">
+      <a href="javascript:history.go(-1)" class="left_icon iconfont">
+        &#xe60e;
+      </a>
+      <span style="">地址设置</span>
+    </div>
+  </header>
+  <div class="page_choice_content">
+    <div class="choice_d" ng-repeat="style in walletcolor" ng-click="setcolor($index)">
+      <div class="choice_b">
+        <p ng-style="style">Aa</p>
+      </div>
+      <div class="right_b">
+        <i class="iconfont" ng-if="walletcolorCur == $index">&#xe609;</i>
+      </div>
+    </div>
+  </div>
+</div>

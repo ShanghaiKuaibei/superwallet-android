@@ -1,0 +1,28 @@
+<div class="page page_reg">
+	<header>
+	  <div class="dl">
+	  	<a href="javascript:history.back();" class="left_icon iconfont">
+	      &#xe60e;
+	    </a>
+	    <span style="">注册</span>
+			<a ui-sref="login" class="right_icon">
+        登录
+      </a>
+	  </div>
+	</header>
+	<div class="page_reg_content">
+		 <div class="reg_a">
+        用户名<br/>
+        <input type="text" name="username" placeholder="输入用户名" ng-model="user.username">
+		 </div>
+		 <div class="reg_a">
+        登录密码<br/>
+        <input type="password" name="userpwd" placeholder="输入登录密码" ng-model="user.password">
+		 </div>
+     <div class="reg_a">
+        再次输入登录密码<br/>
+        <input type="password" name="userpwd2" placeholder="再次输入登录密码" ng-model="passwordagain">
+		 </div>
+     <button class="btn_dlan" ng-disabled="user.password != passwordagain" ng-click="reg()">注册</button>
+	</div>
+</div>

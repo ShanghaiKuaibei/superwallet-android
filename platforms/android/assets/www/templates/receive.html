@@ -1,0 +1,29 @@
+<div class="page page_receive">
+  <header>
+    <div class="dl">
+      <a href="javascript:history.back();" class="left_icon iconfont">
+        &#xe60e;
+      </a>
+      <span style="">接收</span>
+    </div>
+  </header>
+  <div class="page_receive_content">
+    <div class="receive_s">
+      <p>{{wallet.walletname}}</p>
+      <p>{{coins[wallet.coinIndex].title}}</p>
+    </div>
+    <div class="receive_x">
+      <div style="margin:50px 0px;">
+        <qrcode version="3" error-correction-level="L" size="200" data="{{addresse.address}}"></qrcode>
+      </div>
+      <p ng-bind="addresse.address"></p>
+      <p ng-click="copybtn()">
+        <i class="iconfont">&#xe60a;</i>
+        &nbsp;复制地址
+      </p>
+      <div class="receive_x1">
+        <i class="iconfont">&#xe60b;</i>
+      </div>
+    </div>
+  </div>
+</div>

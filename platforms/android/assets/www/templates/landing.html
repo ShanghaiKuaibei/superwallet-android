@@ -1,0 +1,17 @@
+<div class="page page_landing" style="background: url(img/bg-login1.jpg);background-position: center center;background-size: 100%;background-repeat: no-repeat;">
+	<p class="shoushi" ui-sref="srmima" ng-hide="apkDownloadProgress">
+		<a href="#">不注册直接使用</a>
+		<i class="iconfont">&#xe604;</i>
+	</p>
+	<p class="shoushi" ng-show="apkDownloadProgress">
+		<a>{{apkDownloadProgress}}</a>
+	</p>
+	<div class="color" style="display: none;">
+		<div class="color_left" ui-sref="reg">
+			<p>注册</p>
+		</div>
+		<div class="color_right" ui-sref="login">
+			<p>登录</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+<div class="page page_login">
+  <header>
+    <div class="dl">
+      <a href="javascript:history.back();" class="left_icon iconfont">
+        &#xe60e;
+      </a>
+      <span style="">登录</span>
+      <a ui-sref="reg" class="right_icon">
+        注册
+      </a>
+    </div>
+  </header>
+  <div class="page_login_content">
+     <div class="login_a">
+        用户名<br/>
+        <input type="text" name="username" placeholder="输入用户名" ng-model="user.username">
+     </div>
+     <div class="login_a">
+        登录密码<br/>
+        <input type="password" name="userpwd"  placeholder="输入登录密码" ng-model="user.password">
+     </div>
+     <button class="btn_dlan" ng-click="login()"><a style="color:#fff;">登录</a></button>
+  </div>
+</div>

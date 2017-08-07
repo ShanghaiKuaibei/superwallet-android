@@ -1,0 +1,33 @@
+<div ui-view>
+  <div class="page page_address">
+    <header>
+      <div class="dl">
+        <a href="javascript:history.go(-1)" class="left_icon iconfont">
+          &#xe60e;
+        </a>
+        <span style="">添加币种</span>
+        <a ng-click="finish()" class="right_icon">
+          完成
+        </a>
+      </div>
+    </header>
+    <div class="page_address_content">
+      <div class="address_a">
+        币种名称<br/>
+        <input type="text" style="color:#000;" ng-model="walletname" ng-change="changename(walletname)">
+      </div>
+      <div class="address_d" ui-sref=".choice">
+        <div class="address_b">
+          颜色
+        </div>
+        <div class="right">
+          <p ng-style="walletcolor[walletcolorCur]">Aa</p>
+          <i class="iconfont">&#xe604;</i>
+        </div>
+      </div>
+      <div class="address_c"  ng-click="unzipbtn()">
+        导入已备份地址&nbsp;>
+      </div>
+    </div>
+  </div>
+</div>

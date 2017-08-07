@@ -1,0 +1,27 @@
+<div class="page page_receive">
+  <header>
+    <div class="dl">
+      <a href="javascript:history.go(-2);" class="left_icon iconfont">
+        &#xe60e;
+      </a>
+      <span style="">备份保存</span>
+    </div>
+  </header>
+  <div class="page_receive_content">
+    <div class="receive_s">
+      <p>{{bakwallet}}</p>
+    </div>
+    <div class="receive_x">
+      <div style="margin:50px 0px;">
+        <qrcode version="5" error-correction-level="L" size="250" data="{{bakwallet}}"></qrcode>
+      </div>
+      <p ng-click="copybtn()">
+        <i class="iconfont">&#xe60a;</i>
+        &nbsp;复制seed
+      </p>
+      <div class="receive_x1">
+        <i class="iconfont">&#xe60b;</i>
+      </div>
+    </div>
+  </div>
+</div>

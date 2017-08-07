@@ -1,0 +1,32 @@
+<div class="page page_send">
+	<header>
+		<div class="dl">
+			<a href="javascript:history.go(-1)" class="left_icon iconfont">
+				&#xe60e;
+			</a>
+			<span style="">发送</span>
+		</div>
+	</header>
+	<div class="page_send_content">
+        <div class="page_send_content_1">
+        	<p>发送到</p>
+        	<input type="text" placeholder="输入{{coins[wallet.coinIndex].title}}地址" ng-model="toaddr" ng-minlength="20"/><i class="iconfont" ng-click="scanbtn()">&#xe607;</i>
+        </div>
+        <div class="page_send_content_2">
+        	<p>金额</p>
+        	<input class="input1" type="text" placeholder="{{ 0 | number:4}}{{coins[wallet.coinIndex].type}}" ng-model="amount" /><i class="iconfont">&#xe610;</i>
+        	<input class="input2" type="text" placeholder="{{ 0 | currency:'￥'}}" />
+        </div>
+        <div class="page_send_content_3">
+        	<p>留言</p>
+        	<input type="text" placeholder="添加留言" />
+        </div>
+        <div class="button" ng-click="seed()">
+      		<button>发送</button>
+      	</div>
+        <div class="footer">
+      		<p class="p1">正在使用 {{wallet.walletname}}</p>
+      		<p class="p2">余额 {{wallet.balance | number:4}}{{coins[wallet.coinIndex].type}}</p>
+      	</div>
+	</div>
+</div>

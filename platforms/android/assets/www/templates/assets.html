@@ -1,0 +1,114 @@
+<div ui-view>
+<!--OOBE页面开始-->
+<div class="page page_oobe">
+  <div class="header">
+    <div class="top">
+      <img id="versionbtn" style=" left:10px;" src="img/tou.png" width="25px" height="25px">
+      <a href="#" class="iconfont" style=" right:0px;display: none;">&#xe607;</a>
+      <div class="menu">
+        <a class="action" style="right: 50%;" a="1">钱包</a>
+        <a class="" style="left: 50%;" a="2">发现</a>
+        <div class="L"></div>
+      </div>
+      <div class="main">
+        <p>总资产<span>CNY</span></p>
+        <p class="assets">0.00</p>
+      </div>
+    </div>
+  </div>
+  <div class="contents page_oobe_content" id="sorte">
+    <div style="height:40px;width:100%;">
+    </div>
+    <div class="more" ui-sref="address1">
+      <i class="iconfont">&#xe60c;</i>
+    </div>
+    <div class="oobe" ng-repeat="wallet in walletinfo"  style="background:{{walletcolor[wallet.walletcolor]['background']}}">
+      <div class="oobe_z" ui-sref="jiaoyi({wallet:wallet})">
+        <p ng-bind="wallet.walletname" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
+        <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:4"></span> {{coins[wallet.coinIndex]['type']}}</p>
+        <p style="color:{{walletcolor[wallet.walletcolor]['color']}}">￥0.00</p>
+      </div>
+      <div class="oobe_y" ui-sref="bak({walletid:wallet.walletid})">
+        <a class="iconfont" style="color:{{walletcolor[wallet.walletcolor]['color']}}">&#xe605;</a>
+      </div>
+    </div>
+    <div style="height:70px;width:100%;">
+    </div>
+  </div>
+  <div class="page_oobe_fx" style="display:none;">
+    <ul>
+      <li onclick="javascript:alert('后续版本研发中...');">
+        <div>
+          <img src="img/fx-1.png" width="100%">
+        </div>
+      </li>
+      <li onclick="javascript:alert('后续版本研发中...');">
+        <div>
+          <img src="img/fx-2.png" width="100%">
+        </div>
+      </li>
+      <li onclick="javascript:alert('后续版本研发中...');">
+        <div>
+          <img src="img/fx-3.png" width="100%">
+        </div>
+      </li>
+      <li onclick="javascript:alert('后续版本研发中...');">
+        <div>
+          <img src="img/fx-4.png" width="100%">
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+  <input type="hidden" id="movetxt" value="0" />
+<script>
+   var el = document.getElementById("sorte");
+   var sortable = Sortable.create(el,{
+     // Element dragging started
+    onChoose: function (/**Event*/evt) {
+
+    },
+    onStart: function (/**Event*/evt) {
+     document.getElementById("movetxt").value="0";
+        movetxt();
+    },
+    onMove: function (/**Event*/evt, /**Event*/originalEvent) {
+        if(document.getElementById("movetxt").value!="1"){
+           return false;
+        }
+    },
+    // Element dragging ended
+    onEnd: function (/**Event*/evt) {
+
+    },
+   });
+   function movetxt(){
+     window.setTimeout(function(){
+        document.getElementById("movetxt").value="1";
+     },2000)
+   }
+ $(".page_oobe .header .top .menu a").on("click",function(){
+    $(this).siblings("a").removeClass("action");
+    $(this).addClass("action");
+    var a =  $(this).attr("a");
+    if (a == "2") {
+      $(".page_oobe .header .top .menu .L").addClass("R");
+      $(".page_oobe .header .top .menu .L").removeClass("L");
+      $(".page_oobe .header .top .main").hide();
+      $(".page_oobe_content").hide();
+      $(".page_oobe_fx").show();
+    }else if (a == "1"){
+      $(".page_oobe .header .top .menu .R").addClass("L");
+      $(".page_oobe .header .top .menu .R").removeClass("R");
+      $(".page_oobe .1header .top .main").show();
+      $(".page_oobe_content").show();
+      $(".page_oobe_fx").hide();
+    }
+  });
+  //$("#versionbtn").on("click",function(){
+ $("#versionbtn").on("click",function(){
+    alert("当前版本为：V1.0.5 ");
+  })
+</script>
+<!--OOBE页面结束-->
+</div>

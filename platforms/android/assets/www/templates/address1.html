@@ -1,0 +1,28 @@
+<div ui-view>
+  <div class="page page_address1">
+    <header>
+      <div class="dl">
+	  <!--
+        <a class="left_icon" ng-click="unzipbtn()" style="color: #67d1d9;font-size: 14px;">
+		-->
+        <a class="left_icon" ui-sref=".importcoin" style="color: #67d1d9;font-size: 14px;">
+		导入
+        </a>
+        <span style="">添加新币种</span>
+        <a href="#/assets" class="right_icon iconfont">
+          &#xe600;
+        </a>
+      </div>
+    </header>
+    <div class="page_address1_content">
+      <div class="item" ng-repeat="coin in coins" ng-click="addnewaddress(coin.type)">
+        <img src="img/{{coin.type}}.png">
+        <p>{{coin.type}} {{coin.title}}</p>
+        <div class="disable" ng-hide="coin.switch">
+          暂无
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

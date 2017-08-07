@@ -1,0 +1,35 @@
+<div ui-view>
+<div class="page page_trant_1">
+		<div class="head" style="color:#fff;">
+			<div class="top">
+				<a class="left_icon iconfont" style="color:#fff;" href="javascript:history.go(-1)">&#xe60e;</a>
+				<a class="right_icon iconfont" style="color:#fff;" href="javascript:void(0);" ui-sref=".choicecolor({coins:wallet.coinIndex})">&#xe608;</a>
+				<div class="title">
+					<p>{{wallet.walletname}}</p>
+					<span style="border:1px #fff solid;" ng-bind="coins[wallet.coinIndex].title"></span>
+				</div>
+			</div>
+			<div class="content">
+				<p> {{wallet.balance | number:4}} {{coins[wallet.coinIndex].type}}</p>
+				<div>{{ 0 | currency:" ￥ " }}</div>
+			</div>
+			<div class="menu">
+				<div class="iconfont shuxian">&#xe60d;</div>
+				<div class="left_menu" ui-sref=".send"><i class="iconfont">&#xe60f;</i>发送</div>
+				<div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>接收</div>
+			</div>
+    </div>
+    <div class="contents page_trant_1_content">
+			<p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p>
+			<ul>
+				<li ng-repeat="transaction in transactions.slice().reverse() | limitTo: 15" >
+					<div class="list_img"><div class="img {{transaction.type}}"></div></div>
+					<div class="list_right">
+						<div class="top"><span class="money">{{transaction.type}}{{transaction.amount | transactionamount | number:2}}</span><span class="status">交易成功</span></div>
+						<div class="bottom"><span class="code">{{transaction.txid}}</span><span class="time">{{transaction.date}}</span></div>
+					</div>
+				</li>
+			</ul>
+    </div>
+</div>
+</div>

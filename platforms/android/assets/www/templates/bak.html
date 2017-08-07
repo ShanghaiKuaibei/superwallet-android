@@ -1,0 +1,120 @@
+<!--地址备份页面开始-->
+<div class="page page_bak_{{status}}">
+  <header>
+    <div class="dl">
+      <span style="">地址备份</span>
+      <a href="javascript:history.go(-1);" class="right_icon iconfont">
+        &#xe600;
+      </a>
+    </div>
+  </header>
+  <div class="contents">
+    <div class="zj" ng-show="status == 1">
+      <div class="jg_icon">
+        <i class="iconfont">&#xe601;</i>
+      </div>
+      <div class="jg_main">
+        未进行备份
+        <p>接收资金前，请务必备份你的钱包如果你遗失此设备或卸载SuperWallet,将无法找回资金。</p>
+      </div>
+     </div>
+     <div class="zj" ng-show="status == 2">
+       <div class="jg_icon">
+         <i class="iconfont">&#xe609;</i>
+        </div>
+        <div class="jg_main">
+          已完成在线备份
+          <p>接收资金前，请务必备份你的钱包如果你遗失此设备或卸载SuperWallet,将无法找回资金。</p>
+        </div>
+     </div>
+      <div class="zj" ng-show="status == 3">
+          <div class="zi_inner">
+             <div class="jg_icon">
+                <i class="iconfont yun_icon">&#xe606;</i>
+                <div class="zj_2 iconfont two" style="left:-125px;">&#xe612;</div>
+                <div class="zj_2 iconfont" style="left:-110px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="left:-95px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="left:-80px;">&#xe613;</div>
+                <div class="zj_2 iconfont one" style="left:-65px;">&#xe612;</div>
+                <div class="zj_2 iconfont" style="left:-50px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="left:-35px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="left:-20px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-20px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-35px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-50px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-65px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-80px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-95px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-110px;">&#xe613;</div>
+                <div class="zj_2 iconfont" style="right:-125px;">&#xe613;</div>
+             </div>
+          </div>
+         <div class="jg_main">
+           正在备份
+           <p>接收资金前，请务必备份你的钱包如果你遗失此设备或卸载SuperWallet，将无法找回资金。</p>
+         </div>
+      </div>
+     <div class="bf">
+        <span></span>
+         <!--
+        <div class="bf_list" ng-click="status = 3">
+          <div class="left">
+            <i class="iconfont">&#xe602;</i>
+          </div>
+          <div class="content">
+            在线备份<img ng-show="status == 3" src="img/jiazai.gif" style=" width:20px; height:20px; margin:0px 10px;">
+            <p>由SuperWallet提供服务，将私匙储存在服务器上保管，需要登录账号</p>
+          </div>
+          <div class="right">
+            <i class="iconfont">&#xe604;</i>
+          </div>
+        </div>
+         -->
+        <div class="bf_list"  ui-sref="bakcode({bakwalletid:walletid})">
+          <div class="left">
+            <i class="iconfont">&#xe603;</i>
+          </div>
+          <div class="content">
+            自己保管备份
+            <p>需要截屏保存到本地,可以扫描导入</p>
+          </div>
+          <div class="right">
+            <i class="iconfont">&#xe604;</i>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>
+<!--地址备份页面结束-->
+<script>
+  function bak(){
+    var one = $(".page_bak_3 .jg_icon .one");
+    var two = $(".page_bak_3 .jg_icon .two");
+    if($(two).next("div").html() != undefined){
+      $(two).removeClass("two");
+      $(two).html("&#xe613;");
+      $(two).next().addClass("two");
+      $(two).next().html("&#xe612;");
+    }else{
+      $(two).removeClass("two");
+      $(two).html("&#xe613;");
+      $(two).prevAll("div:last").addClass("two");
+      $(two).prevAll("div:last").html("&#xe612;");
+    }
+    if($(one).next("div").html() != undefined){
+      $(one).removeClass("one");
+      $(one).html("&#xe613;");
+      $(one).next().addClass("one");
+      $(one).next().html("&#xe612;");
+    }else{
+      $(one).removeClass("one");
+      $(one).html("&#xe613;");
+      $(one).prevAll("div:last").addClass("one");
+      $(one).prevAll("div:last").html("&#xe612;");
+    }
+  }
+  window.setInterval(function()
+    {
+        bak();
+    }, 200);
+</script>
