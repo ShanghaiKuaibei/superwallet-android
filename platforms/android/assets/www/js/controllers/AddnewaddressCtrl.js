@@ -100,9 +100,6 @@ define(['app','services/WalletService'],function(app){
                 }
               });
             }
-
-
-
       $scope.finish = function (){
         WalletService.createWallet($rootScope.coins[$scope.coinIndex]['name'],"")
           .then(function(walletid){

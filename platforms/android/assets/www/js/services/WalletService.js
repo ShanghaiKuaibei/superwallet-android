@@ -16,6 +16,15 @@ define(['app'],function(app){
           },cointype,walletname);
           return deferred.promise;
         },
+        importWallet: function(cointype,walletname){
+          var deferred = $q.defer();
+          webwalletapi.importwallet(function(walletid){
+            deferred.resolve(walletid);
+          },function(error){
+            deferred.reject(error);
+          },cointype,walletname);
+          return deferred.promise;
+        },
         createAddress: function(walletid){
           var deferred = $q.defer();
           webwalletapi.createaddress(function(success){

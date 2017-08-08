@@ -135,7 +135,7 @@ define(['app'],function(app){
 
                  if($rootScope.coins[coinIndex].switch == true){
                     /*导入钱包*/
-                         WalletService.createWallet(coincatea,oldseed)
+                         WalletService.importWallet(coincatea,oldseed)
                              .then(function(walletid){
                                if(arr.length==1){
                                      $scope.wallet = [{"walletid":coincate+"_"+coinjson,"coinIndex":coinIndex,"walletcolor":2,"walletname":coinname}];

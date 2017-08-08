@@ -11,6 +11,15 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
                 [str,content]//要传递的参数，json格式
                 );
             },
+            importwallet: function(success,error,str,content){
+                exec(
+                    success,
+                    error,
+                "WalletapiPlugin",//feature name
+                "importwallet",//action
+                [str,content]//要传递的参数，json格式
+                );
+            },
             createaddress: function(success,error,content,type){
                 exec(
                 success,

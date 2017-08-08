@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Environment;
-import go.mobile.*;
+import mobile.*;
 import mobile.Config;
 import mobile.Mobile;
 import mobile.SendOption;
@@ -23,24 +23,32 @@ public class WalletapiPlugin extends CordovaPlugin {
         //c.setServerAddr("139.129.46.29:8080");
         c.setWalletDirPath(Environment.getExternalStorageDirectory().toString() + "/superwallet");
         Mobile.init(c);
-        if("createwallet".equals(action)){1
+        if("createwallet".equals(action)){
+            System.out.println("第二个参数:"+args.getString(1));
             try {
-                if(args.getString(1)==""){
-                    String  seeda = Mobile.newSeed();
+                     String  seeda = Mobile.newSeed();
+                    System.out.println("种子-----------------------------------------------------------"+seeda);
                     String  res = Mobile.newWallet(args.getString(0), seeda);
-                    System.out.println(res);
                     callbackContext.success(res);
-                }else{
-                    String  res = Mobile.newWallet(args.getString(0), args.getString(1));
-                    System.out.println(res);
-                    callbackContext.success(res);
-                }
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
                 callbackContext.error("创建钱包失败！");
                 return true;
             }
+        }else if("importwallet".equals(action)){
+            try {
+                    String  res = Mobile.newWallet(args.getString(0), args.getString(1));
+                    System.out.println(res);
+                    System.out.println("这是导入!");
+                    callbackContext.success(res);
+                    return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("导入钱包失败！");
+                return true;
+            }
+
         }else if("createaddress".equals(action)){
             final  String a = args.getString(0);
             final Integer b = args.getInt(1);

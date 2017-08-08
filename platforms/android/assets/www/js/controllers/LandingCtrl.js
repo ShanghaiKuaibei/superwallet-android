@@ -10,7 +10,7 @@ define(['app','services/LandingService'],function(app){
       service.config($rootScope);
       LandingService.getAppVersion(function(AppVersion){
         LandingService.getServeAppVersion().then(function(ServeAppVersion){
-          if (parseInt(ServeAppVersion['v'])>105) {
+          if (parseInt(ServeAppVersion['v'])>106) {
             $rootScope.confirm('发现新版本V'+ServeAppVersion['version'],'检查更新', ['更新','取消'],function(buttonIndex){
               if (buttonIndex == 1) {
                 LandingService.apkDownload(ServeAppVersion['name'])
