@@ -13,6 +13,9 @@ platforms/android/CordovaLib/ant-gen
 platforms/android/CordovaLib/bin
 platforms/android/CordovaLib/gen
 platforms/android/CordovaLib/local.properties
+platforms/android/CordovaLib/build
+platforms/android/.idea
+platforms/android/.gradle/2.14.1/taskArtifacts
 
 # res
 resources/signing
