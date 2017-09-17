@@ -1,10 +1,15 @@
+/* jiaoyi */
+.deletewallet{
+	
+}
+
 /*landing*/
 .page_landing{width:100%;height:100%;position:absolute}
 .page_landing .color{width:100%;height:60px;line-height:70px;position:fixed;background:-webkit-linear-gradient(left,#f98f5c ,#f56d55);background:-o-linear-gradient(right,#f98f5c,#f56d55);background:-moz-linear-gradient(right,#f98f5c,#f56d55);background:linear-gradient(to right,#f98f5c ,#f56d55);bottom:0}
 .page_landing .color .color_left{width:49.5%;height:40px;float:left;border-right:1px solid #fff;margin-top:10px}
 .page_landing .color_right p,.page_landing .color_left p{text-align:center;line-height:40px;color:#fff}
 .page_landing .color_right{width:50%;height:40px;float:left;margin-top:10px}
-.page_landing .shoushi{bottom:120px;text-align:center;font-size:15px;position:fixed;left:50%;margin-left:-52px}
+.page_landing .shoushi{bottom:120px;text-align:center;font-size:15px;position:fixed;width: 100%;}
 .page_landing .shoushi a{color:#5fcdd5;text-decoration:none}
 .page_landing .shoushi i{color:#5fcdd5}
 /*login*/
@@ -19,7 +24,7 @@
 .page_reg_content .btn_dlan{color:#FFF;font-size:18px;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;display:block;background:#52cad3;text-align:center;text-decoration:none; position: absolute;bottom: -80px;width: 80%;height: 50px;left: 50%;margin-left: -40%;}
 /*oobe*/
 .page_oobe{position:fixed;width:100%;height:100%;background-image:url(../img/OOBE.png);background-size:100%;background-repeat:no-repeat}
-.page_oobe .header{position:fixed;top:0;width:100%;height: auto;}
+.page_oobe .header{position:fixed;width:100%;height: auto;}
 .page_oobe .header .top{position:relative;width:100%;height:39px}
 .page_oobe .header .top .iconfont{position:absolute;padding:7px 10px;width:25px;height:25px;color:#eaf9fb;text-align:center;font-size:22px}
 .page_oobe .header .top .iconfont img{border-radius:20px}
@@ -47,7 +52,7 @@
 .page_oobe_content .oobe_z p:nth-of-type(1){color:#fff;font-size:14px}
 .page_oobe_content .oobe_z p:nth-of-type(2){color:#fff;margin-top:10px;font-size:24px}
 .page_oobe_content .oobe_z p:nth-of-type(3){color:#ccc;font-size:14px}
-.page_oobe_fx{margin-top: 70px;height: 10px;width: 100%;}
+.page_oobe_fx{margin-top: 100px;height: 10px;width: 100%;}
 .page_oobe_fx ul{width: 100%;height: auto;}
 .page_oobe_fx ul li{width: 100%;height: auto;}
 .page_oobe_fx ul div{width: 90%;height: auto;margin:10px auto;}

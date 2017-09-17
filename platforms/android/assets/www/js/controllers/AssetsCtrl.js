@@ -18,7 +18,12 @@ define(['app','services/WalletService'],function(app){
                 $timeout(getBalance,100);
             });
       });
-
+      $scope.alertMsg=function(){
+        alert($rootScope.languages.UnderDevelopment[$rootScope.selectLanguage.selected.id]);
+      }
+      $scope.shoversion=function(){
+        alert($rootScope.languages.CurrentVersion[$rootScope.selectLanguage.selected.id] + "V1.0.5 ");
+      }
       var getBalance = function(){
         angular.forEach($rootScope.walletinfo,function(wallet,index){
           WalletService.getBalance($rootScope.coins[wallet.coinIndex].name,wallet.walletid).then(function(success){
