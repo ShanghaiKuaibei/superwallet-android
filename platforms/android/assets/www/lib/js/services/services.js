@@ -247,6 +247,17 @@ angular.module('starter.services', [])
             });
           return deferred.promise;
         }
+        //删除文件
+        $scope.deleteFile = function (filepath, filename) {
+          var deferred = $q.defer();
+          $cordovaFile.removeFile(filepath, filename)
+            .then(function (success) {
+              deferred.resolve(success);
+            }, function (error) {
+              deferred.reject(error);
+            });
+          return deferred.promise;
+        }
         //取出文件信息
         $scope.readAsText = function (filepath, filename) {
           var deferred = $q.defer();

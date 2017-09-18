@@ -4,9 +4,13 @@ define(['app', 'services/WalletService'], function (app) {
     '$scope',
     '$rootScope',
     '$stateParams',
+    '$location',
     '$timeout',
     'WalletService',
-    function ($scope, $rootScope, $stateParams, $timeout, WalletService) {
+    'service',
+    function ($scope, $rootScope, $stateParams, $location, $timeout, WalletService, service) {
+      service.file($scope);
+      service.config($rootScope);
       $scope.wallet = $stateParams.wallet;
       $timeout(getBalance, 100);
       var getBalance = function () {
@@ -25,8 +29,43 @@ define(['app', 'services/WalletService'], function (app) {
         });
       }
       $scope.deleteWallet = function () {
-        alert("delete wallet!!!")
+        // alert("delete wallet!!!")
         console.log("console.log delete wallet!!!")
+        //$scope.wallet = [{ "walletid": success['text'], "coinIndex": coinIndex, "walletcolor": 2, "walletname": walletname }];
+        $scope.checkFile($rootScope.filepath, $rootScope.filename)
+          .then(function (success) {
+          $scope.readAsText($rootScope.filepath, $rootScope.filename)
+            .then(function (success) {
+              var walletArr = JSON.parse(success)
+              console.log("walletArr.删除前：", walletArr)
+              for(var i=0,l=walletArr.length; i<l; i++){
+                if (walletArr[i].walletid == $scope.wallet.walletid){
+                  // 日了狗，调试都一样，就是会报walletid undefined！
+                  console.log("walletArr[i].walletid：", walletArr[i].walletid)
+                  console.log("$scope.wallet.walletid：", $scope.wallet.walletid)
+                  walletArr.splice(i,1)
+                  console.log("walletArr.删除后：", walletArr)
+                }
+              }
+            $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(walletArr))
+              .then(function () {
+              $location.url('/assets');
+            }, function () {
+              $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
+              // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
+            });
+          }, function () {
+            $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename));
+            // $rootScope.alert("取出信息失败:" + $rootScope.filepath + $rootScope.filename);
+          });
+        }, function (error) {
+          $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify($scope.wallet)).then(function () {
+            $location.url('/assets');
+          }, function () {
+            $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
+            // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
+          });
+                    });
       }
     }]);
   app.register.filter('walletname', function () {
