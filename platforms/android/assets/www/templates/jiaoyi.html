@@ -10,6 +10,7 @@
 				</div>
 			</div>
 			<div class="content">
+					<!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
 				<p> {{wallet.balance | number:4}} {{coins[wallet.coinIndex].type}}</p>
 				<div>{{ 0 | currency:" ￥ " }}</div>
 			</div>
@@ -21,10 +22,10 @@
 				<!-- <div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>接收</div> -->
 				<div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>{{languages.Receive[selectLanguage.selected.id]}}</div>
 			</div>
-			<!-- 删除钱包 -->
 		</div>
-		<div class="deletewallet_wrap">
-			<button class="deletewallet" ng-click="deleteWallet()">
+		<!-- 删除钱包 -->
+		<div class="deletewallet_wrap" ng-click="deleteWallet()">
+			<button class="deletewallet">
 				{{languages.DeleteWallet[selectLanguage.selected.id]}}
 			</button>
 		</div>

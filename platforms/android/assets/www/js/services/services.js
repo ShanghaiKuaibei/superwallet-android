@@ -1,12 +1,13 @@
 angular.module('starter.services', [])
   .factory('service', [
     '$q',
+    '$http',
     '$cordovaDialogs',
     '$cordovaFile',
     '$cordovaZip',
     '$cordovaClipboard',
     '$cordovaBarcodeScanner',
-    function ($q, $cordovaDialogs, $cordovaFile, $cordovaZip, $cordovaClipboard, $cordovaBarcodeScanner) {
+    function ($q, $http, $cordovaDialogs, $cordovaFile, $cordovaZip, $cordovaClipboard, $cordovaBarcodeScanner) {
       var config = function ($rootScope) {
         $rootScope.lvshapn = "http://120.55.60.140/superwallet/";
         //$rootScope.lvshapn = "http://marry.meiriwenda.com/superwallet/";
@@ -89,18 +90,27 @@ angular.module('starter.services', [])
             "安兰德币"
           ], "switch": true }
         };
-        $rootScope.selectLanguage = {
-          availableOptions: [
-            { id: "3", name: "中文" },
-            { id: "0", name: "English" },
-            { id: "1", name: "Español" },
-            { id: "2", name: "العَرَبِيَّة‎" }
-          ],
-          selected: {
-            id: "0", name: "English"
-          }
-        };
+        // $rootScope.selectLanguage = {
+        //   availableOptions: [
+        //     { id: "3", name: "中文" },
+        //     { id: "0", name: "English" },
+        //     { id: "1", name: "Español" },
+        //     { id: "2", name: "العَرَبِيَّة‎" }
+        //   ],
+        //   selected: {
+        //     id: "0", name: "English"
+        //   }
+        // };
         // 英文	西班牙语	阿拉伯语 中文
+        // $http.get("./js/services/language.json")
+        //   .success(function (response) {
+        //     console.log("$http:", response);
+        //     console.log("$http:", JSON.parse(response));
+        //     console.log("$http:", JSON.parse(response).data);
+        //     console.log("$http:", response.data);
+        //     $rootScope.languages = $rootScope.languages
+        //     console.log("$rootScope.languages:", $rootScope.languages);
+        //   });
         $rootScope.languages = {
           "Wallet": ["Wallet","Cartera","محفظة","钱包"],
           "Discover": ["Discover","Encuentro","بحث","发现"],
@@ -239,17 +249,6 @@ angular.module('starter.services', [])
             });
           return deferred.promise;
         }
-        //删除文件
-//        $scope.deleteFile = function (filepath, filename) {
-//          var deferred = $q.defer();
-//          $cordovaFile.removeFile(filepath, filename)
-//            .then(function (success) {
-//              deferred.resolve(success);
-//            }, function (error) {
-//              deferred.reject(error);
-//            });
-//          return deferred.promise;
-//        }
         //创建文件
         $scope.writeFile = function (filepath, filename, message, replace) {
           replace = replace || true;
