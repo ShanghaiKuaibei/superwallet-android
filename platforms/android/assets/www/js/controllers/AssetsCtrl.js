@@ -22,7 +22,7 @@ define(['app','services/WalletService'],function(app){
         alert($rootScope.languages.UnderDevelopment[$rootScope.selectLanguage.selected.id]);
       }
       $scope.shoversion=function(){
-        alert($rootScope.languages.CurrentVersion[$rootScope.selectLanguage.selected.id] + "V1.0.5 ");
+        alert($rootScope.languages.CurrentVersion[$rootScope.selectLanguage.selected.id] + "V1.1.0 ");
       }
       var getBalance = function(){
         angular.forEach($rootScope.walletinfo,function(wallet,index){
