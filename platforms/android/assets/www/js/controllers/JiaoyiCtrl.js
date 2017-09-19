@@ -37,14 +37,10 @@ define(['app', 'services/WalletService'], function (app) {
           $scope.readAsText($rootScope.filepath, $rootScope.filename)
             .then(function (success) {
               var walletArr = JSON.parse(success)
-              console.log("walletArr.删除前：", walletArr)
               for(var i=0,l=walletArr.length; i<l; i++){
                 if (walletArr[i].walletid == $scope.wallet.walletid){
-                  // 日了狗，调试都一样，就是会报walletid undefined！
-                  console.log("walletArr[i].walletid：", walletArr[i].walletid)
-                  console.log("$scope.wallet.walletid：", $scope.wallet.walletid)
                   walletArr.splice(i,1)
-                  console.log("walletArr.删除后：", walletArr)
+                  break;
                 }
               }
             $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(walletArr))
