@@ -32,7 +32,8 @@ angular.module('starter.services', [])
                     }
                   else {
                       // alert("退出。else！！！")
-                     navigator.app.backHistory()
+                      // history.back()
+                      navigator.app.backHistory()
                  }
               }, false);
           }
