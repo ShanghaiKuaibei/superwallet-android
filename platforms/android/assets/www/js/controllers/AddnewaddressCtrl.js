@@ -55,7 +55,7 @@ define(['app', 'services/WalletService'], function (app) {
                 walletname = $rootScope.languages.AynRandCoin[$rootScope.selectLanguage.selected.id];
               }
               if (coinIndex != $scope.coinIndex) {
-                alert(coinIndex);
+                // alert(coinIndex);
                 alert($rootScope.languages.Recover[$rootScope.selectLanguage.selected.id] + arr[0] + $rootScope.languages.Theseed[$rootScope.selectLanguage.selected.id]);
                 // alert("恢复指定" + arr[0] + "的Seed不存在!");
                 return false;

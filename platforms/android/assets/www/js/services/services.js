@@ -19,6 +19,23 @@ angular.module('starter.services', [])
           //android平台
           console.log("This is mobile'browser.");
           $rootScope.filepath = cordova.file.externalRootDirectory;
+          // 退出程序
+          document.addEventListener("deviceready", onDeviceReady, false);
+          
+          function onDeviceReady(){
+              document.addEventListener("backbutton", function(e){
+                // alert("0退出！！！")
+                 if(window.location.hash=='#/assets'){
+                      // alert("退出！！！")
+                      //  e.preventDefault();
+                      navigator.app.exitApp();
+                    }
+                  else {
+                      // alert("退出。else！！！")
+                     navigator.app.backHistory()
+                 }
+              }, false);
+          }
         } else {
           console.log("This is pc'browser.");
           document.addEventListener("deviceready", onDeviceReady, false);
@@ -122,7 +139,8 @@ angular.module('starter.services', [])
           "Shopping": ["Shopping","Compras","تسوق","购物"],
           "Coming Soon": ["Coming Soon","Disponible","يعرض فورا","即将推出"],
           "Endowment Insurance": ["Endowment Insurance","Seguro de vejez","تأمين المعاش","养老保险"],
-          "Address": ["Copy Address","Copiar la dirección","تنسيخ العنوان","复制地址"],
+          "CopyAddress": ["Copy Address","Copiar la dirección","تنسيخ العنوان","复制地址"],
+          "Copyseed": ["Copy seed","Copiar semillas","نسخ البذور","复制seed"],
           "Waiting for confirmation": ["Waiting for confirmation","Espera a confirmar","انتظار الموافقة","等待确认"],
           "Input Error": ["Input Error","Error de entrada","خطأ الإدخال","输入错误"],
           "Register": ["Register","Registro","تسجيل","注册"],
@@ -219,18 +237,24 @@ angular.module('starter.services', [])
       }
       var dialogs = function ($rootScope) {
         $rootScope.alert = function (message, title, buttonName, callback) {
-          message = message || "内容";
-          title = title || "提示";
-          buttonName = buttonName || "确认";
+          // message = message || "内容";
+          // title = title || "提示";
+          // buttonName = buttonName || "确认";
+          message = message || $rootScope.languages.Content[$rootScope.selectLanguage.selected.id];
+          title = title || $rootScope.languages.Notice[$rootScope.selectLanguage.selected.id];
+          buttonName = buttonName || $rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id];
           $cordovaDialogs.alert(message, title, buttonName)
             .then(function () {
               callback && callback();
             });
         }
         $rootScope.confirm = function dialogs(message, title, buttonArray, callback) {
-          message = message || "内容";
-          title = title || "提示";
-          buttonArray = buttonArray || ["确认", "取消"];
+          // message = message || "内容";
+          // title = title || "提示";
+          // buttonArray = buttonArray || ["确认", "取消"];
+          message = message || $rootScope.languages.Content[$rootScope.selectLanguage.selected.id];
+          title = title || $rootScope.languages.Notice[$rootScope.selectLanguage.selected.id];
+          buttonArray = buttonArray || [$rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id], $rootScope.languages.Cancel[$rootScope.selectLanguage.selected.id]];
           $cordovaDialogs.confirm(message, title, buttonArray)
             .then(function (buttonIndex) {
               callback && callback(buttonIndex);
