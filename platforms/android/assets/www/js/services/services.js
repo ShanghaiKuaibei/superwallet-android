@@ -169,6 +169,7 @@ angular.module('starter.services', [])
           "Receive": ["Receive","Recibir","استلام","接收"],
           "Send": ["Send","Enviar","إرسال","发送"],
           "DeleteWallet": ["Delete Wallet","Borrar cartera","حذف المحفظة","删除钱包"],
+          "confirmdeletion": ["confirm deletion?","Confirmar para borrar?","هل تريد تأكيد الحذف؟","确认删除？"],
           "TransactionRecords": ["Transaction Records","Historia de trasacción","سجل الصفقات","交易记录"],
           "Send to": ["Send to","Enviar a","إرسال إلى","发送到"],
           "toAddress": ["To address","Introduzca la dirección de la otra parte","أدخل عنوان النظير","输入对方地址"],

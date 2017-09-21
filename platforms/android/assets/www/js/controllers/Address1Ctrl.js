@@ -16,7 +16,7 @@ define(['app'], function(app) {
                 $scope.failed = $rootScope.languages.Failed[$rootScope.selectLanguage.selected.id]
 
                 // $rootScope.confirm('确定要恢复数据？继续操作', '还原备份', ['确定','取消'],function(buttonIndex){
-                $rootScope.confirm($rootScope.languages.ConfirmRestore[$rootScope.selectLanguage.selected.id] + rootScope.languages.continue[$rootScope.selectLanguage.selected.id], $rootScope.languages.RestoreBackup[$rootScope.selectLanguage.selected.id], Confirm, [$rootScope.languages.Cancel[$rootScope.selectLanguage.selected.id]], function(buttonIndex) {
+                $rootScope.confirm($rootScope.languages.ConfirmRestore[$rootScope.selectLanguage.selected.id] + rootScope.languages.continue[$rootScope.selectLanguage.selected.id], $rootScope.languages.RestoreBackup[$rootScope.selectLanguage.selected.id], [$rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id], $rootScope.languages.Cancel[$rootScope.selectLanguage.selected.id]], function(buttonIndex) {
                     if (buttonIndex == 1) {
                         $scope.scan().then(function(success) {
                             var arr = success['text'].split("_");
