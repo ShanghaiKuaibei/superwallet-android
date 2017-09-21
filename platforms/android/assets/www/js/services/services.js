@@ -2,12 +2,13 @@ angular.module('starter.services', [])
   .factory('service', [
     '$q',
     '$http',
+    '$window' ,
     '$cordovaDialogs',
     '$cordovaFile',
     '$cordovaZip',
     '$cordovaClipboard',
     '$cordovaBarcodeScanner',
-    function ($q, $http, $cordovaDialogs, $cordovaFile, $cordovaZip, $cordovaClipboard, $cordovaBarcodeScanner) {
+    function ($q, $http, $window, $cordovaDialogs, $cordovaFile, $cordovaZip, $cordovaClipboard, $cordovaBarcodeScanner) {
       var config = function ($rootScope) {
         $rootScope.lvshapn = "http://120.55.60.140/superwallet/";
         //$rootScope.lvshapn = "http://marry.meiriwenda.com/superwallet/";
@@ -21,19 +22,21 @@ angular.module('starter.services', [])
           $rootScope.filepath = cordova.file.externalRootDirectory;
           // 退出程序
           document.addEventListener("deviceready", onDeviceReady, false);
-          
           function onDeviceReady(){
               document.addEventListener("backbutton", function(e){
                 // alert("0退出！！！")
-                 if(window.location.hash=='#/assets'){
+                 if(window.location.hash=='#/assets' || window.location.hash=='#/srmima'){
                       // alert("退出！！！")
                       //  e.preventDefault();
                       navigator.app.exitApp();
                     }
                   else {
                       // alert("退出。else！！！")
+                      // $window.history.go(-1);
+                      // history.go(-1);
                       // history.back()
-                      navigator.app.backHistory()
+                      // navigator.app.backHistory()
+                      // $state.go(-1)
                  }
               }, false);
           }

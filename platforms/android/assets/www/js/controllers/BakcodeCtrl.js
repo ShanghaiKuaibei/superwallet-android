@@ -12,7 +12,7 @@ define(['app'],function(app){
       $scope.bakwallet = $stateParams.bakwalletid;
      $scope.copybtn = function(){
         $scope.copy($scope.bakwallet).then(function(){
-          // $rootScope.alert("已复制seed");
+          $rootScope.alert("已复制seed");
           $rootScope.alert($rootScope.languages.Seedduplicated[$rootScope.selectLanguage.selected.id]);
         });
       }
