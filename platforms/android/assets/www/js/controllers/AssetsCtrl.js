@@ -6,7 +6,8 @@ define(['app','services/WalletService'],function(app){
     '$rootScope',
     'WalletService',
     '$timeout',
-    function($scope,service,$rootScope,WalletService,$timeout){
+    '$cordovaAppVersion',
+    function($scope,service,$rootScope,WalletService,$timeout, $cordovaAppVersion){
       service.file($scope);
       $scope.$on('$locationChangeStart', function(event, next, current){
           event.preventDefault();
@@ -22,7 +23,10 @@ define(['app','services/WalletService'],function(app){
         alert($rootScope.languages.UnderDevelopment[$rootScope.selectLanguage.selected.id]);
       }
       $scope.shoversion=function(){
-        alert($rootScope.languages.CurrentVersion[$rootScope.selectLanguage.selected.id] + "V1.1.0 ");
+        // ### version management
+        $cordovaAppVersion.getVersionNumber().then(function(versionNumber) {
+          alert($rootScope.languages.CurrentVersion[$rootScope.selectLanguage.selected.id] + ' ' + versionNumber);
+        }, false);
       }
       var getBalance = function(){
         angular.forEach($rootScope.walletinfo,function(wallet,index){
