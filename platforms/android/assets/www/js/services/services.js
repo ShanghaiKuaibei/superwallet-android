@@ -262,6 +262,9 @@ angular.module('starter.services', [])
           buttonArray = buttonArray || [$rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id], $rootScope.languages.Cancel[$rootScope.selectLanguage.selected.id]];
           $cordovaDialogs.confirm(message, title, buttonArray)
             .then(function (buttonIndex) {
+              if (buttonIndex != 1) { // use click cancel, do nothing 
+                return;
+              }
               callback && callback(buttonIndex);
             });
         }
