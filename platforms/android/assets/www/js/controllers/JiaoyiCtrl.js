@@ -36,7 +36,12 @@ define(['app', 'services/WalletService'], function (app) {
           $rootScope.languages.DeleteWallet[$rootScope.selectLanguage.selected.id],
           [$rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id],
           $rootScope.languages.Cancel[$rootScope.selectLanguage.selected.id]],
-          function () {
+          function (buttonIndex) {
+            //Hank Gao
+            if (buttonIndex != 1) { // use click cancel, do nothing 
+              return;
+            }
+
             $scope.checkFile($rootScope.filepath, $rootScope.filename)
               .then(function (success) {
                 $scope.readAsText($rootScope.filepath, $rootScope.filename)
