@@ -347,8 +347,8 @@ angular.module('starter.services', [])
         }
       }
       return {
-        dialogs: dialogs,
         config: config,
+        dialogs: dialogs,
         file: file
       };
     }])
