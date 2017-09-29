@@ -22,13 +22,20 @@ package com.shellpay2.superwallet;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
+// Integrate bugsnag
+import com.bugsnag.android.Bugsnag;
+
 public class MainActivity extends CordovaActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+      // integrate bugsnag
+      Bugsnag.init(this);
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+      // Test integration with bugsnag
+        Bugsnag.notify(new RuntimeException("Non-fatal"));
     }
 }

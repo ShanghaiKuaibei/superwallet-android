@@ -259,6 +259,8 @@ android {
 }
 
 dependencies {
+    // integrate bugsnag 'Hank Gao'
+    compile 'com.bugsnag:bugsnag-android:3.+'
     compile(name: 'mobile', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
