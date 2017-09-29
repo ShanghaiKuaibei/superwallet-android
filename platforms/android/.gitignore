@@ -1,5 +1,6 @@
 # Non-project-specific build files:
 build.xml
+android.iml
 local.properties
 /gradlew
 /gradlew.bat
