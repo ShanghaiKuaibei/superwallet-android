@@ -23,17 +23,28 @@ define([
           filter: $filterProvider.register,
           service: $provide.service
         }
+        // loadControllerJs
         app.loadControllerJs = function (controllerJs) {
-          return function ($rootScope, $q) {
+          return function ($q) {
             var def = $q.defer(), deps = [];
             angular.isArray(controllerJs) ? (deps = controllerJs) : deps.push(controllerJs);
             require(deps, function () {
-              $rootScope.$apply(function () {
+              // $rootScope.$apply(function () {
                 def.resolve();
-              });
+              // });
             });
             return def.promise;
           };
+          // return function ($rootScope, $q) {
+          //   var def = $q.defer(), deps = [];
+          //   angular.isArray(controllerJs) ? (deps = controllerJs) : deps.push(controllerJs);
+          //   require(deps, function (deps) {
+          //     alert("load succeed"+deps)
+          //     def.resolve();
+          //   });
+          //   alert("def.promise:"+def.promise)
+          //   return def.promise;;
+          // }
         }
         $urlRouterProvider.otherwise('/');
         $stateProvider
@@ -72,7 +83,26 @@ define([
             controller: "srmimaCtrl1",
             resolve: {
               deps: app.loadControllerJs('./controllers/srmimaCtrl1')
-            }
+            },
+            // controller: app.loadControllerJs('./controllers/srmimaCtrl1')
+            // resolve: {
+            //   controllerName: ['$stateParams', '$timeout','$q', 
+            //       function ($stateParams, $timeout, $q)
+            //       {
+            //         var deferred = $q.defer();
+            //          $timeout(function(){ 
+                  
+            //           deferred.resolve('MyLazyRevealedCtrl');
+                      
+            //         },250);
+            //         return deferred.promise;
+            //       }],
+                
+            // },
+            // controllerProvider:['controllerName', function (controllerName)
+            // {
+            //     return controllerName;
+            // }],
           })
           .state('assets', {
             url: "/assets",
