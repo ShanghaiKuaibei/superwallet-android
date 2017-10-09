@@ -31,7 +31,7 @@
 .page_oobe .header .top .menu{position:relative;margin:0 auto;height:39px}
 .page_oobe .header .top .menu a{color: #A5E4EC;float:left;display:block;margin:0 10px;font-size:15px;font-family:"微软雅黑";line-height:39px ;position: absolute;}
 .page_oobe .header .top .menu div{position:absolute;bottom:0;margin: 0 10px;width:40px;height:2px;border-radius:10px;background:#ecf9fb}
-.page_oobe .header .top .menu .action{color: #CFF1F5;}
+.page_oobe .header .top .menu .action{color: #CFF1F5;border-bottom: 2px solid #ecf9fb}
 .page_oobe .header .top .menu .L{right: 50%;}
 .page_oobe .header .top .menu .R{left: 50%;}
 .page_oobe .header .top .main{position:absolute;top:300%;width:100%;height:70px}
