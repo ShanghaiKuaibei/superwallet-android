@@ -1,8 +1,6 @@
 define(['app', 'services/WalletService'], function (app) {
     'use strict';
     app.register.controller('srmimaCtrl1', ['$scope', '$rootScope', 'service', '$window', '$timeout', '$state', function ($scope, $rootScope, service, $window, $timeout, $state) {
-        // service.file($scope);
-        // service.config($rootScope);
         // $scope.qwere.contentText = "请牢记你的手势密码，忘记后无法进入";
         $scope.H5lock = function (obj) {
             this.height = obj.height;
@@ -183,9 +181,9 @@ define(['app', 'services/WalletService'], function (app) {
                 // } else if (this.pswObj.step == 1) {
                 //     $scope.resetShow = false
             } else {
-                $scope.$apply(function () {
+                // $scope.$apply(function () {
                     $scope.resetShow = false
-                })
+                // })
             }
         }
         $scope.H5lock.prototype.setChooseType = function (type) {
