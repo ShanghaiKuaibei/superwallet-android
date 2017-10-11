@@ -30,8 +30,8 @@
 .page_oobe .header .top .iconfont img{border-radius:20px}
 .page_oobe .header .top .menu{position:relative;margin:0 auto;height:39px}
 .page_oobe .header .top .menu a{color: #A5E4EC;float:left;display:block;margin:0 10px;font-size:15px;font-family:"微软雅黑";line-height:39px ;position: absolute;}
-.page_oobe .header .top .menu div{position:absolute;bottom:0;margin: 0 10px;width:30px;height:2px;border-radius:10px;background:#ecf9fb}
-.page_oobe .header .top .menu .action{color: #CFF1F5;}
+.page_oobe .header .top .menu div{position:absolute;bottom:0;margin: 0 10px;width:40px;height:2px;border-radius:10px;background:#ecf9fb}
+.page_oobe .header .top .menu .action{color: #CFF1F5;border-bottom: 2px solid #ecf9fb}
 .page_oobe .header .top .menu .L{right: 50%;}
 .page_oobe .header .top .menu .R{left: 50%;}
 .page_oobe .header .top .main{position:absolute;top:300%;width:100%;height:70px}
@@ -220,7 +220,7 @@ header .dl .right_icon{ color:#67d1d9; font-size:14px;}
 .page_trant_1 .head .menu .left_menu{left:0}
 .page_trant_1 .head .menu .right_menu{right:0}
 .page_trant_1 .deletewallet_wrap{position: fixed;top:195px;left:0;width:100%;height:30px;text-align: center;}
-.page_trant_1 .deletewallet_wrap .deletewallet{width:50%;height:30px;color: #fff;font-family: 微软雅黑;font-size: 22px;line-height: 30px;	text-shadow: rgb(221, 221, 221) 0px 6px 8px;background: #55d7df;border-radius: 3px;}
+.page_trant_1 .deletewallet_wrap .deletewallet{width:50%;height:30px;color: #fff;font-family: 微软雅黑;font-size: 20px;line-height: 30px;background: #55d7df;border-radius: 3px;}
 .page_trant_1_content{position:fixed;height:100%;width:100%;top:230px;padding-top:30px;overflow-y:auto}
 .page_trant_1_content p{color:#ccc;position:absolute;top:0;left:0;line-height:30px;padding:0 10px;font-family:"微软雅黑";font-size:12px}
 .page_trant_1_content ul{position:absolute;top:30px;width:100%;border-top:1px #EDEDED solid;background-color:#fff}

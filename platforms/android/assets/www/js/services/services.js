@@ -241,7 +241,14 @@ angular.module('starter.services', [])
           "savelocal": ["It's necessary to save screeshots to local disks", "Es necesario guardar capturas de pantalla en discos locales", "يحتاج إلى حفظه في المحلية", "需要截屏保存到本地"],
           "scan": ["You may scan and import", "Se puede escanear e importar", "ممكن مسحه للإدخال", "可以扫描导入"],
           "Online": ["Online backup completed", "Copia de seguridad en línea ya completada", "تم الحفاظ على النسخ الاحتياطي على الانترنت ", "已完成在线备份"],
-          "Addresssetting": ["Address setting", "Configuración de la dirección", "تعداد للعنوان", "地址设置"]
+          "Addresssetting": ["Address setting", "Configuración de la dirección", "تعداد للعنوان", "地址设置"],
+          "DiscoverNew": ["Discover the new version", "Descubre la nueva versión", "اكتشاف الإصدار الجديد", "发现新版本"],
+          "CheckUpdates": ["Check for updates", "Buscar actualizaciones", "تحقق من وجود تحديثات", "检查更新"],
+          "Update": ["Update", "Actualizar", "تحديث", "更新"],
+          "Installing": ["Installing", "Está siendo instalado", "يتم تثبيته", "正在安装"],
+          "failOpen": ["Fail to open the file", "Error al abrir el archivo", "أخفق فتح الملف", "打开文件失败"],
+          "errorDownloading": ["There was an error downloading", "Se ha producido un error al descargar", "حدث خطأ أثناء التنزيل", "下载时出错"],
+          "Downloaded": ["Downloaded", "Ha sido descargado", "تم تنزيلها", "已下载"]
         };
       }
       var dialogs = function ($rootScope) {

@@ -6,13 +6,13 @@
         <img id="versionbtn" ng-click="shoversion()" style="display: inline-block;margin-left: 10px;margin-top: 10px;" src="img/tou.png" width="25px" height="25px">
         <a href="#" class="iconfont" style=" right:0px;display:none">&#xe60e;</a>
         <div class="menu">
-          <a href="javascript:void(0)" onclick="show(this)" class="action" style="right: 50%;" a="1">{{languages.Wallet[selectLanguage.selected.id]}}</a>
+          <a href="javascript:void(0)" ng-click="show()" ng-class="{action:showWallet}" style="right: 50%;" a="1">{{languages.Wallet[selectLanguage.selected.id]}}</a>
           <!-- 钱包 -->
-          <a href="javascript:void(0)" onclick="show(this)" class="" style="left: 50%;" a="2">{{languages.Discover[selectLanguage.selected.id]}}</a>
+          <a href="javascript:void(0)" ng-click="show()"  ng-class="{action:!showWallet}" style="left: 50%;" a="2">{{languages.Discover[selectLanguage.selected.id]}}</a>
           <!-- 发现 -->
-          <div class="L"></div>
+          <!-- <div class="L"></div> -->
         </div>
-        <div class="main">
+        <div class="main" ng-show="showWallet">
           <p>
             {{languages.TotalAssets[selectLanguage.selected.id]}}
             <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="contents page_oobe_content" id="sorte">
+    <div class="contents page_oobe_content" id="sorte" ng-show="showWallet">
       <div style="height:40px;width:100%;">
       </div>
       <div class="more" ui-sref="address1">
@@ -42,7 +42,7 @@
       <div style="height:70px;width:100%;">
       </div>
     </div>
-    <div class="page_oobe_fx" style="display:none;">
+    <div class="page_oobe_fx"  ng-show="!showWallet">
       <ul>
         <!-- <li onclick="javascript:alert('后续版本研发中...');"> -->
         <li ng-click="alertMsg()">
@@ -75,20 +75,22 @@
     var sortable = Sortable.create(el, {
       // Element dragging started
       onChoose: function (/**Event*/evt) {
-
+        console.log("onChoose")
       },
       onStart: function (/**Event*/evt) {
+        console.log("onStart")
         document.getElementById("movetxt").value = "0";
         movetxt();
       },
       onMove: function (/**Event*/evt, /**Event*/originalEvent) {
+        console.log("onMove")
         if (document.getElementById("movetxt").value != "1") {
           return false;
         }
       },
       // Element dragging ended
       onEnd: function (/**Event*/evt) {
-
+        console.log("onEnd")
       },
     });
     function movetxt() {
@@ -96,52 +98,30 @@
         document.getElementById("movetxt").value = "1";
       }, 2000)
     }
-    function show(obj) {
-      $(obj).removeClass("action");
-      $(obj).addClass("action");
-      var a = $(obj).attr("a");
-      if (a == "2") {
-        $(".page_oobe .header .top .menu .L").addClass("R");
-        $(".page_oobe .header .top .menu .L").removeClass("L");
-        $(".page_oobe .header .top .main").hide();
-        $(".page_oobe_content").hide();
-        $(".page_oobe_fx").show();
-      } else if (a == "1") {
-        $(".page_oobe .header .top .menu .R").addClass("L");
-        $(".page_oobe .header .top .menu .R").removeClass("R");
-        $(".page_oobe .header .top .main").show();
-        $(".page_oobe_content").show();
-        $(".page_oobe_fx").hide();
-      }
+    // function show(obj) {
+    //   if($(obj).hasClass("action")){
+    //     $(obj).removeClass("action");
+    //   }else{
+    //     $(obj).addClass("action");
+    //   }
+    //   var a = $(obj).attr("a");
+    //   if (a == "2") {
+    //     // $(".page_oobe .header .top .menu .L").addClass("R");
+    //     // $(".page_oobe .header .top .menu .L").removeClass("L");
+    //     $(".page_oobe .header .top .main").hide();
+    //     $(".page_oobe_content").hide();
+    //     $(".page_oobe_fx").show();
+    //   } else if (a == "1") {
+    //     // $(".page_oobe .header .top .menu .R").addClass("L");
+    //     // $(".page_oobe .header .top .menu .R").removeClass("R");
+    //     $(".page_oobe .header .top .main").show();
+    //     $(".page_oobe_content").show();
+    //     $(".page_oobe_fx").hide();
+    //   }
 
 
-    }
-    /* $(".page_oobe .header .top .menu a").on("tap",function(){
-      console.log("aaaa");
-     $(this).siblings("a").removeClass("action");
-     $(this).addClass("action");
-     var a =  $(this).attr("a");
-     if (a == "2") {
-       $(".page_oobe .header .top .menu .L").addClass("R");
-       $(".page_oobe .header .top .menu .L").removeClass("L");
-       $(".page_oobe .header .top .main").hide();
-       $(".page_oobe_content").hide();
-       $(".page_oobe_fx").show();
-     }else if (a == "1"){
-       $(".page_oobe .header .top .menu .R").addClass("L");
-       $(".page_oobe .header .top .menu .R").removeClass("R");
-       $(".page_oobe .header .top .main").show();
-       $(".page_oobe_content").show();
-       $(".page_oobe_fx").hide();
-     }
-   });*/
+    // }
     
-    //$("#versionbtn").on("click",function(){
-    //$("#versionbtn").on("tap",function(){
-    console.log("aaaa");
-  //  alert("当前版本为：V1.0.5 ");
-  //})
-
   </script>
   <!--OOBE页面结束-->
 </div>
