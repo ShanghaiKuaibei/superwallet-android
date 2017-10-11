@@ -16,6 +16,18 @@ define(['app'], function (app) {
           }, cointype, walletname);
           return deferred.promise;
         },
+
+        // Hank Gao
+        deleteWallet: function (coinType, walletSeed) {
+          var deferred = $q.defer();
+          webwalletapi.deletewallet(function (walletid) {
+            deferred.resolve(walletid);
+          }, function (error) {
+            deferred.reject(error);
+          }, coinType, walletSeed);
+          return deferred.promise;
+        },
+
         createAddress: function (walletid) {
           var deferred = $q.defer();
           webwalletapi.createaddress(function (success) {

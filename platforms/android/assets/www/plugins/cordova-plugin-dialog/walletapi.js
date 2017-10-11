@@ -2,122 +2,135 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
     function(require, exports, module) {
         var exec = require("cordova/exec");
         module.exports = {
-            createwallet: function(success,error,str,content){
+            createwallet: function(success, error, str, content) {
                 exec(
                     success,
                     error,
-                "WalletapiPlugin",//feature name
-                "createwallet",//action
-                [str,content]//要传递的参数，json格式
+                    "WalletapiPlugin", //feature name
+                    "createwallet", //action
+                    [str, content] //要传递的参数，json格式
                 );
             },
-            importwallet: function(success,error,str,content){
+
+            deletewallet: function(success, error, coinType, walletSeed) {
                 exec(
                     success,
                     error,
-                "WalletapiPlugin",//feature name
-                "importwallet",//action
-                [str,content]//要传递的参数，json格式
+                    "WalletapiPlugin", //feature name
+                    "deletewallet", //action
+                    [coinType, walletSeed] //要传递的参数，json格式
                 );
             },
-            createaddress: function(success,error,content,type){
+
+
+
+            importwallet: function(success, error, str, content) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "createaddress",//action
-                [content,type]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "importwallet", //action
+                    [str, content] //要传递的参数，json格式
                 );
             },
-            getaddressinwallet: function(success,error,content,str){
+            createaddress: function(success, error, content, type) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "getaddressinwallet",//action
-                [content]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "createaddress", //action
+                    [content, type] //要传递的参数，json格式
                 );
             },
-            getpubkeyandseckeypairofaddress: function(success,error,content,str){
+            getaddressinwallet: function(success, error, content, str) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "getpubkeyandseckeypairofaddress",//action
-                [content,str]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getaddressinwallet", //action
+                    [content] //要传递的参数，json格式
                 );
             },
-            getbalance: function(success,error,content,str){
+            getpubkeyandseckeypairofaddress: function(success, error, content, str) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "getbalance",//action
-                [content,str]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getpubkeyandseckeypairofaddress", //action
+                    [content, str] //要传递的参数，json格式
                 );
             },
-            sendskycoin: function(success,error,walletid,toaddress,amount){
+            getbalance: function(success, error, content, str) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "sendskycoin",//action
-                [walletid,toaddress,amount]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getbalance", //action
+                    [content, str] //要传递的参数，json格式
                 );
             },
-            sendmzcoin: function(success,error,walletid,toaddress,amount){
+            sendskycoin: function(success, error, walletid, toaddress, amount) {
                 exec(
-                success,
-                error,
-                "WalletapiPlugin",//feature name
-                "sendmzcoin",//action
-                [walletid,toaddress,amount]//要传递的参数，json格式
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendskycoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
                 );
             },
-             sendbitcoin: function(success,error,walletid,toaddress,amount,fee){
-                 exec(
-                 success,
-                 error,
-                 "WalletapiPlugin",//feature name
-                 "sendbitcoin",//action
-                 [walletid,toaddress,amount,fee]//要传递的参数，json格式
-                 );
-             },
-             sendshellcoin: function(success,error,walletid,toaddress,amount){
-                 exec(
-                 success,
-                 error,
-                 "WalletapiPlugin",//feature name
-                 "sendshellcoin",//action
-                 [walletid,toaddress,amount]//要传递的参数，json格式
-                 );
-             },
-             sendsuncoin: function(success,error,walletid,toaddress,amount){
-                 exec(
-                 success,
-                 error,
-                 "WalletapiPlugin",//feature name
-                 "sendsuncoin",//action
-                 [walletid,toaddress,amount]//要传递的参数，json格式
-                 );
-             },
-             sendaynrandcoin: function(success,error,walletid,toaddress,amount){
-                 exec(
-                 success,
-                 error,
-                 "WalletapiPlugin",//feature name
-                 "sendaynrandcoin",//action
-                 [walletid,toaddress,amount]//要传递的参数，json格式
-                 );
-             },
-             getblanceofwalletid: function(success,error,type,walletid){
-                 exec(
-                 success,
-                 error,
-                 "WalletapiPlugin",//feature name
-                 "getblanceofwalletid",//action
-                 [type,walletid]//要传递的参数，json格式
-                 );
-             }
+            sendmzcoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendmzcoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+            sendbitcoin: function(success, error, walletid, toaddress, amount, fee) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendbitcoin", //action
+                    [walletid, toaddress, amount, fee] //要传递的参数，json格式
+                );
+            },
+            sendshellcoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendshellcoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+            sendsuncoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendsuncoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+            sendaynrandcoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendaynrandcoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+            getblanceofwalletid: function(success, error, type, walletid) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getblanceofwalletid", //action
+                    [type, walletid] //要传递的参数，json格式
+                );
+            }
         }
-});
+    });
