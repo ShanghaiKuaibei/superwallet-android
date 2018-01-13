@@ -15,9 +15,10 @@
     </div>
     <div class="receive_x">
       <div style="margin:50px 0px;">
-        <qrcode version="3" error-correction-level="L" size="200" data="{{addresse.address}}"></qrcode>
+        <qrcode version="3" error-correction-level="L" size="200" data="{{addresse}}"></qrcode>
       </div>
-      <p ng-bind="addresse.address"></p>
+      <p ng-if="balance">余额：{{ balance | number:4 }}</p>
+      <p ng-bind="addresse"></p>
       <p ng-click="copybtn()">
         <i class="iconfont">&#xe60a;</i>
         &nbsp;{{languages.CopyAddress[selectLanguage.selected.id]}}

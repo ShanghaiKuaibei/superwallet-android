@@ -199,7 +199,7 @@ define([
             }
           })
           .state('jiaoyi.receive', {
-            url: "/receive",
+            url: "/receive?address",
             templateUrl: "templates/receive.html",
             controller: "ReceiveCtrl",
             resolve: {

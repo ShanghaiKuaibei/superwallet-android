@@ -16,6 +16,7 @@ platforms/android/CordovaLib/local.properties
 platforms/android/CordovaLib/build
 platforms/android/.idea
 platforms/android/.gradle
+node_modules/*
 
 # res
 resources/signing

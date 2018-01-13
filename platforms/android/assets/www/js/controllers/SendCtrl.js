@@ -8,7 +8,7 @@ define(['app'],function(app){
     'WalletService',
     function($scope,$rootScope,$stateParams,service,WalletService){
       service.file($scope);
-
+        console.log(JSON.stringify(WalletService))
       // "发送失败"
       $scope.Failure = $rootScope.languages.Failure[$rootScope.selectLanguage.selected.id]
       // $scope.wallet = $stateParams.wallet;

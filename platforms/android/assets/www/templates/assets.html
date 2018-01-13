@@ -1,127 +1,127 @@
 <div ui-view>
-  <!--OOBE页面开始-->
-  <div class="page page_oobe">
-    <div class="header">
-      <div class="top">
-        <img id="versionbtn" ng-click="shoversion()" style="display: inline-block;margin-left: 10px;margin-top: 10px;" src="img/tou.png" width="25px" height="25px">
-        <a href="#" class="iconfont" style=" right:0px;display:none">&#xe60e;</a>
-        <div class="menu">
-          <a href="javascript:void(0)" ng-click="show()" ng-class="{action:showWallet}" style="right: 50%;" a="1">{{languages.Wallet[selectLanguage.selected.id]}}</a>
-          <!-- 钱包 -->
-          <a href="javascript:void(0)" ng-click="show()"  ng-class="{action:!showWallet}" style="left: 50%;" a="2">{{languages.Discover[selectLanguage.selected.id]}}</a>
-          <!-- 发现 -->
-          <!-- <div class="L"></div> -->
+    <!--OOBE页面开始-->
+    <div class="page page_oobe">
+        <div class="header">
+            <div class="top">
+                <img id="versionbtn" ng-click="shoversion()" style="display: inline-block;margin-left: 10px;margin-top: 10px;" src="img/tou.png" width="25px" height="25px">
+                <a href="#" class="iconfont" style=" right:0px;display:none">&#xe60e;</a>
+                <div class="menu">
+                    <a href="javascript:void(0)" ng-click="show()" ng-class="{action:showWallet}" style="right: 50%;" a="1">{{languages.Wallet[selectLanguage.selected.id]}}</a>
+                    <!-- 钱包 -->
+                    <a href="javascript:void(0)" ng-click="show()" ng-class="{action:!showWallet}" style="left: 50%;" a="2">{{languages.Discover[selectLanguage.selected.id]}}</a>
+                    <!-- 发现 -->
+                    <!-- <div class="L"></div> -->
+                </div>
+                <div class="main" ng-show="showWallet">
+                    <p>
+                        {{languages.TotalAssets[selectLanguage.selected.id]}}
+                        <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
+                        <span>CNY</span></p>
+                    <!-- 总资产 -->
+                    <p class="assets">0.00</p>
+                </div>
+            </div>
         </div>
-        <div class="main" ng-show="showWallet">
-          <p>
-            {{languages.TotalAssets[selectLanguage.selected.id]}}
-            <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
-            <span>CNY</span></p>
-          <!-- 总资产 -->
-          <p class="assets">0.00</p>
+        <div class="contents page_oobe_content" id="sorte" ng-show="showWallet">
+            <div style="height:40px;width:100%;">
+            </div>
+            <div class="more" ui-sref="address1">
+                <i class="iconfont">&#xe60c;</i>
+            </div>
+            <div class="oobe" ng-repeat="wallet in walletinfo" style="background:{{walletcolor[wallet.walletcolor]['background']}}">
+                <div class="oobe_z" ui-sref="jiaoyi({wallet:wallet})">
+                    <p ng-bind="wallet.walletname" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
+                    <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:4"></span> {{coins[wallet.coinIndex]['type']}}</p>
+                    <p style="color:{{walletcolor[wallet.walletcolor]['color']}}">￥0.00</p>
+                </div>
+                <!-- <div class="oobe_y" ui-sref="bak({walletid:wallet.walletid})"> -->
+                <div class="oobe_y" ui-sref="bakcode({bakwalletid:wallet.walletid})">
+                    <a class="iconfont" style="color:{{walletcolor[wallet.walletcolor]['color']}}">&#xe605;</a>
+                </div>
+            </div>
+            <div style="height:70px;width:100%;">
+            </div>
         </div>
-      </div>
+        <div class="page_oobe_fx" ng-show="!showWallet">
+            <ul>
+                <!-- <li onclick="javascript:alert('后续版本研发中...');"> -->
+                <li ng-click="alertMsg()">
+                    <div>
+                        <img src="img/fx-1.png" width="100%">
+                    </div>
+                </li>
+                <li ng-click="alertMsg()">
+                    <div>
+                        <img src="img/fx-2.png" width="100%">
+                    </div>
+                </li>
+                <li ng-click="alertMsg()">
+                    <div>
+                        <img src="img/fx-3.png" width="100%">
+                    </div>
+                </li>
+                <li ng-click="alertMsg()">
+                    <div>
+                        <img src="img/fx-4.png" width="100%">
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="contents page_oobe_content" id="sorte" ng-show="showWallet">
-      <div style="height:40px;width:100%;">
-      </div>
-      <div class="more" ui-sref="address1">
-        <i class="iconfont">&#xe60c;</i>
-      </div>
-      <div class="oobe" ng-repeat="wallet in walletinfo" style="background:{{walletcolor[wallet.walletcolor]['background']}}">
-        <div class="oobe_z" ui-sref="jiaoyi({wallet:wallet})">
-          <p ng-bind="wallet.walletname" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
-          <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:4"></span> {{coins[wallet.coinIndex]['type']}}</p>
-          <p style="color:{{walletcolor[wallet.walletcolor]['color']}}">￥0.00</p>
-        </div>
-        <!-- <div class="oobe_y" ui-sref="bak({walletid:wallet.walletid})"> -->
-        <div class="oobe_y" ui-sref="bakcode({bakwalletid:wallet.walletid})">
-          <a class="iconfont" style="color:{{walletcolor[wallet.walletcolor]['color']}}">&#xe605;</a>
-        </div>
-      </div>
-      <div style="height:70px;width:100%;">
-      </div>
-    </div>
-    <div class="page_oobe_fx"  ng-show="!showWallet">
-      <ul>
-        <!-- <li onclick="javascript:alert('后续版本研发中...');"> -->
-        <li ng-click="alertMsg()">
-          <div>
-            <img src="img/fx-1.png" width="100%">
-          </div>
-        </li>
-        <li ng-click="alertMsg()">
-          <div>
-            <img src="img/fx-2.png" width="100%">
-          </div>
-        </li>
-        <li ng-click="alertMsg()">
-          <div>
-            <img src="img/fx-3.png" width="100%">
-          </div>
-        </li>
-        <li ng-click="alertMsg()">
-          <div>
-            <img src="img/fx-4.png" width="100%">
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <input type="hidden" id="movetxt" value="0" />
-  <script src='../lib/jquery.min.js'></script>
-  <script>
-    var el = document.getElementById("sorte");
-    var sortable = Sortable.create(el, {
-      // Element dragging started
-      onChoose: function (/**Event*/evt) {
-        console.log("onChoose")
-      },
-      onStart: function (/**Event*/evt) {
-        console.log("onStart")
-        document.getElementById("movetxt").value = "0";
-        movetxt();
-      },
-      onMove: function (/**Event*/evt, /**Event*/originalEvent) {
-        console.log("onMove")
-        if (document.getElementById("movetxt").value != "1") {
-          return false;
+    <input type="hidden" id="movetxt" value="0" />
+    <script src='../lib/jquery.min.js'></script>
+    <script>
+        var el = document.getElementById("sorte");
+        var sortable = Sortable.create(el, {
+            // Element dragging started
+            onChoose: function( /**Event*/ evt) {
+                console.log("onChoose")
+            },
+            onStart: function( /**Event*/ evt) {
+                console.log("onStart")
+                document.getElementById("movetxt").value = "0";
+                movetxt();
+            },
+            onMove: function( /**Event*/ evt, /**Event*/ originalEvent) {
+                console.log("onMove")
+                if (document.getElementById("movetxt").value != "1") {
+                    return false;
+                }
+            },
+            // Element dragging ended
+            onEnd: function( /**Event*/ evt) {
+                console.log("onEnd")
+            },
+        });
+
+        function movetxt() {
+            window.setTimeout(function() {
+                document.getElementById("movetxt").value = "1";
+            }, 2000)
         }
-      },
-      // Element dragging ended
-      onEnd: function (/**Event*/evt) {
-        console.log("onEnd")
-      },
-    });
-    function movetxt() {
-      window.setTimeout(function () {
-        document.getElementById("movetxt").value = "1";
-      }, 2000)
-    }
-    // function show(obj) {
-    //   if($(obj).hasClass("action")){
-    //     $(obj).removeClass("action");
-    //   }else{
-    //     $(obj).addClass("action");
-    //   }
-    //   var a = $(obj).attr("a");
-    //   if (a == "2") {
-    //     // $(".page_oobe .header .top .menu .L").addClass("R");
-    //     // $(".page_oobe .header .top .menu .L").removeClass("L");
-    //     $(".page_oobe .header .top .main").hide();
-    //     $(".page_oobe_content").hide();
-    //     $(".page_oobe_fx").show();
-    //   } else if (a == "1") {
-    //     // $(".page_oobe .header .top .menu .R").addClass("L");
-    //     // $(".page_oobe .header .top .menu .R").removeClass("R");
-    //     $(".page_oobe .header .top .main").show();
-    //     $(".page_oobe_content").show();
-    //     $(".page_oobe_fx").hide();
-    //   }
+        // function show(obj) {
+        //   if($(obj).hasClass("action")){
+        //     $(obj).removeClass("action");
+        //   }else{
+        //     $(obj).addClass("action");
+        //   }
+        //   var a = $(obj).attr("a");
+        //   if (a == "2") {
+        //     // $(".page_oobe .header .top .menu .L").addClass("R");
+        //     // $(".page_oobe .header .top .menu .L").removeClass("L");
+        //     $(".page_oobe .header .top .main").hide();
+        //     $(".page_oobe_content").hide();
+        //     $(".page_oobe_fx").show();
+        //   } else if (a == "1") {
+        //     // $(".page_oobe .header .top .menu .R").addClass("L");
+        //     // $(".page_oobe .header .top .menu .R").removeClass("R");
+        //     $(".page_oobe .header .top .main").show();
+        //     $(".page_oobe_content").show();
+        //     $(".page_oobe_fx").hide();
+        //   }
 
 
-    // }
-    
-  </script>
-  <!--OOBE页面结束-->
+        // }
+    </script>
+    <!--OOBE页面结束-->
 </div>

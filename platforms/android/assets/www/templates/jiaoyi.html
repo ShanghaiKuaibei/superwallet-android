@@ -29,10 +29,13 @@
 				{{languages.DeleteWallet[selectLanguage.selected.id]}}
 			</button>
 		</div>
-		<div class="contents page_trant_1_content">
+		<div class="switch-ad-list">
 			<!-- <p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p> -->
-			<p ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>
-			<p ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>
+			<p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
+			<!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
+			<!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
+		</div>
+		<div class="contents page_trant_1_content">
 			<ul>
 				<li ng-repeat="transaction in transactions.slice().reverse() | limitTo: 15">
 					<div class="list_img">
@@ -48,6 +51,13 @@
 						</div>
 						<div class="bottom"><span class="code">{{transaction.txid}}</span><span class="time">{{transaction.date}}</span></div>
 					</div>
+				</li>
+			</ul>
+
+			<ul class="sub-address-list">
+				<li ng-repeat="adress in adressList" style="display:block;font-size:14px">
+					{{ $index + 1 }} : <span style="font-size:12px;">{{ adress }}</span><br>
+					<a class="iconfont erwei-posi" ui-sref=".receive({address:adress})" style="color:#000">&#xe605;</a>
 				</li>
 			</ul>
 		</div>

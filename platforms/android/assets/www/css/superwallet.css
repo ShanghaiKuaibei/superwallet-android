@@ -221,9 +221,8 @@ header .dl .right_icon{ color:#67d1d9; font-size:14px;}
 .page_trant_1 .head .menu .right_menu{right:0}
 .page_trant_1 .deletewallet_wrap{position: fixed;top:195px;left:0;width:100%;height:30px;text-align: center;}
 .page_trant_1 .deletewallet_wrap .deletewallet{width:50%;height:30px;color: #fff;font-family: 微软雅黑;font-size: 20px;line-height: 30px;background: #55d7df;border-radius: 3px;}
-.page_trant_1_content{position:fixed;height:100%;width:100%;top:230px;padding-top:30px;overflow-y:auto}
-.page_trant_1_content p{color:#ccc;position:absolute;top:0;left:0;line-height:30px;padding:0 10px;font-family:"微软雅黑";font-size:12px}
-.page_trant_1_content ul{position:absolute;top:30px;width:100%;border-top:1px #EDEDED solid;background-color:#fff}
+.page_trant_1_content{position:fixed;height:100%;width:100%;top:260px;overflow-y:auto}
+.page_trant_1_content ul{position:absolute;width:100%;border-top:1px #EDEDED solid;background-color:#fff}
 .page_trant_1_content ul li{height:80px;list-style:none}
 .page_trant_1_content ul li .list_img,.page_trant_1_content ul li .list_right{float:left}
 .page_trant_1_content ul li .list_img .img{width:80px;height:80px;margin:0 auto}
@@ -266,6 +265,12 @@ header .dl .right_icon{ color:#67d1d9; font-size:14px;}
 .page_receive_content .receive_x1 i{font-size:24px;color:#54d4dc}
 .page_receive_content .receive_s p:nth-of-type(2){width:14%;height:15px;font-size:12px;border:#fff 1px solid;margin-left:43%;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px}
 
+.switch-ad-list{position:fixed;top:230px;width:100%;height:30px;line-height:30px;}
+.switch-ad-list .title{color:#ccc;display:inline-block;padding:0 10px;font-family:"微软雅黑";font-size:12px}
+.switch-ad-list .title.active{color: #000;font-weight:500;}
+.sub-address-list {padding-bottom:400px;}
+.sub-address-list li {position:relative;height:60px!important;line-height:40px;box-sizing: border-box;padding:10px;border-bottom: 1px solid #ccc;}
+.sub-address-list .erwei-posi{position:absolute;right:10px;top:10px;width:30px;height:30px;font-size:30px}
 /**/
 /**/
 /**/
