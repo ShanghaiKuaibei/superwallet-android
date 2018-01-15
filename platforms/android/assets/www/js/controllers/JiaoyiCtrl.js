@@ -8,7 +8,8 @@ define(['app', 'services/WalletService'], function(app) {
         '$timeout',
         'WalletService',
         'service',
-        function($scope, $rootScope, $stateParams, $location, $timeout, WalletService, service) {
+        '$state',
+        function($scope, $rootScope, $stateParams, $location, $timeout, WalletService, service,$state) {
             service.file($scope);
             service.config($rootScope);
             $scope.wallet = $stateParams.wallet;
@@ -16,6 +17,12 @@ define(['app', 'services/WalletService'], function(app) {
             $timeout(getaddressinwallet, 100);
             //jeremy 2018-01-09
             // get adress in wallet
+
+            $rootScope.$on('$stateChangeSuccess',function(event,toState,toParams,fromState,fromParams){
+                if(toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive")
+                    $timeout(getaddressinwallet, 100);
+            })
+
 
             function getaddressinwallet() {
                 WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {

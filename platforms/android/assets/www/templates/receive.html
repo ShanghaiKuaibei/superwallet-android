@@ -1,7 +1,7 @@
 <div class="page page_receive">
   <header>
     <div class="dl">
-      <a href="javascript:history.back();" class="left_icon iconfont">
+      <a href="javascript:history.back()" class="left_icon iconfont">
         &#xe60e;
       </a>
       <!-- <span style="">接收</span> -->
@@ -17,7 +17,7 @@
       <div style="margin:50px 0px;">
         <qrcode version="3" error-correction-level="L" size="200" data="{{addresse}}"></qrcode>
       </div>
-      <p ng-if="balance">余额：{{ balance | number:4 }}</p>
+      <p ng-if="balance >= 0">余额：{{ balance | number:4 }}</p>
       <p ng-bind="addresse"></p>
       <p ng-click="copybtn()">
         <i class="iconfont">&#xe60a;</i>
