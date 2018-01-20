@@ -22,12 +22,32 @@ define(['app'], function(app) {
                     $scope.balance = res.balance;
                 })
             } else {
-                WalletService.createAddress($scope.wallet.walletid).then(function(success) {
-                    $scope.addresse = JSON.parse(success)['addresses'][0].address;
-                }, function(error) {
-                    // $rootScope.alert("创建地址失败");
-                    $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id]);
+                var savedWallet = [];
+                //获取本地存储的数据
+                $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
+                    $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
+                        savedWallet = JSON.parse(success);
+                        WalletService.createAddress($scope.wallet.walletid).then(function(success) {
+                            savedWallet.forEach(function(item) {
+                                if (item.walletid = $scope.wallet.walletid)
+                                    item.adressList.unshift({
+                                        ad: JSON.parse(success)['addresses'][0].address,
+                                        show: true
+                                    })
+                            });
+                            $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(savedWallet)).then(function() {});
+
+                            $scope.addresse = JSON.parse(success)['addresses'][0].address;
+                        }, function(error) {
+                            // $rootScope.alert("创建地址失败");
+                            $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id]);
+                        });
+
+
+                    });
                 });
+
+
             }
 
 

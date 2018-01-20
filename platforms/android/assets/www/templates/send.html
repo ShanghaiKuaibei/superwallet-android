@@ -19,7 +19,7 @@
         	<p>{{languages.Amount[selectLanguage.selected.id]}}</p>
         	<!-- <p>金额</p> -->
         	<input class="input1"  style="-webkit-user-select:auto;" type="text" placeholder="{{ 0 | number:4}}{{coins[wallet.coinIndex].type}}" ng-model="amount" /><i class="iconfont">&#xe610;</i>
-        	<input class="input2" type="text" placeholder="{{ 0 | currency:'￥'}}" />
+        	<input class="input2" disabled type="text" placeholder="{{ 0 | currency:'￥'}}" />
         </div>
         <div class="page_send_content_3">
         	<p>{{languages.Message[selectLanguage.selected.id]}}</p>

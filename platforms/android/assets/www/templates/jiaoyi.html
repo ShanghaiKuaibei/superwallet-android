@@ -1,65 +1,68 @@
 <div ui-view>
-	<div class="page page_trant_1">
-		<div class="head" style="color:#fff;">
-			<div class="top">
-				<a class="left_icon iconfont" style="color:#fff;" href="javascript:history.go(-1)">&#xe60e;</a>
-				<a class="right_icon iconfont" style="color:#fff;" href="javascript:void(0);" ui-sref=".choicecolor({coins:wallet.coinIndex})">&#xe608;</a>
-				<div class="title">
-					<p>{{wallet.walletname}}</p>
-					<span style="border:1px #fff solid;padding: 1px 5px;" ng-bind="coins[wallet.coinIndex].title[selectLanguage.selected.id]"></span>
-				</div>
-			</div>
-			<div class="content">
-				<!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
-				<p> {{wallet.balance | number:4}} {{coins[wallet.coinIndex].type}}</p>
-				<div>{{ 0 | currency:" ￥ " }}</div>
-			</div>
+    <div class="page page_trant_1">
+        <div class="head" style="color:#fff;">
+            <div class="top">
+                <a class="left_icon iconfont" style="color:#fff;" href="javascript:history.go(-1)">&#xe60e;</a>
+                <a class="right_icon iconfont" style="color:#fff;" href="javascript:void(0);" ui-sref=".choicecolor({coins:wallet.coinIndex})">&#xe608;</a>
+                <div class="title">
+                    <p>{{wallet.walletname}}</p>
+                    <span style="border:1px #fff solid;padding: 1px 5px;" ng-bind="coins[wallet.coinIndex].title[selectLanguage.selected.id]"></span>
+                </div>
+            </div>
+            <div class="content">
+                <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
+                <p> {{wallet.balance | number:4}} {{coins[wallet.coinIndex].type}}</p>
+                <div>{{ 0 | currency:" ￥ " }}</div>
+            </div>
 
-			<div class="menu">
-				<div class="iconfont shuxian">&#xe60d;</div>
-				<!-- <div class="left_menu" ui-sref=".send"><i class="iconfont">&#xe60f;</i>发送</div> -->
-				<div class="left_menu" ui-sref=".send"><i class="iconfont">&#xe60f;</i>{{languages.Send[selectLanguage.selected.id]}}</div>
-				<!-- <div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>接收</div> -->
-				<div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>{{languages.Receive[selectLanguage.selected.id]}}</div>
-			</div>
-		</div>
-		<!-- 删除钱包 -->
-		<div class="deletewallet_wrap" ng-click="deleteWallet()">
-			<button class="deletewallet">
+            <div class="menu">
+                <div class="iconfont shuxian">&#xe60d;</div>
+                <!-- <div class="left_menu" ui-sref=".send"><i class="iconfont">&#xe60f;</i>发送</div> -->
+                <div class="left_menu" ui-sref=".send"><i class="iconfont">&#xe60f;</i>{{languages.Send[selectLanguage.selected.id]}}</div>
+                <!-- <div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>接收</div> -->
+                <div class="right_menu" ui-sref=".receive"><i class="iconfont">&#xe605;</i>{{languages.Receive[selectLanguage.selected.id]}}</div>
+            </div>
+        </div>
+        <!-- 删除钱包 -->
+        <div class="deletewallet_wrap" ng-click="deleteWallet()">
+            <button class="deletewallet">
 				{{languages.DeleteWallet[selectLanguage.selected.id]}}
 			</button>
-		</div>
-		<div class="switch-ad-list">
-			<!-- <p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p> -->
-			<p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
-			<!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
-			<!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
-		</div>
-		<div class="contents page_trant_1_content">
-			<ul>
-				<li ng-repeat="transaction in transactions.slice().reverse() | limitTo: 15">
-					<div class="list_img">
-						<div class="img {{transaction.type}}"></div>
-					</div>
-					<div class="list_right">
-						<div class="top">
-							<span class="money">{{transaction.type}}{{transaction.amount | transactionamount | number:2}}</span>
-							<span class="status">
+        </div>
+        <div class="switch-ad-list">
+            <!-- <p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p> -->
+            <p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
+            <!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
+            <!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
+            <a class="show-hides" ng-click="showAddress()">{{languages.showAdTip[selectLanguage.selected.id]}}</a>
+        </div>
+        <div class="contents page_trant_1_content">
+            <ul>
+                <li ng-repeat="transaction in transactions.slice().reverse() | limitTo: 15">
+                    <div class="list_img">
+                        <div class="img {{transaction.type}}"></div>
+                    </div>
+                    <div class="list_right">
+                        <div class="top">
+                            <span class="money">{{transaction.type}}{{transaction.amount | transactionamount | number:2}}</span>
+                            <span class="status">
 								<!-- 交易成功 -->
 								{{languages.Transaction[selectLanguage.selected.id]}}
 							</span>
-						</div>
-						<div class="bottom"><span class="code">{{transaction.txid}}</span><span class="time">{{transaction.date}}</span></div>
-					</div>
-				</li>
-			</ul>
+                        </div>
+                        <div class="bottom"><span class="code">{{transaction.txid}}</span><span class="time">{{transaction.date}}</span></div>
+                    </div>
+                </li>
+            </ul>
 
-			<ul class="sub-address-list">
-				<li ng-repeat="adress in adressList" style="display:block;font-size:14px">
-					{{ $index + 1 }} : <span style="font-size:12px;">{{ adress }}</span><br>
-					<a class="iconfont erwei-posi" ui-sref=".receive({address:adress})" style="color:#000">&#xe605;</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+            <ul class="sub-address-list">
+                <li ng-repeat="adress in adressList | filter: {show:true}" style=" display:block;font-size:14px ">
+                    {{ $index + 1 }} : <span style="font-size:12px; ">{{ adress.ad }}</span><br>
+                    <!--<a class="min-btn del" ng-click="hideAddress(adress.ad)">删除</a>-->
+                    <a class="min-btn hide" ng-click="hideAddress(adress.ad)">{{languages.hide[selectLanguage.selected.id]}}</a>
+                    <a class="iconfont erwei-posi " ui-sref=".receive({address:adress.ad}) " style="color:#000 ">&#xe605;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

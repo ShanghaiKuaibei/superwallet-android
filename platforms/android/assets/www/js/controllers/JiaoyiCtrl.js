@@ -9,7 +9,7 @@ define(['app', 'services/WalletService'], function(app) {
         'WalletService',
         'service',
         '$state',
-        function($scope, $rootScope, $stateParams, $location, $timeout, WalletService, service,$state) {
+        function($scope, $rootScope, $stateParams, $location, $timeout, WalletService, service, $state) {
             service.file($scope);
             service.config($rootScope);
             $scope.wallet = $stateParams.wallet;
@@ -17,19 +17,78 @@ define(['app', 'services/WalletService'], function(app) {
             $timeout(getaddressinwallet, 100);
             //jeremy 2018-01-09
             // get adress in wallet
-
-            $rootScope.$on('$stateChangeSuccess',function(event,toState,toParams,fromState,fromParams){
-                if(toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive")
+            $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+                if (toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive")
                     $timeout(getaddressinwallet, 100);
             })
 
-
+            // 获取地址列表，查看本地是否保存，如果没有就从服务器上获取
             function getaddressinwallet() {
-                WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {
-                    $scope.adressList = JSON.parse(success).addresses;
-                })
+                var savedWallet = [],
+                    activeList;
+                //获取本地存储的数据
+                $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
+                    $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
+                        savedWallet = JSON.parse(success);
+                        savedWallet.forEach(function(item) {
+                            if (item.walletid = $scope.wallet.walletid) {
+                                activeList = item.adressList;
+                                if (activeList) {
+                                    $scope.adressList = activeList;
+                                } else {
+                                    WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {
+                                        let adArr = JSON.parse(success).addresses;
+                                        let pushArr = [];
+                                        adArr.map(function(el) {
+                                            pushArr.push({
+                                                ad: el,
+                                                show: true
+                                            })
+                                        })
+                                        $scope.adressList = pushArr;
+                                        console.log("地址列表请求成功！")
+                                    })
+                                }
+                            }
+                        });
+                    });
+                });
+
             }
 
+            // 同步最新地址信息到本地
+            function saveAd() {
+                var savedWallet = [];
+                //获取本地存储的数据
+                $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
+                    $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
+                        console.log(JSON.parse(success))
+                        savedWallet = JSON.parse(success);
+                        savedWallet.forEach(function(item) {
+                            if (item.walletid = $scope.wallet.walletid)
+                                item.adressList = $scope.adressList;
+                        });
+                        $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(savedWallet)).then(function() {});
+                    });
+                });
+            }
+
+            // 隐藏子地址
+            $scope.hideAddress = function(ad) {
+                $scope.adressList.forEach(function(el) {
+                    if (el.ad == ad)
+                        el.show = false;
+                });
+                saveAd();
+            }
+
+            // 显示隐藏的子地址
+            $scope.showAddress = function() {
+                $scope.adressList.forEach(function(el) {
+                    el.show = true;
+                });
+                saveAd();
+            }
 
 
             function getBalance() {

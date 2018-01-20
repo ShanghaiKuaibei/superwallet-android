@@ -276,7 +276,10 @@ angular.module('starter.services', [])
                     "Installing": ["Installing", "Está siendo instalado", "يتم تثبيته", "正在安装"],
                     "failOpen": ["Fail to open the file", "Error al abrir el archivo", "أخفق فتح الملف", "打开文件失败"],
                     "errorDownloading": ["There was an error downloading", "Se ha producido un error al descargar", "حدث خطأ أثناء التنزيل", "下载时出错"],
-                    "Downloaded": ["Downloaded", "Ha sido descargado", "تم تنزيلها", "已下载"]
+                    "Downloaded": ["Downloaded", "Ha sido descargado", "تم تنزيلها", "已下载"],
+                    "networkTip": ["Please check the network connection", "Compruebe la conexión de red", "تحقق من اتصال الشبكة", "请检查网络连接"],
+                    "showAdTip": ["Display concealment", "Mostrar ocultar", " عرض مخفي", "显示隐藏"],
+                    "hide": ["Display concealment", "Oculta", " إخفاء", "隐藏"],
                 };
             }
             var dialogs = function($rootScope) {
