@@ -29,11 +29,15 @@ define(['app'], function(app) {
                         savedWallet = JSON.parse(success);
                         WalletService.createAddress($scope.wallet.walletid).then(function(success) {
                             savedWallet.forEach(function(item) {
-                                if (item.walletid = $scope.wallet.walletid)
+                                if (item.walletid == $scope.wallet.walletid){
+//                                    如果缓存过就插入新生成的地址，否则先新建一个集合用于缓存，再推数据
+                                    item.adressList = item.adressList || [];
                                     item.adressList.unshift({
-                                        ad: JSON.parse(success)['addresses'][0].address,
-                                        show: true
-                                    })
+                                         ad: JSON.parse(success)['addresses'][0].address,
+                                         show: true
+                                     })
+                                }
+
                             });
                             $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(savedWallet)).then(function() {});
 

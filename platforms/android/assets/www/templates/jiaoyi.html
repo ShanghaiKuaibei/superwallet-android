@@ -34,7 +34,7 @@
             <p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
             <!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
             <!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
-            <a class="show-hides" ng-click="showAddress()">{{languages.showAdTip[selectLanguage.selected.id]}}</a>
+            <a class="show-hides" ng-click="showAddress()">显示隐藏</a>
         </div>
         <div class="contents page_trant_1_content">
             <ul>
@@ -58,8 +58,8 @@
             <ul class="sub-address-list">
                 <li ng-repeat="adress in adressList | filter: {show:true}" style=" display:block;font-size:14px ">
                     {{ $index + 1 }} : <span style="font-size:12px; ">{{ adress.ad }}</span><br>
-                    <!--<a class="min-btn del" ng-click="hideAddress(adress.ad)">删除</a>-->
-                    <a class="min-btn hide" ng-click="hideAddress(adress.ad)">{{languages.hide[selectLanguage.selected.id]}}</a>
+                    <a class="min-btn del" ng-click="hideAddress(adress.ad)">删除</a>
+                    <a class="min-btn hide" ng-click="hideAddress(adress.ad)">隐藏</a>
                     <a class="iconfont erwei-posi " ui-sref=".receive({address:adress.ad}) " style="color:#000 ">&#xe605;</a>
                 </li>
             </ul>

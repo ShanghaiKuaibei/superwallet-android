@@ -13,6 +13,7 @@ define(['app', 'services/WalletService'], function(app) {
             service.file($scope);
             service.config($rootScope);
             $scope.wallet = $stateParams.wallet;
+            console.log('当前地址：'+$scope.wallet.walletid)
             $timeout(getBalance, 100);
             $timeout(getaddressinwallet, 100);
             //jeremy 2018-01-09
@@ -30,9 +31,12 @@ define(['app', 'services/WalletService'], function(app) {
                 $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
                     $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
                         savedWallet = JSON.parse(success);
+                        console.log(savedWallet)
                         savedWallet.forEach(function(item) {
-                            if (item.walletid = $scope.wallet.walletid) {
+//                            找到当前选择的钱包
+                            if (item.walletid == $scope.wallet.walletid) {
                                 activeList = item.adressList;
+//                                如果已经在本地缓存过就从本地拿，否则去服务器请求
                                 if (activeList) {
                                     $scope.adressList = activeList;
                                 } else {
@@ -65,7 +69,7 @@ define(['app', 'services/WalletService'], function(app) {
                         console.log(JSON.parse(success))
                         savedWallet = JSON.parse(success);
                         savedWallet.forEach(function(item) {
-                            if (item.walletid = $scope.wallet.walletid)
+                            if (item.walletid == $scope.wallet.walletid)
                                 item.adressList = $scope.adressList;
                         });
                         $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(savedWallet)).then(function() {});
@@ -84,6 +88,7 @@ define(['app', 'services/WalletService'], function(app) {
 
             // 显示隐藏的子地址
             $scope.showAddress = function() {
+                console.log($scope.adressList)
                 $scope.adressList.forEach(function(el) {
                     el.show = true;
                 });
