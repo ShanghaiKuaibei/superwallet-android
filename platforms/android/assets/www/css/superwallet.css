@@ -1588,6 +1588,7 @@ header .dl .right_icon {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    vertical-align: sub;
 }
 
 .switch-ad-list .show-hides {
