@@ -34,7 +34,7 @@
             <p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
             <!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
             <!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
-            <a class="show-hides" ng-click="showAddress()">显示隐藏</a>
+            <a class="show-hides" ng-click="showAddress()" ng-if="willShow">显示隐藏</a>
         </div>
         <div class="contents page_trant_1_content">
             <ul>

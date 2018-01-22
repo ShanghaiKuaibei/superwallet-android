@@ -13,7 +13,7 @@ define(['app', 'services/WalletService'], function(app) {
             service.file($scope);
             service.config($rootScope);
             $scope.wallet = $stateParams.wallet;
-            console.log('当前地址：'+$scope.wallet.walletid)
+            $scope.willShow = false; //是否显示赢藏地址按钮，如果隐藏过就显示
             $timeout(getBalance, 100);
             $timeout(getaddressinwallet, 100);
             //jeremy 2018-01-09
@@ -39,6 +39,8 @@ define(['app', 'services/WalletService'], function(app) {
 //                                如果已经在本地缓存过就从本地拿，否则去服务器请求
                                 if (activeList) {
                                     $scope.adressList = activeList;
+                                    willShowAdbtn(activeList);
+
                                 } else {
                                     WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {
                                         let adArr = JSON.parse(success).addresses;
@@ -80,19 +82,31 @@ define(['app', 'services/WalletService'], function(app) {
             // 隐藏子地址
             $scope.hideAddress = function(ad) {
                 $scope.adressList.forEach(function(el) {
-                    if (el.ad == ad)
+                    if (el.ad == ad){
                         el.show = false;
+                        $scope.willShow = true;
+                    }
                 });
                 saveAd();
             }
 
             // 显示隐藏的子地址
             $scope.showAddress = function() {
-                console.log($scope.adressList)
                 $scope.adressList.forEach(function(el) {
                     el.show = true;
                 });
+                $scope.willShow = false;
                 saveAd();
+            }
+
+//            是否需要显示隐藏地址按钮？
+            function willShowAdbtn(list){
+                list.forEach(function(item){
+                    if(!item.show){
+                         $scope.willShow = true;
+                         return false
+                    }
+                 })
             }
 
 
