@@ -31,20 +31,21 @@
         </div>
         <div class="switch-ad-list">
             <!-- <p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p> -->
-            <p class="title active">{{languages.Address[selectLanguage.selected.id]}}</p>
+            <p class="title {{ showType ? 'active' : '' }}" ng-click="toggleShowtype(true)" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>
+            <p class="title {{ !showType ? 'active' : '' }}" ng-click="toggleShowtype(false)">{{languages.Address[selectLanguage.selected.id]}}</p>
             <!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
-            <!--<p class="title" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>-->
-            <a class="show-hides" ng-click="showAddress()" ng-if="willShow">显示隐藏</a>
+
+            <a class="show-hides" ng-click="showAddress()" ng-show="willShow && !showType">显示隐藏</a>
         </div>
         <div class="contents page_trant_1_content">
-            <ul>
-                <li ng-repeat="transaction in transactions.slice().reverse() | limitTo: 15">
+            <ul ng-show="showType">
+                <li ng-repeat="transaction in transactions">
                     <div class="list_img">
-                        <div class="img {{transaction.type}}"></div>
+                        <div class="img send"></div>
                     </div>
                     <div class="list_right">
                         <div class="top">
-                            <span class="money">{{transaction.type}}{{transaction.amount | transactionamount | number:2}}</span>
+                            <span class="money">{{transaction.amount | number:2}}</span>
                             <span class="status">
 								<!-- 交易成功 -->
 								{{languages.Transaction[selectLanguage.selected.id]}}
@@ -55,7 +56,7 @@
                 </li>
             </ul>
 
-            <ul class="sub-address-list">
+            <ul class="sub-address-list" ng-show="!showType">
                 <li ng-repeat="adress in adressList | filter: {show:true}" style=" display:block;font-size:14px ">
                     {{ $index + 1 }} : <span style="font-size:12px; ">{{ adress.ad }}</span><br>
                     <a class="min-btn del" ng-click="hideAddress(adress.ad)">删除</a>

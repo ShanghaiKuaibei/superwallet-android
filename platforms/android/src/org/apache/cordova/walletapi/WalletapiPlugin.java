@@ -230,6 +230,18 @@ public class WalletapiPlugin extends CordovaPlugin {
                 e.printStackTrace();
                 callbackContext.error("获取余额失败！");
             }
+        }else if("getrransactionbyid".equals(action)){
+            String res = null;
+            String coinType = args.getString(0);
+            String txid = args.getString(1);
+            try {
+                res = Mobile.getTransactionByID(coinType, txid);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("获取钱包交易记录失败！");
+            }
+            return true;
         }
         //System.out.println(action);
         return super.execute(action, args, callbackContext);

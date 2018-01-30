@@ -14,33 +14,35 @@ define(['app', 'services/WalletService'], function(app) {
             service.config($rootScope);
             $scope.wallet = $stateParams.wallet;
             $scope.willShow = false; //是否显示赢藏地址按钮，如果隐藏过就显示
+            $scope.showType = true; //显示交易记录还是地址,true为显示交易记录
             $timeout(getBalance, 100);
             $timeout(getaddressinwallet, 100);
             //jeremy 2018-01-09
             // get adress in wallet
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-                if (toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive")
+                if (toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive" || toState.name == "jiaoyi" && fromState.name == "jiaoyi.send")
                     $timeout(getaddressinwallet, 100);
             })
 
             // 获取地址列表，查看本地是否保存，如果没有就从服务器上获取
             function getaddressinwallet() {
                 var savedWallet = [],
-                    activeList;
+                    activeList, transtions;
                 //获取本地存储的数据
                 $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
                     $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
                         savedWallet = JSON.parse(success);
-                        console.log(savedWallet)
                         savedWallet.forEach(function(item) {
-//                            找到当前选择的钱包
+                            //找到当前选择的钱包
                             if (item.walletid == $scope.wallet.walletid) {
                                 activeList = item.adressList;
-//                                如果已经在本地缓存过就从本地拿，否则去服务器请求
+                                transtions = item.transtions || [];
+                                //如果已经在本地缓存过就从本地拿，否则去服务器请求
                                 if (activeList) {
                                     $scope.adressList = activeList;
+                                    $scope.transactions = transtions
                                     willShowAdbtn(activeList);
-
+                                    // console.log($scope.transactions)
                                 } else {
                                     WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {
                                         let adArr = JSON.parse(success).addresses;
@@ -52,7 +54,6 @@ define(['app', 'services/WalletService'], function(app) {
                                             })
                                         })
                                         $scope.adressList = pushArr;
-                                        console.log("地址列表请求成功！")
                                     })
                                 }
                             }
@@ -68,7 +69,7 @@ define(['app', 'services/WalletService'], function(app) {
                 //获取本地存储的数据
                 $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
                     $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
-                        console.log(JSON.parse(success))
+                        // console.log(JSON.parse(success))
                         savedWallet = JSON.parse(success);
                         savedWallet.forEach(function(item) {
                             if (item.walletid == $scope.wallet.walletid)
@@ -82,7 +83,7 @@ define(['app', 'services/WalletService'], function(app) {
             // 隐藏子地址
             $scope.hideAddress = function(ad) {
                 $scope.adressList.forEach(function(el) {
-                    if (el.ad == ad){
+                    if (el.ad == ad) {
                         el.show = false;
                         $scope.willShow = true;
                     }
@@ -99,14 +100,18 @@ define(['app', 'services/WalletService'], function(app) {
                 saveAd();
             }
 
-//            是否需要显示隐藏地址按钮？
-            function willShowAdbtn(list){
-                list.forEach(function(item){
-                    if(!item.show){
-                         $scope.willShow = true;
-                         return false
+            $scope.toggleShowtype = function(isShow) {
+                $scope.showType = isShow
+            };
+
+            //            是否需要显示隐藏地址按钮？
+            function willShowAdbtn(list) {
+                list.forEach(function(item) {
+                    if (!item.show) {
+                        $scope.willShow = true;
+                        return false
                     }
-                 })
+                })
             }
 
 

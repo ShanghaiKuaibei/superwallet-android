@@ -6,6 +6,8 @@ define(['app'], function(app) {
         '$timeout',
         '$cordovaSpinnerDialog',
         function($q, $rootScope, $timeout, $cordovaSpinnerDialog) {
+            console.log("====")
+            console.log(webwalletapi)
             return {
                 createWallet: function(cointype, walletname) {
                     var deferred = $q.defer();
@@ -140,6 +142,17 @@ define(['app'], function(app) {
                     deferred.notify();
                     return deferred.promise;
                 },
+                getTransactionByID: function(coinType, txid) {
+                    var deferred = $q.defer();
+                    webwalletapi.getrransactionbyid(function(success) {
+                        deferred.resolve(JSON.parse(success));
+                    }, function(error) {
+                        deferred.reject(error);
+                    }, coinType, txid);
+                    deferred.notify();
+                    return deferred.promise;
+                }
+
             };
         }
     ]);
