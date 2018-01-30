@@ -93,11 +93,9 @@ define(['app'], function(app) {
 
                             $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(savedWallet)).then(function() {});
 
+                            history.go(-1);
                         });
                     });
-
-
-                    history.go(-1);
                 }
             }
         }

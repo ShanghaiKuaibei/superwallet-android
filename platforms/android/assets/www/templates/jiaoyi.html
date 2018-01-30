@@ -31,7 +31,7 @@
         </div>
         <div class="switch-ad-list">
             <!-- <p>{{transactions.length == 0?"暂无交易记录":"交易记录"}}</p> -->
-            <p class="title {{ showType ? 'active' : '' }}" ng-click="toggleShowtype(true)" ng-if="transactions.length != 0">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>
+            <p class="title {{ showType ? 'active' : '' }}" ng-click="toggleShowtype(true)">{{languages.TransactionRecords[selectLanguage.selected.id]}}</p>
             <p class="title {{ !showType ? 'active' : '' }}" ng-click="toggleShowtype(false)">{{languages.Address[selectLanguage.selected.id]}}</p>
             <!--<p class="title" ng-if="transactions.length == 0">{{languages.Nohistory[selectLanguage.selected.id]}}</p>-->
 
