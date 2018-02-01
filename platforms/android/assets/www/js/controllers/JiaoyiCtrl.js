@@ -80,6 +80,14 @@ define(['app', 'services/WalletService'], function(app) {
                 });
             }
 
+            // 复制txid
+            $scope.copybtn = function(txid) {
+                $scope.copy(txid).then(function() {
+                    // $rootScope.alert("已复制地址");
+                    $rootScope.alert($rootScope.languages.txiduplicated[$rootScope.selectLanguage.selected.id]);
+                });
+            }
+
             // 隐藏子地址
             $scope.hideAddress = function(ad) {
                 $scope.adressList.forEach(function(el) {

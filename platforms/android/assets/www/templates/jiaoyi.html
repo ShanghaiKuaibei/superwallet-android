@@ -39,7 +39,7 @@
         </div>
         <div class="contents page_trant_1_content">
             <ul ng-show="showType">
-                <li ng-repeat="transaction in transactions">
+                <li ng-repeat="transaction in transactions" ng-click="copybtn(transaction.txid)">
                     <div class="list_img">
                         <div class="img send"></div>
                     </div>
@@ -51,7 +51,7 @@
 								{{languages.Transaction[selectLanguage.selected.id]}}
 							</span>
                         </div>
-                        <div class="bottom"><span class="code">{{transaction.txid}}</span><span class="time">{{transaction.date}}</span></div>
+                        <div class="bottom"><span class="code">{{transaction.toad}}</span><span class="time">{{transaction.date}}</span></div>
                     </div>
                 </li>
             </ul>

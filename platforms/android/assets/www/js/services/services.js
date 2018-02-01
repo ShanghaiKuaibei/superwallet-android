@@ -252,6 +252,7 @@ angular.module('starter.services', [])
                     "Seedduplicated": ["Seed is duplicated", "El seed está duplicado", "قد نسخ seed", "已复制seed"],
                     "Failedcreate": ["Failed to create address:", "No se puede crear la dirección:", "فشل في إنشء العنوان:", "创建地址失败:"],
                     "addressduplicated": ["The address is duplicated", "La dirección está duplicada", "قد نسخ العنوان", "已复制地址"],
+                    "txiduplicated": ["The transactions number duplicated", "Se copia el número de transacción", "نسخ  من رقم المعاملات", "已复制交易编号"],
                     "Input": ["Input ", "Introducir", "إدخال", "输入"],
                     "Address": ["Address", "Dirección", "العنوان", "地址"],
                     "Notice": ["Notice", "Aviso", "الملاحظة", "提示"],

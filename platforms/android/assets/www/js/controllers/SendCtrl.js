@@ -86,6 +86,7 @@ define(['app'], function(app) {
                                     item.transtions.unshift({
                                         txid: JSON.parse(res).txid,
                                         amount: amount,
+                                        toad: toad,
                                         date: date
                                     })
                                 }
