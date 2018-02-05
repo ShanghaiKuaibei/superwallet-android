@@ -79,6 +79,8 @@ define(['app'], function(app) {
                   }
 
                 if(!isValidSeed(walletSeed)) {
+                   // $rootScope.alert("请输入有效的seed！", '提示', '确定');
+                   alert($rootScope.languages.PleaseValidSeed[$rootScope.selectLanguage.selected.id], '', $rootScope.languages.Confirm[$rootScope.selectLanguage.selected.id]);
                   // TODO: add multiple language warning
                   return false;
                 }

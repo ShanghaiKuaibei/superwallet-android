@@ -231,6 +231,7 @@ angular.module('starter.services', [])
                     "Confirm": ["Confirm", "Confirmar", "موافق", "确定"],
                     "Cancel": ["Cancel", "Cancelar", "إلغاء", "取消"],
                     "PleaseScan": ["Please scan or type in your seed", "Por favorescanear el código o introducir manualmente su seed", "امسح أو أدخل seed يدويا", "请扫码或手动输入seed"],
+                    "PleaseValidSeed": ["Please enter a valid seed", "Por favor introduzca la validez de la seed", "يرجى دخول صالحة  seed", "请输入有效的seed"],
                     "ImportWallet": ["Import wallet of a certain type", "Importar la moneda especificada", "إدخال العملة المحددة", "导入指定币种"],
                     "CurrentVersion": ["Current version is", "El número de versión actual es", "النسخة الحالية", "当前版本号为"],
                     "UnderDevelopment": ["Under development", "Está en desarrolla la versión siguiente", "جاري تطوير", "后续版本研发中"],
