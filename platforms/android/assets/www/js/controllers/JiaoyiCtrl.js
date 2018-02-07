@@ -39,7 +39,7 @@ define(['app', 'services/WalletService'], function(app) {
                                 transtions = item.transtions || [];
                                 //如果已经在本地缓存过就从本地拿，否则去服务器请求
                                 if (activeList) {
-                                    $scope.adressList = activeList;
+                                    $scope.adressList = activeList.reverse();;
                                     $scope.transactions = transtions
                                     willShowAdbtn(activeList);
                                     // console.log($scope.transactions)
