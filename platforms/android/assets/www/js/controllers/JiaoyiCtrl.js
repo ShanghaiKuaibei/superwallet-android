@@ -37,12 +37,13 @@ define(['app', 'services/WalletService'], function(app) {
                             if (item.walletid == $scope.wallet.walletid) {
                                 activeList = item.adressList;
                                 transtions = item.transtions || [];
+                                $scope.transactions = transtions
                                 //如果已经在本地缓存过就从本地拿，否则去服务器请求
                                 if (activeList) {
                                     $scope.adressList = activeList.reverse();;
-                                    $scope.transactions = transtions
                                     willShowAdbtn(activeList);
-                                    // console.log($scope.transactions)
+                                    console.log("我是交易记录:")
+                                     console.log($scope.transactions)
                                 } else {
                                     WalletService.getaddressinwallet($scope.wallet.walletid).then(function(success) {
                                         let adArr = JSON.parse(success).addresses;

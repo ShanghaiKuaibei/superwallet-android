@@ -116,36 +116,32 @@ define(['app', 'services/WalletService'], function(app) {
 
 
             $scope.finish = function() {
-                WalletService.createWallet($rootScope.coins[$scope.coinIndex]['name'], "")
-                    .then(function(walletid) {
-                        $scope.wallet = [{ "walletid": walletid, "coinIndex": $scope.coinIndex, "walletcolor": $rootScope.walletcolorCur, "walletname": $scope.walletname }];
-                        $scope.checkFile($rootScope.filepath, $rootScope.filename)
-                            .then(function(success) {
-                                $scope.readAsText($rootScope.filepath, $rootScope.filename)
-                                    .then(function(success) {
-                                        $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(JSON.parse(success).concat($scope.wallet)))
-                                            .then(function() {
-                                                $location.url('/assets');
-                                            }, function() {
-                                                $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
-                                                // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
-                                            });
-                                    }, function() {
-                                        $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename));
-                                        // $rootScope.alert("取出信息失败:" + $rootScope.filepath + $rootScope.filename);
-                                    });
-                            }, function(error) {
-                                $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify($scope.wallet)).then(function() {
-                                    $location.url('/assets');
-                                }, function() {
-                                    $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
-                                    // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
-                                });
+                WalletService.createWallet($rootScope.coins[$scope.coinIndex]['name'], "").then(function(walletid) {
+                    $scope.wallet = [{ "walletid": walletid, "coinIndex": $scope.coinIndex, "walletcolor": $rootScope.walletcolorCur, "walletname": $scope.walletname }];
+                    $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
+                        $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
+                            $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(JSON.parse(success).concat($scope.wallet))).then(function() {
+                                $location.url('/assets');
+                            }, function() {
+                                $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
+                                // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
                             });
+                        }, function() {
+                            $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename));
+                            // $rootScope.alert("取出信息失败:" + $rootScope.filepath + $rootScope.filename);
+                        });
                     }, function(error) {
-                        $rootScope.alert($rootScope.languages.Createwallet[$rootScope.selectLanguage.selected.id] + error);
-                        // $rootScope.alert("创建钱包:" + error);
+                        $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify($scope.wallet)).then(function() {
+                            $location.url('/assets');
+                        }, function() {
+                            $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
+                            // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
+                        });
                     });
+                }, function(error) {
+                    $rootScope.alert($rootScope.languages.Createwallet[$rootScope.selectLanguage.selected.id] + error);
+                    // $rootScope.alert("创建钱包:" + error);
+                });
             }
 
         }

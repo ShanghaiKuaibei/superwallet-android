@@ -62,6 +62,18 @@ define(['app'], function(app) {
                         sendSuccess($scope.toaddr, $scope.amount, res);
                     }, function() { $rootScope.alert($scope.Failure); });
                     $scope.amount = $scope.amount / 1000000;
+                } else if ($rootScope.coins[$scope.wallet.coinIndex].name == "lifecoin") {
+                    $scope.amount = $scope.amount * 1000000;
+                    WalletService.sendLifecoin($scope.wallet.walletid, $scope.toaddr, $scope.amount).then(function(res) {
+                        sendSuccess($scope.toaddr, $scope.amount, res);
+                    }, function() { $rootScope.alert($scope.Failure); });
+                    $scope.amount = $scope.amount / 1000000;
+                } else if ($rootScope.coins[$scope.wallet.coinIndex].name == "metalicoin") {
+                    $scope.amount = $scope.amount * 1000000;
+                    WalletService.sendMetalicoin($scope.wallet.walletid, $scope.toaddr, $scope.amount).then(function(res) {
+                        sendSuccess($scope.toaddr, $scope.amount, res);
+                    }, function() { $rootScope.alert($scope.Failure); });
+                    $scope.amount = $scope.amount / 1000000;
                 }
                 var sendSuccess = function(toad, amount, res) {
                     $rootScope.alert($rootScope.languages.Sentsuccessfully[$rootScope.selectLanguage.selected.id]);
@@ -72,7 +84,7 @@ define(['app'], function(app) {
                         }
                     });
 
-                    //          存入发送记录
+                    //存入发送记录
                     $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
                         $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
                             var savedWallet = JSON.parse(success);

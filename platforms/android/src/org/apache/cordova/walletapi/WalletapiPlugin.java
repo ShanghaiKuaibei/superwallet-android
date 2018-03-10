@@ -104,7 +104,7 @@ public class WalletapiPlugin extends CordovaPlugin {
                     } catch (Exception e) {
                         e.printStackTrace();
                         callbackContext.error("创建钱包地址失败！");
-                    };
+                    }
                 }
             });
             return true;
@@ -208,6 +208,28 @@ public class WalletapiPlugin extends CordovaPlugin {
             } catch (Exception e) {
                 e.printStackTrace();
                 callbackContext.error("aynrand转账失败！");
+            }
+            return true;
+        } else if ("sendmetalicoin".equals(action)) {
+            String res = null;
+            try {
+                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
+                res = Mobile.send("metalicoin", args.getString(0), args.getString(1), args.getString(2), null);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("metali转账失败！");
+            }
+            return true;
+        } else if ("sendlifecoin".equals(action)) {
+            String res = null;
+            try {
+                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
+                res = Mobile.send("lifecoin", args.getString(0), args.getString(1), args.getString(2), null);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("life转账失败！");
             }
             return true;
         } else if ("getblanceofwalletid".equals(action)) {

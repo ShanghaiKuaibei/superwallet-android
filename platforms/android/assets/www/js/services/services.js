@@ -137,6 +137,28 @@ angular.module('starter.services', [])
                             "安兰德币"
                         ],
                         "switch": true
+                    },
+                    "LFC": {
+                        "type": "LFC",
+                        "name": "lifecoin",
+                        "title": [
+                            "LifeCoin",
+                            "Moneda Ayn Rand",
+                            "أينراندكوين",
+                            "生活币"
+                        ],
+                        "switch": true
+                    },
+                    "MTC": {
+                        "type": "MTC",
+                        "name": "metalicoin",
+                        "title": [
+                            "MetaliCoin",
+                            "Moneda Ayn Rand",
+                            "أينراندكوين",
+                            "金属币"
+                        ],
+                        "switch": true
                     }
                 };
                 // $rootScope.selectLanguage = {
@@ -222,6 +244,8 @@ angular.module('starter.services', [])
                     "Skycoin": ["Skycoin", "Moneda cielo", "سكايكوين", "天空币"],
                     "Shellcoin": ["Shellcoin", "Moneda concha", "شلكوين", "小贝壳"],
                     "MZCoin": ["MZCoin", "Moneda MZ", "مزكوين", "喵爪币"],
+                    "Metalicoin": ["Metalicoin", "Moneda MTL", "عملة معدنية", "金属币"],
+                    "Lifecoin": ["Lifecoin", "Moneda LIF", " الحياة  عملة ", "生活币"],
                     "SunCoin": ["SunCoin", "Moneda sol", "سانكوين", "太阳币"],
                     "AynRandCoin": ["AynRandCoin", "Moneda Ayn Rand", "أينراندكوين", "安兰德币"],
                     "Import": ["Import", "Importar", "إدخال", "导入"],

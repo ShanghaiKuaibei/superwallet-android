@@ -100,9 +100,12 @@ define(['app'], function(app) {
                   "skycoin" : "SKY",
                   "shellcoin" : "SC2",
                   "suncoin" : "SUN",
-                  "aynrandcoin" : "ARC"
+                  "aynrandcoin" : "ARC",
+                  "lifecoin" : "LFC",
+                  "metalicoin" : "MTC"
                 }
 
+                console.log(coinType)
                 var coinSymbol = type2SymbolTable[coinType];
                 var oldSeed = getNakedSeed(walletSeed);
 

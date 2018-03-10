@@ -12,6 +12,7 @@ define(['app'], function(app) {
                 createWallet: function(cointype, walletname) {
                     var deferred = $q.defer();
                     webwalletapi.createwallet(function(walletid) {
+                        console.log('walletid:' + walletid)
                         deferred.resolve(walletid);
                     }, function(error) {
                         deferred.reject(error);
@@ -114,6 +115,30 @@ define(['app'], function(app) {
                     var deferred = $q.defer();
                     $cordovaSpinnerDialog.show("提示", "正在发送", true);
                     webwalletapi.sendmzcoin(function(success) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.resolve(success);
+                    }, function(error) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.reject(error);
+                    }, walletid, toaddr, amount);
+                    return deferred.promise;
+                },
+                sendMetalicoin: function(walletid, toaddr, amount) {
+                    var deferred = $q.defer();
+                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
+                    webwalletapi.sendmetalicoin(function(success) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.resolve(success);
+                    }, function(error) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.reject(error);
+                    }, walletid, toaddr, amount);
+                    return deferred.promise;
+                },
+                sendLifecoin: function(walletid, toaddr, amount) {
+                    var deferred = $q.defer();
+                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
+                    webwalletapi.sendlifecoin(function(success) {
                         $cordovaSpinnerDialog.hide();
                         deferred.resolve(success);
                     }, function(error) {
