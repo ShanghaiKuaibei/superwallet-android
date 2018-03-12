@@ -145,7 +145,7 @@ angular.module('starter.services', [])
                             "LifeCoin",
                             "Moneda Ayn Rand",
                             "أينراندكوين",
-                            "生活币"
+                            "生命币"
                         ],
                         "switch": true
                     },
@@ -156,7 +156,7 @@ angular.module('starter.services', [])
                             "MetaliCoin",
                             "Moneda Ayn Rand",
                             "أينراندكوين",
-                            "金属币"
+                            "贵金属币"
                         ],
                         "switch": true
                     }
@@ -244,8 +244,8 @@ angular.module('starter.services', [])
                     "Skycoin": ["Skycoin", "Moneda cielo", "سكايكوين", "天空币"],
                     "Shellcoin": ["Shellcoin", "Moneda concha", "شلكوين", "小贝壳"],
                     "MZCoin": ["MZCoin", "Moneda MZ", "مزكوين", "喵爪币"],
-                    "Metalicoin": ["Metalicoin", "Moneda MTL", "عملة معدنية", "金属币"],
-                    "Lifecoin": ["Lifecoin", "Moneda LIF", " الحياة  عملة ", "生活币"],
+                    "Metalicoin": ["Metalicoin", "Moneda MTL", "عملة معدنية", "贵金属币"],
+                    "Lifecoin": ["Lifecoin", "Moneda LIF", " الحياة  عملة ", "生命币"],
                     "SunCoin": ["SunCoin", "Moneda sol", "سانكوين", "太阳币"],
                     "AynRandCoin": ["AynRandCoin", "Moneda Ayn Rand", "أينراندكوين", "安兰德币"],
                     "Import": ["Import", "Importar", "إدخال", "导入"],
