@@ -20,6 +20,7 @@ define(['app'], function(app) {
                     if (buttonIndex == 1) {
                         $scope.scan().then(function(success) {
                             var arr = success['text'].split("_");
+                            console.log(arr)
                             console.log(success['text']);
                             /* var coinstr = arr[0].toUpperCase();
                              var coinIndex = coinstr.substr(0,coinstr.length-3);
@@ -50,6 +51,18 @@ define(['app'], function(app) {
                                 coinIndex = "ARC";
                                 // walletname = "安兰德币";
                                 walletname = $rootScope.languages.AynRandCoin[$rootScope.selectLanguage.selected.id];
+                            } else if (arr[0] == "yongbangcoin") {
+                                coinIndex = "YBC";
+                                // walletname = "永邦币";
+                                walletname = $rootScope.languages.YongbangCoin[$rootScope.selectLanguage.selected.id];
+                            } else if (arr[0] == "shihucoin") {
+                                coinIndex = "SHC";
+                                // walletname = "石斛币";
+                                walletname = $rootScope.languages.ShihuCoin[$rootScope.selectLanguage.selected.id];
+                            } else if (arr[0] == "liquorcoin") {
+                                coinIndex = "LQC";
+                                // walletname = "基酒币 ";
+                                walletname = $rootScope.languages.LiquorCoin[$rootScope.selectLanguage.selected.id];
                             }
                             if (coinIndex != $scope.coinIndex) {
                                 alert(coinIndex);

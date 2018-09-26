@@ -147,6 +147,42 @@ define(['app'], function(app) {
                     }, walletid, toaddr, amount);
                     return deferred.promise;
                 },
+                sendYongbangcoin: function(walletid, toaddr, amount) {
+                    var deferred = $q.defer();
+                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
+                    webwalletapi.sendYongbangcoin(function(success) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.resolve(success);
+                    }, function(error) {
+                        $cordovaSpinnerDialog.hide();
+                        deferred.reject(error);
+                    }, walletid, toaddr, amount);
+                    return deferred.promise;
+                },
+                 sendShihucoin: function(walletid, toaddr, amount) {
+                     var deferred = $q.defer();
+                     $cordovaSpinnerDialog.show("提示", "正在发送", true);
+                     webwalletapi.sendShihucoin(function(success) {
+                         $cordovaSpinnerDialog.hide();
+                         deferred.resolve(success);
+                     }, function(error) {
+                         $cordovaSpinnerDialog.hide();
+                         deferred.reject(error);
+                     }, walletid, toaddr, amount);
+                     return deferred.promise;
+                 },
+                  sendLiquorcoin: function(walletid, toaddr, amount) {
+                      var deferred = $q.defer();
+                      $cordovaSpinnerDialog.show("提示", "正在发送", true);
+                      webwalletapi.sendLiquorcoin(function(success) {
+                          $cordovaSpinnerDialog.hide();
+                          deferred.resolve(success);
+                      }, function(error) {
+                          $cordovaSpinnerDialog.hide();
+                          deferred.reject(error);
+                      }, walletid, toaddr, amount);
+                      return deferred.promise;
+                  },
                 getBalance: function(name, Walletid) {
                     var deferred = $q.defer();
                     webwalletapi.getblanceofwalletid(function(success) {

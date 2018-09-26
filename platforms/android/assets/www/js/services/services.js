@@ -78,7 +78,7 @@ angular.module('starter.services', [])
                         "title": [
                             "Bitcoin",
                             "Moneda Bit",
-                            "بيتكوين",
+                           "بيتكوين",
                             "比特币"
                         ],
                         "switch": true
@@ -144,7 +144,7 @@ angular.module('starter.services', [])
                         "title": [
                             "LifeCoin",
                             "Moneda Ayn Rand",
-                            "أينراندكوين",
+                                    "أينراندكوين",
                             "生命币"
                         ],
                         "switch": true
@@ -159,7 +159,40 @@ angular.module('starter.services', [])
                             "贵金属币"
                         ],
                         "switch": true
-                    }
+                    },
+                    "YBC": {
+                        "type": "YBC",
+                        "name": "yongbangcoin",
+                        "title": [
+                            "YongbangCoin",
+                            "Estatus de moneda",
+                            " شون  عملة",
+                            "永邦币"
+                        ],
+                        "switch": true
+                    },
+                    "SHC": {
+                        "type": "SHC",
+                        "name": "shihucoin",
+                        "title": [
+                            "ShihuCoin",
+                            "La moneda",
+                            "توفر  العملة ",
+                            "石斛币"
+                        ],
+                        "switch": true
+                    },
+//                    "LQC": {
+//                        "type": "LQC",
+//                        "name": "liquorcoin",
+//                        "title": [
+//                            "LiquorCoin",
+//                            "El vino de base de la moneda",
+//                            "النبيذ قاعدة  العملة",
+//                            "基酒币"
+//                        ],
+//                        "switch": true
+//                    }
                 };
                 // $rootScope.selectLanguage = {
                 //   availableOptions: [
@@ -248,6 +281,9 @@ angular.module('starter.services', [])
                     "Lifecoin": ["Lifecoin", "Moneda LIF", " الحياة  عملة ", "生命币"],
                     "SunCoin": ["SunCoin", "Moneda sol", "سانكوين", "太阳币"],
                     "AynRandCoin": ["AynRandCoin", "Moneda Ayn Rand", "أينراندكوين", "安兰德币"],
+                    "YongbangCoin": ["YongbangCoin", "Estatus de moneda", "شون  عملة ", "永邦币"],
+                    "ShihuCoin": ["ShihuCoin", "La moneda", "توفر  العملة ", "石斛币"],
+                    "LiquorCoin": ["LiquorCoin", "El vino de base de la moneda", " النبيذ قاعدة  العملة", "基酒币"],
                     "Import": ["Import", "Importar", "إدخال", "导入"],
                     "ScanTypeSeed": ["Scan or type in seed", "Escanear el código o escribir en seed", "مسح أو إدخال seed", "扫码或输入seed"],
                     "ChooseCoinType": ["Choose coin type", "Elija una moneda", "خيار نوع كوين", "选择币种"],

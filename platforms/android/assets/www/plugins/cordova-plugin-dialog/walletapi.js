@@ -22,8 +22,6 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
                 );
             },
 
-
-
             importwallet: function(success, error, str, content) {
                 exec(
                     success,
@@ -141,6 +139,33 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
                     [walletid, toaddress, amount] //要传递的参数，json格式
                 );
             },
+           sendyongbangcoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendyongbangcoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+           sendshihucoin: function(success, error, walletid, toaddress, amount) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "sendshihucoin", //action
+                    [walletid, toaddress, amount] //要传递的参数，json格式
+                );
+            },
+            sendliquorcoin: function(success, error, walletid, toaddress, amount) {
+                 exec(
+                     success,
+                     error,
+                     "WalletapiPlugin", //feature name
+                     "sendliquorcoin", //action
+                     [walletid, toaddress, amount] //要传递的参数，json格式
+                 );
+             },
             getblanceofwalletid: function(success, error, type, walletid) {
                 exec(
                     success,
