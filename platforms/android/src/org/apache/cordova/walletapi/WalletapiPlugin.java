@@ -12,17 +12,18 @@ import android.os.Environment;
 
 import java.io.File;
 
-import mobile.*;
-import mobile.Config;
-import mobile.Mobile;
-import mobile.SendOption;
+import go.mobile.*;
+import go.mobile.Config;
+import go.mobile.Mobile;
+import go.mobile.SendOption;
 
 public class WalletapiPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
 
         Config c = Mobile.newConfig();
-        c.setServerAddr("121.41.103.148:8080");
+//        c.setServerAddr("121.41.103.148:8080");
+        c.setServerAddr("superwallet.shellpay2.com:8080");
 
         String walletDir = Environment.getExternalStorageDirectory().toString() + "/superwallet";
         c.setWalletDirPath(walletDir);
@@ -232,7 +233,40 @@ public class WalletapiPlugin extends CordovaPlugin {
                 callbackContext.error("life转账失败！");
             }
             return true;
-        } else if ("getblanceofwalletid".equals(action)) {
+        } else if ("sendyongbangcoin".equals(action)) {
+            String res = null;
+            try {
+                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
+                res = Mobile.send("yongbangcoin", args.getString(0), args.getString(1), args.getString(2), null);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("yongbang转账失败！");
+            }
+            return true;
+        } else if ("sendshihucoin".equals(action)) {
+            String res = null;
+            try {
+                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
+                res = Mobile.send("shihucoin", args.getString(0), args.getString(1), args.getString(2), null);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("shihu转账失败！");
+            }
+            return true;
+        } else if ("sendliquorcoin".equals(action)) {
+            String res = null;
+            try {
+                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
+                res = Mobile.send("liquorcoin", args.getString(0), args.getString(1), args.getString(2), null);
+                callbackContext.success(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callbackContext.error("liquor转账失败！");
+            }
+            return true;
+        }else if ("getblanceofwalletid".equals(action)) {
             String res = null;
             String resa = null;
             String coinType = args.getString(0);
