@@ -18,11 +18,11 @@ define(['app'], function (app) {
         getServeAppVersion: function () {
           var deferred = $q.defer();
           var rands = Math.random();
-          console.log(rands);
+//          console.log(rands);
           $http.get($rootScope.lvshapn + "version.json", { id: rands })
             .success(function (response) {
-              console.log($rootScope.lvshapn + "version.json?id=" + rands);
-              console.log(response.version);
+//              console.log($rootScope.lvshapn + "version.json?id=" + rands);
+//              console.log(response.version);
               //deferred.resolve(response['version']);
               deferred.resolve(response);
             });

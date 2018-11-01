@@ -166,7 +166,7 @@ define([
           })
           .state('bakcode', {
             url: "/bakcode",
-            params: { "bakwalletid": null },
+            params: { "seed": null },
             templateUrl: "templates/bakcode.html",
             controller: "BakcodeCtrl",
             resolve: {

@@ -5,13 +5,13 @@
                 <a class="left_icon iconfont" style="color:#fff;" href="javascript:history.go(-1)">&#xe60e;</a>
                 <a class="right_icon iconfont" style="color:#fff;" href="javascript:void(0);" ui-sref=".choicecolor({coins:wallet.coinIndex})">&#xe608;</a>
                 <div class="title">
-                    <p>{{wallet.walletname}}</p>
-                    <span style="border:1px #fff solid;padding: 1px 5px;" ng-bind="coins[wallet.coinIndex].title[selectLanguage.selected.id]"></span>
+                    <p>{{wallet.label}}</p>
+                    <span style="border:1px #fff solid;padding: 1px 5px;" ng-bind="title[selectLanguage.selected.id]"></span>
                 </div>
             </div>
             <div class="content">
                 <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a> -->
-                <p> {{wallet.balance | number:4}} {{coins[wallet.coinIndex].type}}</p>
+                <p> {{balance}} {{wallet.name}}</p>
                 <div>{{ 0 | currency:" ￥ " }}</div>
             </div>
 

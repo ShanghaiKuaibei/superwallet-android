@@ -9,60 +9,131 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Environment;
+import android.util.Log;
+
+import com.google.gson.*;
+import java.util.ArrayList;
+import com.shellpay2.superwallet.MainActivity;
 
 import java.io.File;
 
-import go.mobile.*;
-import go.mobile.Config;
-import go.mobile.Mobile;
-import go.mobile.SendOption;
+import mobile.*;
+//import mobile.Mobile;
+//import go.mobile.Config;
+//import go.mobile.Mobile;
+//import go.mobile.SendOption;
+
+class AddressEntry {
+    public String address;
+    public String pubkey;
+    public String seckey;
+}
+
+class AddressResult {
+    public String lastseed;
+    public AddressEntry[] addrs;
+}
+
+class Balance {
+    public Integer coins; // droplets
+    public Integer hours;
+}
+
+class BalancePair {
+    public Balance confirmed;
+    public Balance predicted;
+}
+
+
 
 public class WalletapiPlugin extends CordovaPlugin {
+
+//    private String coins;
+
+    public String domain = "http://superwallet.shellpay2.com:6789";
+
+    public WalletapiPlugin(){
+        Mobile.setServer(this.domain);
+
+//        try{
+//           this.coins = Mobile.getSupportedCoins();
+//            System.out.println(this.coins);
+//        } catch(Exception e) {
+//            this.coins = "";
+//        }
+    }
+
+//    private WalletsDbHelper walletDbHelper;
+//    private SQLiteDatabase db;
+
+    // TODO: initialize everything
+//    public WalletapiPlugin() {
+//        // check to see if wallets.db exists, if not, create a new table
+//        this.walletDbHelper = new WalletsDbHelper(getContext());
+//        this.db = this.walletDbHelper.getWritableDatabase();
+//    }
+
+
     @Override
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
-
-        Config c = Mobile.newConfig();
-//        c.setServerAddr("121.41.103.148:8080");
-        c.setServerAddr("superwallet.shellpay2.com:8080");
-
-        String walletDir = Environment.getExternalStorageDirectory().toString() + "/superwallet";
-        c.setWalletDirPath(walletDir);
-
-        Mobile.init(c);
-
         if ("createwallet".equals(action)) {
-            try {
-                String coinType = args.getString(0);
-                String walletSeed = args.getString(1);
+            // TODO:
 
-                if (walletSeed.equals("")) {
-                    walletSeed = Mobile.newSeed();
+            String coinType = args.getString(0);
+            String seed = args.getString(1);
+            String label = args.getString(2);
+            Integer color = args.getInt(3);
+
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+
+            try {
+                // The following code is used in CreateWallet
+                WalletEntry wallet = new WalletEntry();
+                wallet.label = label;
+                wallet.coinType = coinType;
+
+                AddressResult ar;
+                if (seed.equals("")) { // creating a new wallet
+                    wallet.seed = Mobile.newSeed();
+                } else { // loading a wallet from seed
+                    // TODO: might need to generate more than one address
+                    wallet.seed = seed;
                 }
 
-                String  res = Mobile.newWallet(coinType, walletSeed);
+                // addrs is in JSON format
+                String addrs = Mobile.generateNewAddresses(wallet.seed, 1);
+
+                Gson g = new Gson();
+                ar = g.fromJson(addrs, AddressResult.class);
+
+                wallet.privateKey = ar.addrs[0].seckey;
+                wallet.publicKey = ar.addrs[0].pubkey;
+                wallet.address = ar.addrs[0].address;
+
+                wallet.colorScheme = color;
+                wallet.status = "active";
+
+                dbHelper.addWallet(wallet);
+
+                String res = "";
 
                 callbackContext.success(res);
-
-                return true;
             } catch (Exception e) {
+                Log.e("superwallet", e.getMessage());
                 e.printStackTrace();
-                callbackContext.error("创建钱包失败！");
+                callbackContext.error("创建钱包失败: "+e.getMessage());
                 return true;
             }
 
+
         } else if ("deletewallet".equals(action)) {
+            // TODO:
+            // if so, change the status from active to deleted
+            // update deletedate column
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
             try {
-                String coinType = args.getString(0);
-                String walletSeed = args.getString(1);
-                String walletFilePath = walletDir + "/" + coinType + "_" + walletSeed;
-
-                File walletFile = new File(walletFilePath + ".wlt");
-                File walletBakFile = new File(walletFilePath + ".wlt.bak");
-
-                // TODO: need to revise
-                boolean isDeleted = walletFile.delete();
-                boolean isDeletedBak = walletBakFile.delete();
-
+                Integer walletId = args.getInt(0);
+                dbHelper.disableWallet(walletId);
                 String  res = "钱包文件删除成功";
 
                 callbackContext.success(res);
@@ -74,232 +145,98 @@ public class WalletapiPlugin extends CordovaPlugin {
                 return true;
             }
 
-            // Hank Gao
-            // Crap, importwallet is never called!
-        } else if ("importwallet".equals(action)) {
-            try {
-                String coinType = args.getString(0);
-                String walletSeed = args.getString(1);
-
-                String  res = Mobile.newWallet(coinType, walletSeed);
-
-                callbackContext.success(res);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("导入钱包失败！");
-                return true;
-            }
-
-        } else if ("createaddress".equals(action)) {
-            final  String a = args.getString(0);
-            final Integer b = args.getInt(1);
-            cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String res = null;
-                    try {
-                        res = Mobile.newAddress(a, b);
-                        System.out.println(res);
-                        callbackContext.success(res);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        callbackContext.error("创建钱包地址失败！");
-                    }
-                }
-            });
-            return true;
         } else if ("getaddressinwallet".equals(action)) {
             String res = null;
             try {
-                res = Mobile.getAddresses(args.getString(0));
-                System.out.println(res);
+//                res = Mobile.getAddresses(args.getString(0));
+//                System.out.println(res);
                 callbackContext.success(res);
             } catch (Exception e) {
                 e.printStackTrace();
                 callbackContext.error("获取钱包地址失败！");
             }
             return true;
-        } else if ("getpubkeyandseckeypairofaddress".equals(action)) {
-            String res = null;
-            try {
-                res = Mobile.getKeyPairOfAddr(args.getString(0), args.getString(1));
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("获取钱包地址公钥与私钥失败！");
-            }
-            return true;
+
+            // get balance of an address
         } else if ("getbalance".equals(action)) {
-            String res = null;
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+
+            // Get wallet balance
+            Integer walletID = args.getInt(0);
+
+
             try {
-                res = Mobile.getBalance(args.getString(0), args.getString(1));
-                System.out.println(res);
+                WalletEntry wallet = dbHelper.getWallet(walletID);
+
+                String rawBalance = Mobile.getBalance(wallet.coinType, wallet.address);
+                Gson g = new Gson();
+                BalancePair bp = g.fromJson(rawBalance, BalancePair.class);
+                String res = Integer.toString(bp.confirmed.coins);
+
                 callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("获取钱包余额失败！");
+            } catch(Exception e) {
+                Log.e("superwallet", e.getMessage());
             }
-            return true;
-        } else if ("sendskycoin".equals(action)) {
-            String res = null;
-            try {
-                res = Mobile.send("skycoin", args.getString(0), args.getString(1), args.getString(2), null);
-                //res = Mobile.sendSky(args.getString(0), args.getString(1),args.getString(2));
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("skycoin转账失败！");
-            }
-            return true;
-        } else if ("sendmzcoin".equals(action)) {
-            String res = null;
-            try {
-                System.out.println(args.getString(0));
-                // res = Mobile.SendMzc(args.getString(0), args.getString(1),args.getString(2));
-                res = Mobile.send("mzcoin", args.getString(0), args.getString(1), args.getString(2), null);
-                //res = Mobile.sendMzc(args.getString(0), args.getString(1),args.getString(2));
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("mzcoin转账失败！");
-            }
-            return true;
-        } else if ("sendbitcoin".equals(action)) {
-            String res = null;
-            SendOption Sendoption = new SendOption();
-            Sendoption.setFee(args.getString(3));
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("bitcoin", args.getString(0), args.getString(1), args.getString(2), Sendoption);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("btc转账失败！");
-            }
-            return true;
-        } else if ("sendshellcoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("shellcoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("shell转账失败！");
-            }
-            return true;
-        } else if ("sendsuncoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("suncoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("sun转账失败！");
-            }
-            return true;
-        } else if ("sendaynrandcoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("aynrandcoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("aynrand转账失败！");
-            }
-            return true;
-        } else if ("sendmetalicoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("metalicoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("metali转账失败！");
-            }
-            return true;
-        } else if ("sendlifecoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("lifecoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("life转账失败！");
-            }
-            return true;
-        } else if ("sendyongbangcoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("yongbangcoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("yongbang转账失败！");
-            }
-            return true;
-        } else if ("sendshihucoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("shihucoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("shihu转账失败！");
-            }
-            return true;
-        } else if ("sendliquorcoin".equals(action)) {
-            String res = null;
-            try {
-                // res = Mobile.sendBtc(args.getString(0), args.getString(1),args.getString(2),args.getString(3));
-                res = Mobile.send("liquorcoin", args.getString(0), args.getString(1), args.getString(2), null);
-                callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("liquor转账失败！");
-            }
-            return true;
+
+
+            // get balance of a wallet
         }else if ("getblanceofwalletid".equals(action)) {
             String res = null;
-            String resa = null;
             String coinType = args.getString(0);
-            String walletSeed = args.getString(1);
+//            String walletID = args.getString(1);
 
-            System.out.println(action);
-            System.out.println(args.getString(0) + "-----" + args.getString(1));
-            //Log.i("information",action);
+            // TODO: retrieve address from a wallet ID
+            String addresses = "";
+
             try {
-                // res = Mobile.getBalance("suncoin", "2ZeAf2qcUU2QedQnWzAA6EAzZjRTYYzmbcm");
-                res = Mobile.getWalletBalance(coinType, walletSeed);
-                // Mobile.getWalletBalance()
-                // resa = Mobile.getAddresses("suncoin_grace dinosaur account enjoy veteran diesel lecture decide weird cheap until sleep");
-                //System.out.println("当前币种："+args.getString(1)+"："+res);
+                res = Mobile.getBalance(coinType, addresses);
                 callbackContext.success(res);
             } catch (Exception e) {
                 e.printStackTrace();
-                callbackContext.error("获取余额失败！");
+                callbackContext.error("获取余额失败！" + e.getMessage());
             }
-        }else if("getrransactionbyid".equals(action)){
-            String res = null;
-            String coinType = args.getString(0);
-            String txid = args.getString(1);
+
+            // send coin
+        } else if ("sendcoin".equals(action)) {
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+            // Send coins
+            Integer walletID = args.getInt(0);
+            String targetAddress  = args.getString(1);
+            Float amount = Float.parseFloat(args.getString(2));
+
+
             try {
-                res = Mobile.getTransactionByID(coinType, txid);
+                WalletEntry wallet = dbHelper.getWallet(walletID);
+                String txid = Mobile.sendCoin(wallet.coinType, wallet.address, wallet.privateKey, targetAddress, amount);
+
+                String res = "";
+
                 callbackContext.success(res);
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error("获取钱包交易记录失败！");
+            }catch(Exception e) {
+                Log.e("superwallet", e.getMessage());
             }
-            return true;
+
+        } else if("getCoins".equals(action)){
+            String coins;
+            try{
+                coins = Mobile.getSupportedCoins();
+                System.out.println(coins);
+            } catch(Exception e) {
+                coins = "";
+            }
+            callbackContext.success(coins);
+        } else if("getDomain".equals(action)){
+            callbackContext.success(this.domain);
+        } else if("getWallets".equals(action)){
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+            ArrayList<WalletEntry> wallets = dbHelper.getAllWallets();
+            Gson g = new Gson();
+            String walletsJson = g.toJson(wallets);
+            callbackContext.success(walletsJson);
         }
+
         //System.out.println(action);
         return super.execute(action, args, callbackContext);
     }
 }
+

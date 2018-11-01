@@ -30,12 +30,13 @@
             </div>
             <div class="oobe" ng-repeat="wallet in walletinfo" style="background:{{walletcolor[wallet.walletcolor]['background']}}">
                 <div class="oobe_z" ui-sref="jiaoyi({wallet:wallet})">
-                    <p ng-bind="wallet.walletname" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
+                    <p ng-bind="wallet.label" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
                     <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:4"></span> {{coins[wallet.coinIndex]['type']}}</p>
                     <p style="color:{{walletcolor[wallet.walletcolor]['color']}}">￥0.00</p>
+                    <!--<p>{{ wallet.seed }}</p>-->
                 </div>
                 <!-- <div class="oobe_y" ui-sref="bak({walletid:wallet.walletid})"> -->
-                <div class="oobe_y" ui-sref="bakcode({bakwalletid:wallet.walletid})">
+                <div class="oobe_y" ui-sref="bakcode({seed:wallet.seed})">
                     <a class="iconfont" style="color:{{walletcolor[wallet.walletcolor]['color']}}">&#xe605;</a>
                 </div>
             </div>

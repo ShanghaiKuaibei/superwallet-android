@@ -26,37 +26,9 @@
             <!-- 选择币种 -->
             {{languages.ChooseCoinType[selectLanguage.selected.id]}}
           </option>
-          <option value="bitcoin">
+          <option ng-repeat="coin in coins" value="{{ coin.name }}">
             <!-- 比特币 -->
-            {{languages.Bitcoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="skycoin">
-            <!-- 天空币 -->
-            {{languages.Skycoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="shellcoin">
-            <!-- 小贝壳 -->
-            {{languages.Shellcoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="suncoin">
-            <!-- 太阳币 -->
-            {{languages.SunCoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="aynrandcoin">
-            <!-- 安兰德币 -->
-            {{languages.AynRandCoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="mzcoin">
-            <!-- 喵爪币 -->
-            {{languages.MZCoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="lifecoin">
-            <!-- 生命币 -->
-            {{languages.Lifecoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="metalicoin">
-            <!-- 贵金属币 -->
-            {{languages.Metalicoin[selectLanguage.selected.id]}}
+            {{coin.title[selectLanguage.selected.id]}}
           </option>
         </select>
             </div>

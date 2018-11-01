@@ -22,6 +22,8 @@ define(['app'], function(app) {
 
             service.file($scope);
 
+            $scope.coins = $rootScope.coins;
+
             $scope.unzipbtn = function() {
                 $scope.scan().then(function(success) {
                     // var arr = success['text'].split("_");
@@ -94,56 +96,15 @@ define(['app'], function(app) {
 
                 // finally, we have all we need
 
-                var type2SymbolTable = {
-                  "mzcoin" : "MZC",
-                  "bitcoin" : "BTC",
-                  "skycoin" : "SKY",
-                  "shellcoin" : "SC2",
-                  "suncoin" : "SUN",
-                  "aynrandcoin" : "ARC",
-                  "lifecoin" : "LFC",
-                  "metalicoin" : "MTC"
-                }
 
-                console.log(coinType)
-                var coinSymbol = type2SymbolTable[coinType];
                 var oldSeed = getNakedSeed(walletSeed);
 
-                if ($rootScope.coins[coinSymbol].switch == true) {
-                    /*导入钱包*/
-                    WalletService.createWallet(coinType, oldSeed)
-                        .then(function(walletid) {
-
-                              $scope.wallet = [{
-                                  "walletid": coinType + "_" + getNakedSeed(walletSeed),
-                                  "coinIndex": coinSymbol,
-                                  "walletcolor": 2,
-                                  "walletname": walletLabel
-                              }];
-
-                            $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
-                                $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
-                                    $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(JSON.parse(success).concat($scope.wallet))).then(function() {
+                WalletService.createWallet(coinType,oldSeed,walletLabel,$rootScope.walletcolorCur).then(function() {
                                         $location.url('/assets');
-                                    }, function() {
-                                        $rootScope.alert($scope.failed + $rootScope.filepath + $rootScope.filename);
+                                    }, function(error) {
+                                        $rootScope.alert($rootScope.languages.Createwallet[$rootScope.selectLanguage.selected.id] + error);
+                                        // $rootScope.alert("创建钱包:" + error);
                                     });
-                                }, function() {
-                                    $rootScope.alert($scope.failed + $rootScope.filepath + $rootScope.filename);
-                                });
-                            }, function(error) {
-                                $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify($scope.wallet)).then(function() {
-                                    $location.url('/assets');
-                                }, function() {
-                                    $rootScope.alert($scope.failed + $rootScope.filepath + $rootScope.filename);
-                                });
-                            });
-                        }, function(error) {
-                            //    $rootScope.alert("恢复seed钱包:"+error);
-                            $rootScope.alert($rootScope.languages.Recoverseed[$rootScope.selectLanguage.selected.id] + error);
-                        });
-                    //创建钱包结束
-                }
 
                 // utility functions
                 // check if it is a valid wallet seed

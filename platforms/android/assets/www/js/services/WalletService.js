@@ -6,28 +6,55 @@ define(['app'], function(app) {
         '$timeout',
         '$cordovaSpinnerDialog',
         function($q, $rootScope, $timeout, $cordovaSpinnerDialog) {
-            console.log("====")
-            console.log(webwalletapi)
             return {
-                createWallet: function(cointype, walletname) {
+                getWallets: function(){
+                   var deferred = $q.defer();
+                    webwalletapi.getWallets(function(walletsJson){
+                        deferred.resolve(walletsJson);
+                    },function(error){
+                        deferred.reject(error);
+                    })
+                    return deferred.promise;
+                },
+
+                getDomain: function() {
+                    var deferred = $q.defer();
+                    webwalletapi.getDomain(function(domain){
+                        deferred.resolve(domain);
+                    },function(error){
+                        deferred.reject(error);
+                    })
+                    return deferred.promise;
+                },
+
+                getCoins: function() {
+                    var deferred = $q.defer();
+                    webwalletapi.getCoins(function(coins){
+                        deferred.resolve(coins);
+                    } ,function(error) {
+                        deferred.reject(error);
+                    })
+                    return deferred.promise;
+                },
+
+                createWallet: function(cointype, seed, walletLabel, color) {
                     var deferred = $q.defer();
                     webwalletapi.createwallet(function(walletid) {
-                        console.log('walletid:' + walletid)
                         deferred.resolve(walletid);
                     }, function(error) {
                         deferred.reject(error);
-                    }, cointype, walletname);
+                    }, cointype, seed, walletLabel, color);
                     return deferred.promise;
                 },
 
                 // Hank Gao
-                deleteWallet: function(coinType, walletSeed) {
+                deleteWallet: function(walletId) {
                     var deferred = $q.defer();
                     webwalletapi.deletewallet(function(walletid) {
                         deferred.resolve(walletid);
                     }, function(error) {
                         deferred.reject(error);
-                    }, coinType, walletSeed);
+                    }, walletId);
                     return deferred.promise;
                 },
 
@@ -51,22 +78,11 @@ define(['app'], function(app) {
                     }, walletid, 1);
                     return deferred.promise;
                 },
-                sendBitcoin: function(walletid, toaddr, amount) {
+
+                sendcoin: function(walletid, toaddr, amount) {
                     var deferred = $q.defer();
                     $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendbitcoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount, 1000);
-                    return deferred.promise;
-                },
-                sendSkycoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendskycoin(function(success) {
+                    webwalletapi.sendcoin(function(success) {
                         $cordovaSpinnerDialog.hide();
                         deferred.resolve(success);
                     }, function(error) {
@@ -75,121 +91,13 @@ define(['app'], function(app) {
                     }, walletid, toaddr, amount);
                     return deferred.promise;
                 },
-                sendShellcoin: function(walletid, toaddr, amount) {
+                getBalance: function(Walletid) {
                     var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendshellcoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendSuncoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendsuncoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendAynrandcoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendaynrandcoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendMzcoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendmzcoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendMetalicoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendmetalicoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendLifecoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendlifecoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                sendYongbangcoin: function(walletid, toaddr, amount) {
-                    var deferred = $q.defer();
-                    $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                    webwalletapi.sendYongbangcoin(function(success) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.resolve(success);
-                    }, function(error) {
-                        $cordovaSpinnerDialog.hide();
-                        deferred.reject(error);
-                    }, walletid, toaddr, amount);
-                    return deferred.promise;
-                },
-                 sendShihucoin: function(walletid, toaddr, amount) {
-                     var deferred = $q.defer();
-                     $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                     webwalletapi.sendShihucoin(function(success) {
-                         $cordovaSpinnerDialog.hide();
-                         deferred.resolve(success);
-                     }, function(error) {
-                         $cordovaSpinnerDialog.hide();
-                         deferred.reject(error);
-                     }, walletid, toaddr, amount);
-                     return deferred.promise;
-                 },
-                  sendLiquorcoin: function(walletid, toaddr, amount) {
-                      var deferred = $q.defer();
-                      $cordovaSpinnerDialog.show("提示", "正在发送", true);
-                      webwalletapi.sendLiquorcoin(function(success) {
-                          $cordovaSpinnerDialog.hide();
-                          deferred.resolve(success);
-                      }, function(error) {
-                          $cordovaSpinnerDialog.hide();
-                          deferred.reject(error);
-                      }, walletid, toaddr, amount);
-                      return deferred.promise;
-                  },
-                getBalance: function(name, Walletid) {
-                    var deferred = $q.defer();
-                    webwalletapi.getblanceofwalletid(function(success) {
+                    webwalletapi.getbalance(function(success) {
                         deferred.resolve(JSON.parse(success));
                     }, function(error) {
                         deferred.reject(error);
-                    }, name, Walletid);
+                    }, Walletid);
                     deferred.notify();
                     return deferred.promise;
                 },

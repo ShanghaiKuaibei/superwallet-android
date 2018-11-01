@@ -16,7 +16,7 @@ define(['app', 'services/WalletService'], function(app) {
             $scope.willShow = false; //是否显示赢藏地址按钮，如果隐藏过就显示
             $scope.showType = true; //显示交易记录还是地址,true为显示交易记录
             $timeout(getBalance, 100);
-            $timeout(getaddressinwallet, 100);
+            $timeout(getCoinName,100);
             //jeremy 2018-01-09
             // get adress in wallet
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -123,21 +123,25 @@ define(['app', 'services/WalletService'], function(app) {
                 })
             }
 
+            function getCoinName(){
+                var activeCoin;
+                angular.forEach($rootScope.coins,function(coin,i){
+                    if(coin.name == $scope.wallet.coinType){
+                        activeCoin = coin;
+                    }
+                })
+                $scope.title = activeCoin.title;
+            }
+
 
             function getBalance() {
-                WalletService.getBalance($rootScope.coins[$scope.wallet.coinIndex].name, $scope.wallet.walletid).then(function(success) {
-                    if ($scope.wallet.coinIndex == "BTC") {
-                        success['balance'] = success['balance'] / 100000000;
-                    } else {
-                        success['balance'] = success['balance'] / 1000000;
-                    }
-                    $scope.wallet.balance = success['balance'];
-                    angular.forEach($rootScope.walletinfo, function(wallet, index) {
-                        if (wallet['walletid'] == $scope.wallet.walletid) {
-                            $rootScope.walletinfo[index].balance = $scope.wallet.balance;
-                        }
-                    });
-                });
+                    WalletService.getBalance($scope.wallet.id).then(function(balance) {
+                         var num = $scope.wallet.name == "bitcoin" ? 100000000 : 1000000;
+                         $scope.balance = balance / num;;
+                     }, function(err) {
+                         console.log(err)
+                     });
+
             }
 
 
@@ -175,42 +179,12 @@ define(['app', 'services/WalletService'], function(app) {
 
                         // Hank Gao
                         // TODO: delete wallet file
-                        var coinType = getCoinTypeFromSeed($scope.wallet.walletid);
-                        var nakedSeed = getNakedSeed($scope.wallet.walletid);
-
-                        WalletService.deleteWallet(coinType, nakedSeed).then(function() {
-                            // Now update walletinfo.json
-                            $scope.checkFile($rootScope.filepath, $rootScope.filename)
-                                .then(function(success) {
-                                    $scope.readAsText($rootScope.filepath, $rootScope.filename)
-                                        .then(function(success) {
-                                            var walletArr = JSON.parse(success)
-                                            for (var i = 0, l = walletArr.length; i < l; i++) {
-                                                if (walletArr[i].walletid == $scope.wallet.walletid) {
-                                                    walletArr.splice(i, 1)
-                                                    break;
-                                                }
-                                            }
-                                            $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify(walletArr))
-                                                .then(function() {
-                                                    $location.url('/assets');
-                                                }, function() {
-                                                    $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
-                                                    // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
-                                                });
-                                        }, function() {
-                                            $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename));
-                                            // $rootScope.alert("取出信息失败:" + $rootScope.filepath + $rootScope.filename);
-                                        });
-                                }, function(error) {
-                                    $scope.writeFile($rootScope.filepath, $rootScope.filename, JSON.stringify($scope.wallet)).then(function() {
-                                        $location.url('/assets');
-                                    }, function() {
-                                        $rootScope.alert($rootScope.languages.Failedcreate[$rootScope.selectLanguage.selected.id] + $rootScope.filepath + $rootScope.filename);
-                                        // $rootScope.alert("创建文件失败:" + $rootScope.filepath + $rootScope.filename);
-                                    });
-                                });
+                        WalletService.deleteWallet($scope.wallet.id).then(function(res) {
+                            $location.url('/assets');
+                        },function(err){
+                            $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id]));
                         });
+
                     }
                 )
             }

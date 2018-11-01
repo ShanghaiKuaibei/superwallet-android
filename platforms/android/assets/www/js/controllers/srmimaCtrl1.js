@@ -50,7 +50,7 @@ define(['app', 'services/WalletService'], function (app) {
             this.ctx.beginPath();
             this.ctx.lineWidth = 1;
             this.ctx.moveTo(this.lastPoint[0].x, this.lastPoint[0].y);
-            console.log(this.lastPoint.length);
+//            console.log(this.lastPoint.length);
             for (var i = 1; i < this.lastPoint.length; i++) {
                 this.ctx.lineTo(this.lastPoint[i].x, this.lastPoint[i].y);
             }
@@ -199,10 +199,10 @@ define(['app', 'services/WalletService'], function (app) {
             this.lastPoint = [];
             this.makeState();
             this.touchFlag = false;
-            console.log('canvas.angular:', angular.element("#canvas"))
-            console.log('canvas.angular0:', angular.element("#canvas")[0])
+//            console.log('canvas.angular:', angular.element("#canvas"))
+//            console.log('canvas.angular0:', angular.element("#canvas")[0])
             var canvas = angular.element("#canvas")[0]
-            console.log('canvas:', canvas)
+//            console.log('canvas:', canvas)
             this.canvas = canvas
             this.ctx = this.canvas.getContext('2d');
             this.createCircle();
@@ -218,7 +218,7 @@ define(['app', 'services/WalletService'], function (app) {
             this.canvas.addEventListener("touchstart", function (e) {
                 e.preventDefault();// 某些android 的 touchmove不宜触发 所以增加此行代码
                 var po = self.getPosition(e);
-                console.log(po);
+//                console.log(po);
                 for (var i = 0; i < self.arr.length; i++) {
                     if (Math.abs(po.x - self.arr[i].x) < self.r && Math.abs(po.y - self.arr[i].y) < self.r) {
                         self.touchFlag = true;

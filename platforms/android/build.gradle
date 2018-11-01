@@ -24,6 +24,8 @@ apply plugin: 'android'
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+        google()
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
@@ -45,11 +47,22 @@ buildscript {
     }
 }
 // Allow plugins to declare Maven dependencies via build-extras.gradle.
+
+allprojects {
+    repositories {
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
 repositories{
     flatDir { dirs 'libs'}
+    google()
 }
 
 task wrapper(type: Wrapper) {
@@ -62,11 +75,11 @@ ext {
     apply from: 'CordovaLib/cordova.gradle'
     // The value for android.compileSdkVersion.
     if (!project.hasProperty('cdvCompileSdkVersion')) {
-        cdvCompileSdkVersion = null;
+        cdvCompileSdkVersion = null
     }
     // The value for android.buildToolsVersion.
     if (!project.hasProperty('cdvBuildToolsVersion')) {
-        cdvBuildToolsVersion = null;
+        cdvBuildToolsVersion = null
     }
     // Sets the versionCode to the given value.
     if (!project.hasProperty('cdvVersionCode')) {
@@ -120,7 +133,7 @@ if (ext.cdvReleaseSigningPropertiesFile == null && file('release-signing.propert
 }
 
 // Cast to appropriate types.
-ext.cdvBuildMultipleApks = !!cdvBuildMultipleApks;
+ext.cdvBuildMultipleApks = !!cdvBuildMultipleApks
 ext.cdvMinSdkVersion = cdvMinSdkVersion == null ? null : Integer.parseInt('' + cdvMinSdkVersion)
 ext.cdvVersionCode = cdvVersionCode == null ? null : Integer.parseInt('' + cdvVersionCode)
 
@@ -128,7 +141,7 @@ def computeBuildTargetName(debugBuild) {
     def ret = 'assemble'
     if (cdvBuildMultipleApks && cdvBuildArch) {
         def arch = cdvBuildArch == 'arm' ? 'armv7' : cdvBuildArch
-        ret += '' + arch.toUpperCase().charAt(0) + arch.substring(1);
+        ret += '' + arch.toUpperCase().charAt(0) + arch.substring(1)
     }
     return ret + (debugBuild ? 'Debug' : 'Release')
 }
@@ -261,6 +274,7 @@ android {
 dependencies {
     // integrate bugsnag 'Hank Gao'
     compile 'com.bugsnag:bugsnag-android:3.+'
+    compile 'com.google.code.gson:gson:2.8.5'
     compile(name: 'mobile', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
@@ -271,13 +285,13 @@ dependencies {
 
 def promptForReleaseKeyPassword() {
     if (!cdvReleaseSigningPropertiesFile) {
-        return;
+        return
     }
     if ('__unset'.equals(android.signingConfigs.release.storePassword)) {
         android.signingConfigs.release.storePassword = privateHelpers.promptForPassword('Enter key store password: ')
     }
     if ('__unset'.equals(android.signingConfigs.release.keyPassword)) {
-        android.signingConfigs.release.keyPassword = privateHelpers.promptForPassword('Enter key password: ');
+        android.signingConfigs.release.keyPassword = privateHelpers.promptForPassword('Enter key password: ')
     }
 }
 
@@ -309,7 +323,7 @@ def addSigningProps(propsFilePath, signingConfig) {
     signingConfig.storePassword = props.get('storePassword', props.get('key.store.password', signingConfig.storePassword))
     def storeType = props.get('storeType', props.get('key.store.type', ''))
     if (!storeType) {
-        def filename = storeFile.getName().toLowerCase();
+        def filename = storeFile.getName().toLowerCase()
         if (filename.endsWith('.p12') || filename.endsWith('.pfx')) {
             storeType = 'pkcs12'
         } else {

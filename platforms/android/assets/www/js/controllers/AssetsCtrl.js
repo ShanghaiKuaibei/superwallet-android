@@ -9,14 +9,21 @@ define(['app', 'services/WalletService'], function(app) {
         '$cordovaAppVersion',
         function($scope, service, $rootScope, WalletService, $timeout, $cordovaAppVersion) {
             service.file($scope);
-            //$timeout(function(){WalletService.getBalance("skycoin","skycoin_444444").then(function(success){});},100);
-            $scope.checkFile($rootScope.filepath, $rootScope.filename).then(function(success) {
-                $scope.readAsText($rootScope.filepath, $rootScope.filename).then(function(success) {
-                    console.log(JSON.parse(success))
-                    $rootScope.walletinfo = JSON.parse(success);
-                    $timeout(getBalance, 100);
-                });
-            });
+            WalletService.getWallets().then(function(walletsJson){
+                var walletinfo = JSON.parse(walletsJson);
+                var wallets = [];
+                angular.forEach(walletinfo,function(item,i){
+                    item.balance = 0;
+                    wallets.push(item)
+                })
+                $rootScope.walletinfo = wallets;
+                console.log(wallets)
+
+                $timeout(getBalance, 100);
+            },function(err){
+                console.log(err)
+            })
+
             $scope.alertMsg = function() {
                 alert($rootScope.languages.UnderDevelopment[$rootScope.selectLanguage.selected.id]);
             }
@@ -27,23 +34,14 @@ define(['app', 'services/WalletService'], function(app) {
                 }, false);
             }
             var getBalance = function() {
-                // var isAlert = false;
                 angular.forEach($rootScope.walletinfo, function(wallet, index) {
-                    WalletService.getBalance($rootScope.coins[wallet.coinIndex].name, wallet.walletid).then(function(success) {
-                        //console.log($rootScope.walletinfo[index]+"---------"+$rootScope.walletinfo[index].coinIndex+":"+success['balance']);
-                        if ($rootScope.walletinfo[index].coinIndex == "BTC") {
-                            success['balance'] = success['balance'] / 100000000;
-                        } else {
-                            success['balance'] = success['balance'] / 1000000;
-                        }
-                        $rootScope.walletinfo[index].balance = success['balance'];
+                    WalletService.getBalance(wallet.id).then(function(res) {
+                        var balance = res;
+                        var num = $rootScope.walletinfo[index].name == "bitcoin" ? 100000000 : 1000000;
+                        balance = balance / num;
+                        $rootScope.walletinfo[index].balance = balance;
                     }, function(err) {
-                        //2018-01-14 jeremy  check network
-                        // if(!isAlert){
-                        //     alert($rootScope.languages.networkTip[$rootScope.selectLanguage.selected.id]);
-                        //     isAlert = true;
-                        // }
-
+                        console.log(err)
                     });
                 });
             }
@@ -51,6 +49,7 @@ define(['app', 'services/WalletService'], function(app) {
             $scope.show = function() {
                 $scope.showWallet ? $scope.showWallet = false : $scope.showWallet = true;
             }
+
         }
     ]);
 });

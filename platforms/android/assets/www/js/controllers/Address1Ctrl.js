@@ -80,7 +80,7 @@ define(['app'], function(app) {
                                 $rootScope.alert($rootScope.languages.exists[$rootScope.selectLanguage.selected.id], $rootScope.languages.Notice[$rootScope.selectLanguage.selected.id], Confirm);
                             } else if ($rootScope.coins[coinIndex].switch == true) {
                                 /*导入钱包*/
-                                WalletService.createWallet(arr[0], $scope.walletname)
+                                WalletService.createWallet(arr[0], '', $scope.walletname, 2)
                                     .then(function(walletid) {
                                         $scope.wallet = [{
                                             "walletid": success['text'],
@@ -136,29 +136,8 @@ define(['app'], function(app) {
                         coinIndex: coinIndex
                     });
                   } 
-
-                // var array = [];
-                // angular.forEach($rootScope.walletinfo, function(data) {
-                //     array.push(data['coinIndex']);
-                // });
-                // if (in_array(coinIndex, array)) {
-                //     // $rootScope.alert("已存在该币种", '提示', '确定');
-                //     $rootScope.alert($rootScope.languages.exists[$rootScope.selectLanguage.selected.id], $rootScope.languages.Notice[$rootScope.selectLanguage.selected.id], Confirm);
-                // } else if ($rootScope.coins[coinIndex].switch == true) {
-                //     $state.go('.addnewaddress', {
-                //         coinIndex: coinIndex
-                //     });
-                // }
-
-                // function in_array(search, array) {
-                //     for (var i in array) {
-                //         if (array[i] == search) {
-                //             return true;
-                //         }
-                //     }
-                //     return false;
-                // }
             }
+
         }
     ]);
 });

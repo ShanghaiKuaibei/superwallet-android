@@ -14,11 +14,11 @@ angular.module('starter.services', [])
                 //$rootScope.lvshapn = "http://marry.meiriwenda.com/superwallet/";
                 if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
                     // iOS
-                    console.log("This is mobile'browser.");
+//                    console.log("This is mobile'browser.");
                     $rootScope.filepath = cordova.file.documentsDirectory;
                 } else if (/android/i.test(navigator.userAgent)) {
                     //android平台
-                    console.log("This is mobile'browser.");
+//                    console.log("This is mobile'browser.");
                     $rootScope.filepath = cordova.file.externalRootDirectory;
                     // 退出程序
                     document.addEventListener("deviceready", onDeviceReady, false);
@@ -41,17 +41,16 @@ angular.module('starter.services', [])
                         }, false);
                     }
                 } else {
-                    console.log("This is pc'browser.");
+//                    console.log("This is pc'browser.");
                     document.addEventListener("deviceready", onDeviceReady, false);
 
                     function onDeviceReady() {
                         $rootScope.filepath = cordova.file.dataDirectory;
-                        console.log("cordova.file:", cordova.file);
+//                        console.log("cordova.file:", cordova.file);
                     }
                 }
                 $rootScope.filename = "walletinfo.json";
                 $rootScope.walletcolorCur = 2; //颜色默认
-                //suncoin, aynrandcoin
                 $rootScope.walletcolor = [
                     { "color": "#52cad3", "background": "#FFFFFF" },
                     { "color": "#ff6c53", "background": "#FFFFFF" },
@@ -63,158 +62,26 @@ angular.module('starter.services', [])
                     { "color": "#52cad3", "background": "#30343d" },
                     { "color": "#52cad3", "background": "#ef4b88" }
                 ];
-                // $rootScope.coins = {
-                //   "BTC": { "type": "BTC", "name": "bitcoin", "title": "比特币", "switch": true },
-                //   "SKY": { "type": "SKY", "name": "skycoin", "title": "天空币", "switch": true },
-                //   "SC2": { "type": "SC2", "name": "shellcoin", "title": "小贝壳", "switch": true },
-                //   "MZC": { "type": "MZC", "name": "mzcoin", "title": "喵爪币", "switch": true },
-                //   "SUN": { "type": "SUN", "name": "suncoin", "title": "太阳币", "switch": true },
-                //   "ARC": { "type": "ARC", "name": "aynrandcoin", "title": "安兰德币", "switch": true }
-                // };
-                $rootScope.coins = {
-                    "BTC": {
-                        "type": "BTC",
-                        "name": "bitcoin",
-                        "title": [
-                            "Bitcoin",
-                            "Moneda Bit",
-                           "بيتكوين",
-                            "比特币"
-                        ],
-                        "switch": true
-                    },
-                    "SKY": {
-                        "type": "SKY",
-                        "name": "skycoin",
-                        "title": [
-                            "Skycoin",
-                            "Moneda cielo",
-                            "سكايكوين",
-                            "天空币"
-                        ],
-                        "switch": true
-                    },
-                    "SC2": {
-                        "type": "SC2",
-                        "name": "shellcoin",
-                        "title": [
-                            "Shellcoin",
-                            "Moneda concha",
-                            "شلكوين",
-                            "小贝壳"
-                        ],
-                        "switch": true
-                    },
-                    "MZC": {
-                        "type": "MZC",
-                        "name": "mzcoin",
-                        "title": [
-                            "MZCoin",
-                            "Moneda MZ",
-                            "مزكوين",
-                            "喵爪币"
-                        ],
-                        "switch": true
-                    },
-                    "SUN": {
-                        "type": "SUN",
-                        "name": "suncoin",
-                        "title": [
-                            "SunCoin",
-                            "Moneda sol",
-                            "سانكوين",
-                            "太阳币"
-                        ],
-                        "switch": true
-                    },
-                    "ARC": {
-                        "type": "ARC",
-                        "name": "aynrandcoin",
-                        "title": [
-                            "AynRandCoin",
-                            "Moneda Ayn Rand",
-                            "أينراندكوين",
-                            "安兰德币"
-                        ],
-                        "switch": true
-                    },
-                    "LFC": {
-                        "type": "LFC",
-                        "name": "lifecoin",
-                        "title": [
-                            "LifeCoin",
-                            "Moneda Ayn Rand",
-                                    "أينراندكوين",
-                            "生命币"
-                        ],
-                        "switch": true
-                    },
-                    "MTC": {
-                        "type": "MTC",
-                        "name": "metalicoin",
-                        "title": [
-                            "MetaliCoin",
-                            "Moneda Ayn Rand",
-                            "أينراندكوين",
-                            "贵金属币"
-                        ],
-                        "switch": true
-                    },
-                    "YBC": {
-                        "type": "YBC",
-                        "name": "yongbangcoin",
-                        "title": [
-                            "YongbangCoin",
-                            "Estatus de moneda",
-                            " شون  عملة",
-                            "永邦币"
-                        ],
-                        "switch": true
-                    },
-                    "SHC": {
-                        "type": "SHC",
-                        "name": "shihucoin",
-                        "title": [
-                            "ShihuCoin",
-                            "La moneda",
-                            "توفر  العملة ",
-                            "石斛币"
-                        ],
-                        "switch": true
-                    },
-//                    "LQC": {
-//                        "type": "LQC",
-//                        "name": "liquorcoin",
-//                        "title": [
-//                            "LiquorCoin",
-//                            "El vino de base de la moneda",
-//                            "النبيذ قاعدة  العملة",
-//                            "基酒币"
-//                        ],
-//                        "switch": true
-//                    }
-                };
-                // $rootScope.selectLanguage = {
-                //   availableOptions: [
-                //     { id: "3", name: "中文" },
-                //     { id: "0", name: "English" },
-                //     { id: "1", name: "Español" },
-                //     { id: "2", name: "العَرَبِيَّة‎" }
-                //   ],
-                //   selected: {
-                //     id: "0", name: "English"
-                //   }
-                // };
-                // 英文	西班牙语	阿拉伯语 中文
-                // $http.get("./js/services/language.json")
-                //   .success(function (response) {
-                //     console.log("$http:", response);
-                //     console.log("$http:", JSON.parse(response));
-                //     console.log("$http:", JSON.parse(response).data);
-                //     console.log("$http:", response.data);
-                //     $rootScope.languages = $rootScope.languages
-                //     console.log("$rootScope.languages:", $rootScope.languages);
-                //   });
+//                获取sqlate中的coins信息
+                webwalletapi.getDomain(function(domain){
+                    webwalletapi.getCoins(function(coins){
+                        var res = JSON.parse('{ "data":' + coins + "}")
+                        var newObj = {};
+                        Object.keys(res.data).forEach(function(key){
+                            var item = res.data[key];
+                            newObj[item.symbol] = {
+                                type: item.symbol,
+                                name: item.nameInEnglish,
+                                logoURL: domain + item.logoURL,
+                                title: [item.nameInEnglish,item.nameInEnglish,item.nameInEnglish,item.nameInChinese],
+                                switch: true
+                            }
+                        })
+                        $rootScope.coins = newObj;
+                    })
+                })
+
+
                 $rootScope.languages = {
                     "Wallet": ["Wallet", "Cartera", "محفظة", "钱包"],
                     "Discover": ["Discover", "Encuentro", "بحث", "发现"],
@@ -343,6 +210,19 @@ angular.module('starter.services', [])
                     "showAdTip": ["Display concealment", "Mostrar ocultar", " عرض مخفي", "显示隐藏"],
                     "hide": ["Display concealment", "Oculta", " إخفاء", "隐藏"],
                 };
+
+
+//                TODO: 封装getBalance
+//                $rootScope.getBalance = function(id){
+//                    webwalletapi.getBalance(id).then(function(res) {
+//                        var balance = res;
+//                        var num = $rootScope.walletinfo[index].coinIndex == "BTC" ? 100000000 : 1000000;
+//                        balance = balance / num;
+//                            $rootScope.walletinfo[index].balance = balance;
+//                         }, function(err) {
+//                            console.log(err)
+//                    });
+//                }
             }
             var dialogs = function($rootScope) {
                 $rootScope.alert = function(message, title, buttonName, callback) {
