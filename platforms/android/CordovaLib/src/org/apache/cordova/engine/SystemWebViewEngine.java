@@ -138,7 +138,7 @@ public class SystemWebViewEngine implements CordovaWebViewEngine {
         
         // Set the nav dump for HTC 2.x devices (disabling for ICS, deprecated entirely for Jellybean 4.2)
         try {
-            Method gingerbread_getMethod =  WebSettings.class.getMethod("setNavDump", new Class[] { boolean.class });
+            Method gingerbread_getMethod =  WebSettings.class.getMethod("setNavDump", boolean.class);
             
             String manufacturer = android.os.Build.MANUFACTURER;
             Log.d(TAG, "CordovaWebView is running on device made by: " + manufacturer);
