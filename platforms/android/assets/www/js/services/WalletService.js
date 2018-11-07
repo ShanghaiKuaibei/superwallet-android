@@ -120,8 +120,17 @@ define(['app'], function(app) {
                     }, coinType, txid);
                     deferred.notify();
                     return deferred.promise;
+                },
+                getTransactions: function(walletid) {
+                    var deferred = $q.defer();
+                    webwalletapi.getTransactions(function(success) {
+                        deferred.resolve(JSON.parse(success));
+                    }, function(error) {
+                        deferred.reject(error);
+                    }, walletid);
+                    deferred.notify();
+                    return deferred.promise;
                 }
-
             };
         }
     ]);

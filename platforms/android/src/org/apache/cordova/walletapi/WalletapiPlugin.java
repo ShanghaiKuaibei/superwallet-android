@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import com.shellpay2.superwallet.MainActivity;
 
 import java.io.File;
+import java.util.Date;
 
 import mobile.*;
 //import mobile.Mobile;
@@ -48,31 +49,13 @@ class BalancePair {
 
 public class WalletapiPlugin extends CordovaPlugin {
 
-//    private String coins;
-
-    public String domain = "http://superwallet.shellpay2.com:6789";
+    private final String domain = "http://superwallet.shellpay2.com:6789";
+    private final Gson g;
 
     public WalletapiPlugin(){
-        Mobile.setServer(this.domain);
-
-//        try{
-//           this.coins = Mobile.getSupportedCoins();
-//            System.out.println(this.coins);
-//        } catch(Exception e) {
-//            this.coins = "";
-//        }
+        Mobile.setServer(domain);
+        g = new Gson();
     }
-
-//    private WalletsDbHelper walletDbHelper;
-//    private SQLiteDatabase db;
-
-    // TODO: initialize everything
-//    public WalletapiPlugin() {
-//        // check to see if wallets.db exists, if not, create a new table
-//        this.walletDbHelper = new WalletsDbHelper(getContext());
-//        this.db = this.walletDbHelper.getWritableDatabase();
-//    }
-
 
     @Override
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
@@ -103,7 +86,6 @@ public class WalletapiPlugin extends CordovaPlugin {
                 // addrs is in JSON format
                 String addrs = Mobile.generateNewAddresses(wallet.seed, 1);
 
-                Gson g = new Gson();
                 ar = g.fromJson(addrs, AddressResult.class);
 
                 wallet.privateKey = ar.addrs[0].seckey;
@@ -169,7 +151,6 @@ public class WalletapiPlugin extends CordovaPlugin {
                 WalletEntry wallet = dbHelper.getWallet(walletID);
 
                 String rawBalance = Mobile.getBalance(wallet.coinType, wallet.address);
-                Gson g = new Gson();
                 BalancePair bp = g.fromJson(rawBalance, BalancePair.class);
                 String res = Integer.toString(bp.confirmed.coins);
 
@@ -207,13 +188,27 @@ public class WalletapiPlugin extends CordovaPlugin {
 
             try {
                 WalletEntry wallet = dbHelper.getWallet(walletID);
+
                 String txid = Mobile.sendCoin(wallet.coinType, wallet.address, wallet.privateKey, targetAddress, amount);
+//                String txid = "sss";
 
-                String res = "";
+                Date now = new Date();
 
-                callbackContext.success(res);
+                Transaction t = new Transaction();
+                t.coinType = wallet.coinType;
+                t.address = wallet.address;
+                t.operation = "sent";
+                t.time = now.toString();
+                t.TxID = txid;
+                t.toAddress = targetAddress;
+                t.amount = Float.toString(amount);
+
+                dbHelper.addTransaction(t);
+
+                callbackContext.success(txid);
             }catch(Exception e) {
                 Log.e("superwallet", e.getMessage());
+                callbackContext.error("发送失败！" + e.getMessage());
             }
 
         } else if("getCoins".equals(action)){
@@ -230,9 +225,19 @@ public class WalletapiPlugin extends CordovaPlugin {
         } else if("getWallets".equals(action)){
             WalletDBHelper dbHelper = WalletDBHelper.getInstance();
             ArrayList<WalletEntry> wallets = dbHelper.getAllWallets();
-            Gson g = new Gson();
             String walletsJson = g.toJson(wallets);
             callbackContext.success(walletsJson);
+
+        } else if("getTransactions".equals(action)){
+
+            Integer walletID = args.getInt(0);
+
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+
+            ArrayList<Transaction> transactions = dbHelper.getTransactions(walletID);
+
+            String transactionsJson = g.toJson(transactions);
+            callbackContext.success(transactionsJson);
         }
 
         //System.out.println(action);

@@ -22,7 +22,9 @@ public class WalletDBHelper extends SQLiteOpenHelper {
     }
 
     public static final String DATABASE_NAME = "wallets.db";
+
     public static final String WALLETS_TABLE_NAME = "wallets";
+
     public static final String WALLETS_COLUMN_ID = "id";
     public static final String WALLETS_COLUMN_LABEL = "label";
     public static final String WALLETS_COLUMN_SEED = "seed";
@@ -45,6 +47,22 @@ public class WalletDBHelper extends SQLiteOpenHelper {
             WALLETS_COLUMN_ID + " = ?";
 
 
+    public static final String TRANSACTIONS_TABLE_NAME = "transactions";
+
+    public static final String TRANSACTIONS_COLUMN_ID = "id";
+    public static final String TRANSACTIONS_COLUMN_COIN_TYPE = "coinType";
+    public static final String TRANSACTIONS_COLUMN_ADDRESS = "address";
+    public static final String TRANSACTIONS_COLUMN_TX_ID = "txID";
+    public static final String TRANSACTIONS_COLUMN_TIME = "time";
+    public static final String TRANSACTIONS_COLUMN_OP = "operation";
+    public static final String TRANSACTIONS_COLUMN_TO_ADDRESS = "toAddress";
+    public static final String TRANSACTIONS_COLUMN_AMOUNT = "amount";
+
+    public static final String SQL_SEARCH_TRANSACTIONS = "select * from " + TRANSACTIONS_TABLE_NAME + " where " +
+            TRANSACTIONS_COLUMN_COIN_TYPE + " = ? " + " and " +
+            TRANSACTIONS_COLUMN_ADDRESS + " = ?";
+
+
 
     public WalletDBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -65,12 +83,81 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                         WALLETS_COLUMN_COLOR_SCHEME + " integer," +
                         WALLETS_COLUMN_STATUS + " text)"
         );
+
+        db.execSQL(
+                "create table " + TRANSACTIONS_TABLE_NAME +
+                        "(" +
+                        TRANSACTIONS_COLUMN_ID + " integer primary key, " +
+                        TRANSACTIONS_COLUMN_COIN_TYPE + " text," +
+                        TRANSACTIONS_COLUMN_ADDRESS + " text," +
+                        TRANSACTIONS_COLUMN_TX_ID + " text," +
+                        TRANSACTIONS_COLUMN_TIME + " text," +
+                        TRANSACTIONS_COLUMN_OP + " text," + // always sent
+                        TRANSACTIONS_COLUMN_TO_ADDRESS + " text," + // always sent
+                        TRANSACTIONS_COLUMN_AMOUNT + " text)"
+        );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WALLETS_TABLE_NAME);
         onCreate(db);
+    }
+
+    public ArrayList<Transaction> getTransactions(Integer walletID) {
+
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+
+            WalletEntry wallet = getWallet(walletID);
+
+            Cursor res =  db.rawQuery(SQL_SEARCH_TRANSACTIONS, new String[] {wallet.coinType, wallet.address});
+
+            res.moveToFirst();
+
+            while(res.isAfterLast() == false){
+                Transaction t = new Transaction();
+
+                t.id = res.getInt(res.getColumnIndex(TRANSACTIONS_COLUMN_ID));
+                t.coinType = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_COIN_TYPE));
+                t.address = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_ADDRESS));
+                t.operation = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_OP));
+                t.TxID = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_TX_ID));
+                t.time = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_TIME));
+                t.toAddress = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_TO_ADDRESS));
+                t.amount = res.getString(res.getColumnIndex(TRANSACTIONS_COLUMN_AMOUNT));
+
+                transactions.add(t);
+
+                res.moveToNext();
+            }
+
+        } catch (Exception e) {
+            Log.e("superwallet", e.getMessage());
+        }
+
+        return transactions;
+
+    }
+
+    public void addTransaction(Transaction transaction) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TRANSACTIONS_COLUMN_COIN_TYPE, transaction.coinType);
+        contentValues.put(TRANSACTIONS_COLUMN_ADDRESS, transaction.address);
+        contentValues.put(TRANSACTIONS_COLUMN_TX_ID, transaction.TxID);
+        contentValues.put(TRANSACTIONS_COLUMN_TIME, transaction.time);
+        contentValues.put(TRANSACTIONS_COLUMN_AMOUNT, transaction.amount);
+        contentValues.put(TRANSACTIONS_COLUMN_TO_ADDRESS, transaction.toAddress);
+        contentValues.put(TRANSACTIONS_COLUMN_OP, transaction.operation);
+
+        db.insert(TRANSACTIONS_TABLE_NAME, null, contentValues);
+
     }
 
     private ArrayList<WalletEntry> sqlSearch(String sql, String[] params) {
@@ -116,7 +203,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
 
         OperationResult or = new OperationResult();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
 

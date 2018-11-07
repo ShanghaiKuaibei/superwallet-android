@@ -15,13 +15,15 @@ define(['app', 'services/WalletService'], function(app) {
             $scope.wallet = $stateParams.wallet;
             $scope.willShow = false; //是否显示赢藏地址按钮，如果隐藏过就显示
             $scope.showType = true; //显示交易记录还是地址,true为显示交易记录
+            $timeout(getTransactions,100);
             $timeout(getBalance, 100);
             $timeout(getCoinName,100);
             //jeremy 2018-01-09
             // get adress in wallet
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
                 if (toState.name == "jiaoyi" && fromState.name == "jiaoyi.receive" || toState.name == "jiaoyi" && fromState.name == "jiaoyi.send")
-                    $timeout(getaddressinwallet, 100);
+                    $timeout(getTransactions,100);
+                    $timeout(getBalance, 100);
             })
 
             // 获取地址列表，查看本地是否保存，如果没有就从服务器上获取
@@ -188,6 +190,22 @@ define(['app', 'services/WalletService'], function(app) {
                     }
                 )
             }
+
+            function getTransactions(){
+                WalletService.getTransactions($scope.wallet.id).then(function(res) {
+                    var resout = [];
+                    angular.forEach(res, function (item) {
+                        item.time = new Date(item.time);
+                        this.push(item);
+                    }, resout);
+                    $scope.transactions = resout;
+                },function(err){
+                     $rootScope.alert(($rootScope.languages.Failedretrieve[$rootScope.selectLanguage.selected.id]));
+                });
+            }
+
+
+
         }
     ]);
 

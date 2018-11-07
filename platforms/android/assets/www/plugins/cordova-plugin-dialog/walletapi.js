@@ -121,6 +121,15 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
                     "getrransactionbyid", //action
                     [type, walletid] //要传递的参数，json格式
                 );
+            },
+            getTransactions: function(success, error,walletid) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getTransactions", //action
+                    [ walletid] //要传递的参数，json格式
+                );
             }
         }
     });
