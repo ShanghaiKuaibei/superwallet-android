@@ -180,7 +180,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
 
         contentValues.put(WALLETSORDER_COLUMN_ORDER, order);
 
-        db.update(WALLETSORDER_TABLE_NAME, contentValues, "5 > ?", new String[]{"3"});
+        db.update(WALLETSORDER_TABLE_NAME, contentValues, "5 > 3", null);
 
     }
 
