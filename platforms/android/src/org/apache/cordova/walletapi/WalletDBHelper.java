@@ -21,6 +21,8 @@ public class WalletDBHelper extends SQLiteOpenHelper {
         return WalletDBHelper.dbHelperInstance;
     }
 
+    public static final Integer DATABASE_VERSION = 2;
+
     public static final String DATABASE_NAME = "wallets.db";
 
     public static final String WALLETS_TABLE_NAME = "wallets";
@@ -62,14 +64,19 @@ public class WalletDBHelper extends SQLiteOpenHelper {
             TRANSACTIONS_COLUMN_COIN_TYPE + " = ? " + " and " +
             TRANSACTIONS_COLUMN_ADDRESS + " = ?";
 
+    public static final String WALLETSORDER_TABLE_NAME = "walletorder";
 
+    public static final String WALLETSORDER_COLUMN_ORDER = "walletOrder";
+
+    public static final String SQL_WALLETORDER_SEARCH = "select * from " + WALLETSORDER_TABLE_NAME;
 
     public WalletDBHelper(Context context) {
-        super(context, DATABASE_NAME , null, 1);
+        super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Always create 3 tables
         db.execSQL(
                 "create table " + WALLETS_TABLE_NAME +
                         "(" +
@@ -96,12 +103,71 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                         TRANSACTIONS_COLUMN_TO_ADDRESS + " text," + // always sent
                         TRANSACTIONS_COLUMN_AMOUNT + " text)"
         );
+
+        db.execSQL(
+                "create table " + WALLETSORDER_TABLE_NAME +
+                        "(" +
+                        WALLETSORDER_COLUMN_ORDER + " text)"
+        );
+
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + WALLETS_TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // We need to add two tables
+            db.execSQL(
+                    "create table " + TRANSACTIONS_TABLE_NAME +
+                            "(" +
+                            TRANSACTIONS_COLUMN_ID + " integer primary key, " +
+                            TRANSACTIONS_COLUMN_COIN_TYPE + " text," +
+                            TRANSACTIONS_COLUMN_ADDRESS + " text," +
+                            TRANSACTIONS_COLUMN_TX_ID + " text," +
+                            TRANSACTIONS_COLUMN_TIME + " text," +
+                            TRANSACTIONS_COLUMN_OP + " text," + // always sent
+                            TRANSACTIONS_COLUMN_TO_ADDRESS + " text," + // always sent
+                            TRANSACTIONS_COLUMN_AMOUNT + " text)"
+            );
+
+            db.execSQL(
+                    "create table " + WALLETSORDER_TABLE_NAME +
+                            "(" +
+                            WALLETSORDER_COLUMN_ORDER + " text)"
+            );
+        }
+    }
+
+    public String getWalletOrder() {
+        String walletOrder = new String("");
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor res = db.rawQuery(SQL_WALLETORDER_SEARCH, new String[]{});
+
+            res.moveToFirst();
+
+            if (!res.isAfterLast()) {
+                walletOrder = res.getString(res.getColumnIndex(WALLETSORDER_COLUMN_ORDER));
+            }
+
+        } catch (Exception e) {
+            Log.e("superwallet", "failed to get wallet order");
+        }
+
+        return walletOrder;
+
+    }
+
+    public void memorizeWalletOrder(String order) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(WALLETSORDER_COLUMN_ORDER, order);
+
+        db.update(WALLETSORDER_TABLE_NAME, contentValues, "", new String[]{});
+
     }
 
     public ArrayList<Transaction> getTransactions(Integer walletID) {
