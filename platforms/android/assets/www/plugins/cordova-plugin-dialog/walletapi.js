@@ -122,13 +122,22 @@ cordova.define("cordova-plugin-walletapi.WalletapiPlugin",
                     [type, walletid] //要传递的参数，json格式
                 );
             },
-            getTransactions: function(success, error,walletid) {
+            memorizeWalletOrder: function(success, error, walletids) {
                 exec(
                     success,
                     error,
                     "WalletapiPlugin", //feature name
-                    "getTransactions", //action
-                    [ walletid] //要传递的参数，json格式
+                    "memorizeWalletOrder", //action
+                    [walletids] //要传递的参数，json格式
+                );
+            },
+            getWalletOrder: function(success, error) {
+                exec(
+                    success,
+                    error,
+                    "WalletapiPlugin", //feature name
+                    "getWalletOrder", //action
+                    [] //要传递的参数，json格式
                 );
             }
         }

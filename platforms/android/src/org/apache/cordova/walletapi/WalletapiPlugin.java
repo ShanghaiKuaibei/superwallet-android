@@ -238,6 +238,26 @@ public class WalletapiPlugin extends CordovaPlugin {
 
             String transactionsJson = g.toJson(transactions);
             callbackContext.success(transactionsJson);
+        } else if("memorizeWalletOrder".equals(action)){
+            String walletIDs = args.getString(0);
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+            try {
+                dbHelper.memorizeWalletOrder(walletIDs);
+                callbackContext.success("保存成功");
+            }catch (Exception e) {
+                Log.e("记忆失败", e.getMessage());
+                callbackContext.error("记忆失败！" + e.getMessage());
+            }
+        } else if("getWalletOrder".equals(action)){
+            WalletDBHelper dbHelper = WalletDBHelper.getInstance();
+            String orders = "";
+            try {
+                orders = dbHelper.getWalletOrder();
+                callbackContext.success(orders);
+            }catch (Exception e) {
+                Log.e("获取失败", e.getMessage());
+                callbackContext.error("获取失败！" + e.getMessage());
+            }
         }
 
         //System.out.println(action);

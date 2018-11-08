@@ -17,11 +17,43 @@ define(['app', 'services/WalletService'], function(app) {
                     wallets.push(item)
                 })
                 $rootScope.walletinfo = wallets;
-                console.log(wallets)
-
+                var orders = '';
+                WalletService.getWalletOrder().then(function(ods){
+                    console.log(ods)
+                    orders = ods == '' ? [] : ods.split(',');
+                    if(orders.length == 0){
+                        $rootScope.walletinfo = wallets;
+                        return
+                    } else{
+                        var newArr = [];
+                        angular.forEach(orders,function(el){
+                            angular.forEach(wallets,function(wt,index){
+                                if(wt.id == el){
+                                    newArr.push(wt);
+                                }
+                            })
+                        });
+                        $rootScope.walletinfo = newArr;
+                    }
+                });
                 $timeout(getBalance, 100);
             },function(err){
                 console.log(err)
+            })
+
+//            离开时候保存顺序
+            $scope.$on("$destroy", function() {
+               //清除配置,不然scroll会重复请求
+               var saveOrders = [];
+               var wts = document.getElementsByClassName('oobe');
+
+               angular.forEach(wts,function(item,i){
+                    this.push(item.getAttribute('data-id'));
+               },saveOrders);
+
+               if(saveOrders.length == 0) return
+               var so = saveOrders.join(",");
+
             })
 
             $scope.alertMsg = function() {

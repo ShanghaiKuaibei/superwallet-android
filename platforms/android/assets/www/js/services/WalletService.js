@@ -130,7 +130,37 @@ define(['app'], function(app) {
                     }, walletid);
                     deferred.notify();
                     return deferred.promise;
-                }
+                },
+                memorizeWalletOrder: function(walletids) {
+                    var deferred = $q.defer();
+                    webwalletapi.memorizeWalletOrder(function(success) {
+                        deferred.resolve(JSON.parse(success));
+                    }, function(error) {
+                        deferred.reject(error);
+                    }, walletids);
+                    deferred.notify();
+                    return deferred.promise;
+                },
+                memorizeWalletOrder: function(walletids) {
+                    var deferred = $q.defer();
+                    webwalletapi.memorizeWalletOrder(function(success) {
+                        deferred.resolve(success);
+                    }, function(error) {
+                        deferred.reject(error);
+                    }, walletids);
+                    deferred.notify();
+                    return deferred.promise;
+                },
+                getWalletOrder: function() {
+                    var deferred = $q.defer();
+                    webwalletapi.getWalletOrder(function(success) {
+                        deferred.resolve(success);
+                    }, function(error) {
+                        deferred.reject(error);
+                    });
+                    deferred.notify();
+                    return deferred.promise;
+                },
             };
         }
     ]);
