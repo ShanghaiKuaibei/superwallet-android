@@ -74,6 +74,28 @@ public class WalletDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
+    public void createOrderTable(SQLiteDatabase db) {
+        db.execSQL(
+                "create table " + WALLETSORDER_TABLE_NAME +
+                        "(" +
+                        WALLETSORDER_COLUMN_ORDER + " text)"
+        );
+
+        // Insert a record
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WALLETSORDER_COLUMN_ORDER, "");
+        db.insert(WALLETSORDER_TABLE_NAME, null, contentValues);
+    }
+
+    // This method will be removed
+    public void insertOrder() {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WALLETSORDER_COLUMN_ORDER, "");
+        db.insert(WALLETSORDER_TABLE_NAME, null, contentValues);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Always create 3 tables
@@ -104,11 +126,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                         TRANSACTIONS_COLUMN_AMOUNT + " text)"
         );
 
-        db.execSQL(
-                "create table " + WALLETSORDER_TABLE_NAME +
-                        "(" +
-                        WALLETSORDER_COLUMN_ORDER + " text)"
-        );
+        createOrderTable(db);
 
     }
 
@@ -131,11 +149,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                             TRANSACTIONS_COLUMN_AMOUNT + " text)"
             );
 
-            db.execSQL(
-                    "create table " + WALLETSORDER_TABLE_NAME +
-                            "(" +
-                            WALLETSORDER_COLUMN_ORDER + " text)"
-            );
+            createOrderTable(db);
         }
     }
 
@@ -166,7 +180,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
 
         contentValues.put(WALLETSORDER_COLUMN_ORDER, order);
 
-        db.update(WALLETSORDER_TABLE_NAME, contentValues, "", new String[]{});
+        db.update(WALLETSORDER_TABLE_NAME, contentValues, "5 > ?", new String[]{"3"});
 
     }
 
