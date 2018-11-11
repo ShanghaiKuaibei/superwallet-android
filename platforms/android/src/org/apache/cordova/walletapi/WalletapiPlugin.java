@@ -95,11 +95,16 @@ public class WalletapiPlugin extends CordovaPlugin {
                 wallet.colorScheme = color;
                 wallet.status = "active";
 
-                dbHelper.addWallet(wallet);
+                OperationResult or = dbHelper.addWallet(wallet);
+                if (or.success) {
+                    // result is the wallet id in string format
+                    callbackContext.success(or.result);
+                } else {
+                    callbackContext.error("创建钱包失败, 写入失败");
+                }
 
-                String res = "";
+                return true;
 
-                callbackContext.success(res);
             } catch (Exception e) {
                 Log.e("superwallet", e.getMessage());
                 e.printStackTrace();

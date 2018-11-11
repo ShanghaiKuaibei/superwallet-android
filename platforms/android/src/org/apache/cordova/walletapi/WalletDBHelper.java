@@ -301,7 +301,6 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                 // if the wallet is still active, add a new wallet with same seed is not allowed
                 or.success = false;
                 or.errorDescription = "More than one seed/coin type pair is not allowed";
-                return or;
             } else {
                 // if the wallet is disabled, then we need to update status from disabled to active
                 // update
@@ -309,17 +308,23 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                         new String[] {Integer.toString(w.id)});
 
                 or.success = true;
+                or.result = Integer.toString(w.id);
 
-                return or;
             }
 
         } else {
             // This is really a new wallet
-            db.insert(WALLETS_TABLE_NAME, null, contentValues);
-            or.success = true;
-            return or;
+            long walletID = db.insert(WALLETS_TABLE_NAME, null, contentValues);
+            if (walletID != -1) {
+                or.success = true;
+                or.result = Long.toString(walletID);
+            } else {
+                or.success = false;
+            }
         }
 
+
+        return or;
     }
 
     // disableWallet "deletes" a wallet by changing the status from "active" to disabled"
