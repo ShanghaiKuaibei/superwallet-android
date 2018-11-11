@@ -11,6 +11,7 @@ define(['app', 'services/WalletService'], function(app) {
             service.file($scope);
             WalletService.getWallets().then(function(walletsJson){
                 var walletinfo = JSON.parse(walletsJson);
+//                console.log(walletinfo)
                 var wallets = [];
                 angular.forEach(walletinfo,function(item,i){
                     item.balance = 0;
@@ -19,8 +20,8 @@ define(['app', 'services/WalletService'], function(app) {
                 $rootScope.walletinfo = wallets;
                 var orders = '';
                 WalletService.getWalletOrder().then(function(ods){
-                    console.log(ods)
                     orders = ods == '' ? [] : ods.split(',');
+//                    console.log(orders)
                     if(orders.length == 0){
                         $rootScope.walletinfo = wallets;
                         return
@@ -33,10 +34,10 @@ define(['app', 'services/WalletService'], function(app) {
                                 }
                             })
                         });
-                        $rootScope.walletinfo = newArr;
+                        $rootScope.walletinfo = newArr
                     }
+                    $timeout(getBalance, 100);
                 });
-                $timeout(getBalance, 100);
             },function(err){
                 console.log(err)
             })
@@ -53,6 +54,7 @@ define(['app', 'services/WalletService'], function(app) {
 
                if(saveOrders.length == 0) return
                var so = saveOrders.join(",");
+               WalletService.memorizeWalletOrder(so);
 
             })
 

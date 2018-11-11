@@ -120,8 +120,14 @@ define(['app', 'services/WalletService'], function(app) {
 
 
             $scope.finish = function() {
-                WalletService.createWallet(activeCoin.name,'',$scope.walletname,$rootScope.walletcolorCur).then(function() {
-                    $location.url('/assets');
+                WalletService.createWallet(activeCoin.name,'',$scope.walletname,$rootScope.walletcolorCur).then(function(id) {
+//                    console.log(id);
+                    WalletService.getWalletOrder().then(function(ods){
+                        var orders = ods == '' ? [] : ods.split(',');
+                        orders.push(id);
+                        WalletService.memorizeWalletOrder(orders.join(","));
+                        $location.url('/assets');
+                    });
                 }, function(error) {
                     $rootScope.alert($rootScope.languages.Createwallet[$rootScope.selectLanguage.selected.id] + error);
                     // $rootScope.alert("创建钱包:" + error);
