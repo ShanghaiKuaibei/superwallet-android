@@ -99,7 +99,7 @@ define(['app'], function(app) {
 
                 var oldSeed = getNakedSeed(walletSeed);
 
-                WalletService.createWallet(coinType,oldSeed,walletLabel,$rootScope.walletcolorCur).then(function() {
+                WalletService.createWallet(coinType,oldSeed,walletLabel,$rootScope.walletcolorCur).then(function(id) {
                     WalletService.getWalletOrder().then(function(ods){
                         var orders = ods == '' ? [] : ods.split(',');
                         orders.push(id);

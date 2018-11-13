@@ -31,7 +31,7 @@
             <div class="oobe" data-id="{{ wallet.id }}" ng-repeat="wallet in walletinfo" style="background:{{walletcolor[wallet.colorScheme]['background']}}">
                 <div class="oobe_z" ui-sref="jiaoyi({wallet:wallet})">
                     <p ng-bind="wallet.label" style="color:{{walletcolor[wallet.walletcolor]['color']}}"></p>
-                    <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:4"></span> {{coins[wallet.coinIndex]['type']}}</p>
+                    <p style="color:{{walletcolor[wallet.walletcolor]['color']}}"><span ng-bind="wallet.balance | number:3"></span> {{coins[wallet.coinIndex]['type']}}</p>
                     <p style="color:{{walletcolor[wallet.walletcolor]['color']}}">￥0.00</p>
                     <!--<p>{{ wallet.seed }}</p>-->
                 </div>
