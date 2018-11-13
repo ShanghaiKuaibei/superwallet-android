@@ -21,7 +21,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
         return WalletDBHelper.dbHelperInstance;
     }
 
-    public static final Integer DATABASE_VERSION = 2;
+    public static final Integer DATABASE_VERSION = 3;
 
     public static final String DATABASE_NAME = "wallets.db";
 
@@ -36,6 +36,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
     public static final String WALLETS_COLUMN_PRIVATE_KEY = "privateKey";
     public static final String WALLETS_COLUMN_STATUS = "status";
     public static final String WALLETS_COLUMN_COLOR_SCHEME = "colorScheme";
+    public static final String WALLETS_COLUMN_BALANCE_LAST_SEEN = "balanceLastSeen";
 
     public static final String SQL_SERACH_SEED = "select * from " + WALLETS_TABLE_NAME + " where " +
             WALLETS_COLUMN_SEED + " = ?" + " and " +
@@ -47,6 +48,9 @@ public class WalletDBHelper extends SQLiteOpenHelper {
     public static final String SQL_SEARCH_ID = "select * from " + WALLETS_TABLE_NAME + " where " +
             WALLETS_COLUMN_STATUS + " = ? " + " and " +
             WALLETS_COLUMN_ID + " = ?";
+
+    public static final String SQL_ADD_COLUMN_BALANCE = "ALTER TABLE " +
+            WALLETS_TABLE_NAME + " ADD COLUMN " + WALLETS_COLUMN_BALANCE_LAST_SEEN + " text";
 
 
     public static final String TRANSACTIONS_TABLE_NAME = "transactions";
@@ -102,7 +106,8 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                         WALLETS_COLUMN_PUBLIC_KEY + " text," +
                         WALLETS_COLUMN_ADDRESS + " text," +
                         WALLETS_COLUMN_COLOR_SCHEME + " integer," +
-                        WALLETS_COLUMN_STATUS + " text)"
+                        WALLETS_COLUMN_STATUS + " text," +
+                        WALLETS_COLUMN_BALANCE_LAST_SEEN + " text)"
         );
 
         db.execSQL(
@@ -142,6 +147,11 @@ public class WalletDBHelper extends SQLiteOpenHelper {
             );
 
             createOrderTable(db);
+
+        }
+
+        if (oldVersion < 3) {
+            db.execSQL(SQL_ADD_COLUMN_BALANCE, null);
         }
     }
 
@@ -301,6 +311,9 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                 // if the wallet is still active, add a new wallet with same seed is not allowed
                 or.success = false;
                 or.errorDescription = "More than one seed/coin type pair is not allowed";
+
+                return or;
+
             } else {
                 // if the wallet is disabled, then we need to update status from disabled to active
                 // update
@@ -310,6 +323,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                 or.success = true;
                 or.result = Integer.toString(w.id);
 
+                return or;
             }
 
         } else {
@@ -318,13 +332,17 @@ public class WalletDBHelper extends SQLiteOpenHelper {
             if (walletID != -1) {
                 or.success = true;
                 or.result = Long.toString(walletID);
+
+                return or;
+
             } else {
                 or.success = false;
+                or.errorDescription = "Failed to insert wallet record";
+                return or;
             }
         }
 
 
-        return or;
     }
 
     // disableWallet "deletes" a wallet by changing the status from "active" to disabled"
