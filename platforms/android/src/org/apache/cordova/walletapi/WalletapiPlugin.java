@@ -36,8 +36,8 @@ class AddressResult {
 }
 
 class Balance {
-    public Integer coins; // droplets
-    public Integer hours;
+    public Long coins; // droplets
+    public Long hours;
 }
 
 class BalancePair {
@@ -151,13 +151,12 @@ public class WalletapiPlugin extends CordovaPlugin {
             // Get wallet balance
             Integer walletID = args.getInt(0);
 
-
             try {
                 WalletEntry wallet = dbHelper.getWallet(walletID);
 
                 String rawBalance = Mobile.getBalance(wallet.coinType, wallet.address);
                 BalancePair bp = g.fromJson(rawBalance, BalancePair.class);
-                String res = Integer.toString(bp.confirmed.coins);
+                String res = Long.toString(bp.confirmed.coins);
 
                 callbackContext.success(res);
             } catch(Exception e) {
