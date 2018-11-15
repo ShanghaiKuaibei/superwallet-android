@@ -10,4 +10,5 @@ public final class WalletEntry {
     public  String privateKey;
     public Integer colorScheme;
     public  String status;
+    public String balanceLastSeen;
 }

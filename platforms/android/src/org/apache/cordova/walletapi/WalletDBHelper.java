@@ -131,6 +131,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i("superwallet", "current database version is " + Integer.toString(oldVersion));
         if (oldVersion < 2) {
             // We need to add two tables
             db.execSQL(
@@ -146,12 +147,17 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                             TRANSACTIONS_COLUMN_AMOUNT + " text)"
             );
 
+            Log.i("superwallet", "transactions table has been created");
+
             createOrderTable(db);
+
+            Log.i("superwallet", "wallet order table has been created");
 
         }
 
         if (oldVersion < 3) {
             db.execSQL(SQL_ADD_COLUMN_BALANCE, null);
+            Log.i("superwallet", "Add balanceLastSeen column in table wallets");
         }
     }
 
@@ -268,6 +274,7 @@ public class WalletDBHelper extends SQLiteOpenHelper {
                 wallet.address = res.getString(res.getColumnIndex(WALLETS_COLUMN_ADDRESS));
                 wallet.colorScheme = res.getInt(res.getColumnIndex(WALLETS_COLUMN_COLOR_SCHEME));
                 wallet.status = res.getString(res.getColumnIndex(WALLETS_COLUMN_STATUS));
+                wallet.balanceLastSeen = res.getString(res.getColumnIndex(WALLETS_COLUMN_BALANCE_LAST_SEEN));
 
                 wallets.add(wallet);
 
@@ -277,8 +284,6 @@ public class WalletDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.e("superwallet", e.getMessage());
         }
-
-
 
         return wallets;
     }
@@ -373,4 +378,32 @@ public class WalletDBHelper extends SQLiteOpenHelper {
     public ArrayList<WalletEntry> getAllWallets() {
         return sqlSearch(SQL_SERACH_STATUS, new String[]{"active"});
     }
+
+    public void updateWalletColor(Integer walletID, Integer color) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(WALLETS_COLUMN_COLOR_SCHEME, color);
+
+        db.update(WALLETS_TABLE_NAME, values, WALLETS_COLUMN_ID + " = ?", new String[]{Integer.toString(walletID)});
+
+    }
+
+    public void updateBalance(Integer walletID, String newBalance) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(WALLETS_COLUMN_BALANCE_LAST_SEEN, newBalance);
+
+        db.update(WALLETS_TABLE_NAME, values, WALLETS_COLUMN_ID + " = ?", new String[]{Integer.toString(walletID)});
+    }
+
+    public String getBalanceLastSeen(Integer walletID) {
+
+        WalletEntry wallet = getWallet(walletID);
+        return wallet.balanceLastSeen;
+    }
+
 }

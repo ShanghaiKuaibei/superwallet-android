@@ -94,6 +94,7 @@ public class WalletapiPlugin extends CordovaPlugin {
 
                 wallet.colorScheme = color;
                 wallet.status = "active";
+                wallet.balanceLastSeen = "0.000";
 
                 OperationResult or = dbHelper.addWallet(wallet);
                 if (or.success) {
