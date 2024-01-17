@@ -7,12 +7,12 @@ define(['app'],function(app){
     '$location',
     'service',
     function($scope,$rootScope,$stateParams,$location,service){
-      console.log($stateParams.bakwalletid);
+      console.log($stateParams);
       service.file($scope);
-      $scope.bakwallet = $stateParams.bakwalletid;
+      service.config($rootScope);
+      $scope.seed = $stateParams.seed;
      $scope.copybtn = function(){
-        $scope.copy($scope.bakwallet).then(function(){
-          // $rootScope.alert("已复制seed");
+        $scope.copy($scope.seed).then(function(){
           $rootScope.alert($rootScope.languages.Seedduplicated[$rootScope.selectLanguage.selected.id]);
         });
       }

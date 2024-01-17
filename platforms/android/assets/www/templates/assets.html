@@ -43,17 +43,18 @@
             <div style="height:70px;width:100%;">
             </div>
         </div>
-        <div class="page_oobe_fx" ng-show="!showWallet">
+        <!-- <p type="hidden" id="languagecheck">{{selectLanguage.selected.id}}</p>  -->
+        <div class="page_oobe_fx" ng-show="!showWallet" >
             <ul>
                 <!-- <li onclick="javascript:alert('后续版本研发中...');"> -->
-                <li ng-click="alertMsg()">
-                    <div>
-                        <img src="img/fx-1.png" width="100%">
+                <li >
+                    <div><a href="http://104.129.183.104/exchange/index-en.html">
+                        <img src="img/fx-1.png" width="100%" ></a>
                     </div>
                 </li>
-                <li ng-click="alertMsg()">
-                    <div>
-                        <img src="img/fx-2.png" width="100%">
+                <li >
+                    <div><a href="http://104.129.183.104/k/k.html">
+                        <img src="img/fx-2.png" width="100%"></a>
                     </div>
                 </li>
                 <li ng-click="alertMsg()">
@@ -68,7 +69,32 @@
                 </li>
             </ul>
         </div>
-    </div>
+        <!-- <div class="page_oobe_fx" ng-show="!showWallet" id = "englishother">
+            <ul> -->
+                <!-- <li onclick="javascript:alert('后续版本研发中...');"> -->
+        <!-- <li >
+            <div><a href="http://104.160.46.225/exchange/index-en.html">
+                <img src="img/fx-1-en.png" width="100%" ></a>
+            </div>
+        </li>
+        <li ng-click="alertMsg()">
+            <div>
+                <img src="img/fx-2-en.png" width="100%">
+            </div>
+        </li>
+        <li ng-click="alertMsg()">
+            <div>
+                <img src="img/fx-3-en.png" width="100%">
+            </div>
+        </li>
+        <li ng-click="alertMsg()">
+            <div>
+                <img src="img/fx-4-en.png" width="100%">
+            </div>
+        </li>
+    </ul>
+</div>
+</div>  -->
     <input type="hidden" id="movetxt" value="0" />
     <script src='../lib/jquery.min.js'></script>
     <script>
@@ -124,5 +150,16 @@
 
         // }
     </script>
+    <!--<script>
+        $(document).ready(function(){
+            //if(document.getElementById("languagecheck).innerHTML == 0 ){
+            //    $("#chineseother").hide();
+            //    $("#englishother").show();
+            //}else {
+            //    $("#chineseother").show();
+                $("#englishother").hide();
+            //}
+        });
+    </script> -->
     <!--OOBE页面结束-->
 </div>

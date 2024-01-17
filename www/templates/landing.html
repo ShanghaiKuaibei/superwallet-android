@@ -1,20 +1,19 @@
 <div class="page page_landing" style="background: url(img/bg-login1.jpg);background-position: center center;background-size: 100%;background-repeat: no-repeat;">
 	<!-- <div style="margin-top:20vh;margin-left:10vw;" ng-click="selectLang()">{{languageSelected.des}}</div> -->
-	<!-- <select style="margin-top:20vh;margin-left:10vw;" name="singleSelect" ng-model="languageSelected">
-      <option value="-1">中文</option>
+	<!-- <select style="margin-top:20vh;margin-left:10vw;" name="singleSelect" ng-model="selectLanguage.selected.id">
+      <option value="3">中文</option>
       <option value="0">Eng</option>
       <option value="1">Español</option>
       <option value="2">العَرَبِيَّة‎</option>
 		</select> -->
-	<select style="margin-top: 10vh;margin-right: 2vw;float: right;color: #fff;font-size: 18px;" name="mySelect" id="mySelect"
-      ng-options="option.name for option in selectLanguage.availableOptions track by option.id"
-      ng-model="selectLanguage.selected"></select>
-	<p class="shoushi" ui-sref="srmima" ng-hide="apkDownloadProgress">
+		<select style="margin-top: 10vh;margin-right: 2vw;float: right;color: rgb(93,196,220);font-size: 18px;" name="mySelect" id="mySelect" ng-options="option.name for option in selectLanguage.availableOptions track by option.id" ng-model="selectLanguage.selected"></select>
+		<p class="shoushi" ui-sref="srmima1" ng-hide="apkDownloadProgress">
 		 <!-- <a href="#">不注册直接使用</a>  -->
 		 <a href="#">{{languages.Use[selectLanguage.selected.id]}}</a> 
+		 <!-- <a href="#">selectLanguage.selected.id:{{selectLanguage.selected.id}}</a>  -->
 		<i class="iconfont">&#xe604;</i>
 	</p>
-	<p class="shoushi" ng-show="apkDownloadProgress" style="display: none;">
+	<p class="shoushi" ng-show="apkDownloadProgress">
     <a>{{apkDownloadProgress}}</a>
 	</p>
 	<div class="color" style="display: none;">

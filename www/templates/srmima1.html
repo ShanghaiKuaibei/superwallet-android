@@ -1,22 +1,14 @@
 <div ui-view>
-    <div style='position: absolute;top:0;left:0;right:0;bottom:0;text-align: center; background:url(img/bg.png) no-repeat center top;background-size: 100% 1334px !important;font-family: "微软雅黑";'
-        class='canvas'>
-        <p id="title" class="title" style='color: #E8F8F9;text-shadow: 1px 1px 5px #37BFD2;margin-top: 30%; font-size: 14px;filter:alpha(opacity=20); font-family: "Microsoft YaHei !important ";'>
-            <!-- 设置手势密码 -->
-            <!-- {{titleText}} -->
-            {{languages.SetGesture[selectLanguage.selected.id]}}
-        </p>
-        <p id="content " style="color: #E8F8F9;text-shadow: 1px 1px 5px #37BFD2; font-size:
-        8px; line-height: 30px; ">
+    <div style='position: absolute;top:0;left:0;right:0;bottom:0;text-align: center; background:url(img/bg.png) no-repeat center top;background-size: 100% 1334px !important;font-family: "微软雅黑";' class='canvas'>
+        <p id="title" class="title" style="color: #E8F8F9;text-shadow: 1px 1px 5px #37BFD2;margin:0 10px;margin-top: 30%; font-size: 20px;filter:alpha(opacity=20); font-family: Microsoft YaHei !important";>{{H5lock.titleText}}</p>
+        <p id="content" style="color: #E8F8F9;text-shadow: 1px 1px 5px #37BFD2; font-size: 14px; line-height: 30px;margin:0 10px" ng-show="contentShow">
             <!-- 请牢记你的手势密码，忘记后无法进入 -->
-            {{qwere.contentText}}
             {{languages.KeepInMind[selectLanguage.selected.id]}}
         </p>
-        <a id="updatePassword " style=" position: relative;top: 5px;color:#E8F8F9;font-size:
-        10px;" ng-click="updatePassword()">
-        <!-- 重置密码 -->
-        {{languages.ResetPassword[selectLanguage.selected.id]}}
-    </a>
-        <canvas id="canvas " width="300px " height="300px " ; style="display: inline-block; margin:0px auto; "></canvas>
+        <canvas id="canvas" width="300px" height="300px"; style="display: inline-block; margin:0px auto;"></canvas>
+        <a id="updatePassword" style=" position: relative;top: 5px;color:#E8F8F9;font-size: 14px;display:block;" ng-show="resetShow"  ng-init="load()">
+            <!-- 重置密码 -->
+            {{languages.ResetPassword[selectLanguage.selected.id]}}
+        </a>
     </div>
 </div>

@@ -1,5 +1,4 @@
-cordova.define("com.jjdltc.cordova.plugin.zip.JJzip", function(require, exports, module) {
-/*
+cordova.define("com.jjdltc.cordova.plugin.zip.JJzip", function(require, exports, module) { /*
  * The MIT License (MIT)
  * Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
  * See a full copy of license in the root folder of the project

@@ -1,7 +1,7 @@
 <div class="page page_receive">
   <header>
     <div class="dl">
-      <a href="javascript:history.back();" class="left_icon iconfont">
+      <a href="javascript:history.back()" class="left_icon iconfont">
         &#xe60e;
       </a>
       <!-- <span style="">接收</span> -->
@@ -10,17 +10,18 @@
   </header>
   <div class="page_receive_content">
     <div class="receive_s">
-      <p>{{wallet.walletname}}</p>
-      <p>{{coins[wallet.coinIndex].title[selectLanguage.selected.id]}}</p>
+      <p>{{wallet.label}}</p>
+      <p>{{title[selectLanguage.selected.id]}}</p>
     </div>
     <div class="receive_x">
       <div style="margin:50px 0px;">
-        <qrcode version="3" error-correction-level="L" size="200" data="{{addresse.address}}"></qrcode>
+        <qrcode version="3" error-correction-level="L" size="200" data="{{addresse}}"></qrcode>
       </div>
-      <p ng-bind="addresse.address"></p>
+      <p ng-if="balance >= 0">余额：{{ balance | number:4 }}</p>
+      <p ng-bind="addresse"></p>
       <p ng-click="copybtn()">
         <i class="iconfont">&#xe60a;</i>
-        &nbsp;{{languages.Address[selectLanguage.selected.id]}}
+        &nbsp;{{languages.CopyAddress[selectLanguage.selected.id]}}
         <!-- &nbsp;复制地址 -->
       </p>
       <div class="receive_x1">

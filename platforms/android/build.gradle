@@ -25,7 +25,10 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        google()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
@@ -62,7 +65,10 @@ repositories {
 }
 repositories{
     flatDir { dirs 'libs'}
-    google()
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 task wrapper(type: Wrapper) {

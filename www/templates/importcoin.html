@@ -1,64 +1,46 @@
 <div ui-view>
-  <div class="page page_address1">
-    <header>
-      <div class="dl">
-        <a class="left_icon" style="color: #67d1d9;font-size: 14px;">
-        </a>
-        <span style="">
+    <div class="page page_address1">
+        <header>
+            <div class="dl">
+                <a class="left_icon" style="color: #67d1d9;font-size: 14px;">
+                </a>
+                <span style="">
           <!-- 导入指定币种 -->
           {{languages.ImportWallet[selectLanguage.selected.id]}}
         </span>
-        <a href="#/assets" class="right_icon iconfont">
+                <a href="#/assets" class="right_icon iconfont">
           &#xe600;
         </a>
-      </div>
-    </header>
-    <div class="page_address1_content">
-      <div class="address_a"  style="background-color:#fff;border-bottom:1px solid #ddd;">
-        <input type="text"  ng_blur="changecoincate()" style="-webkit-user-select:auto;height:35px;line-height:35px;width:75%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;" placeholder="{{languages.ScanTypeSeed[selectLanguage.selected.id]}}" id="coinjson" ng-model="coinjson" ng-change="changenamea(coinjson)">
-        <!-- <input type="text"  ng_blur="changecoincate()" style="-webkit-user-select:auto;height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;" placeholder="扫码或输入seed" id="coinjson" ng-model="coinjson" ng-change="changenamea(coinjson)"> -->
-        <i class="iconfont" style="color:#67d1d9;width:40px;height:40px;" ng-click="unzipbtn()">&#xe607;</i>
-      </div>
-      <div class="address_a" style="background-color:#fff;border-bottom:1px solid #ddd;">
-        <select style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;color:#000;background-color:#fff;font-size:14px;" id="coincate">
+            </div>
+        </header>
+        <div class="page_address1_content">
+            <div class="address_a" style="background-color:#fff;border-bottom:1px solid #ddd;">
+                <input type="text" ng_blur="changecoincate()" style="-webkit-user-select:auto;height:35px;line-height:35px;width:75%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;" placeholder="{{languages.ScanTypeSeed[selectLanguage.selected.id]}}"
+                    id="coinjson" ng-model="coinjson" ng-change="changenamea(coinjson)">
+                <!-- <input type="text"  ng_blur="changecoincate()" style="-webkit-user-select:auto;height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;" placeholder="扫码或输入seed" id="coinjson" ng-model="coinjson" ng-change="changenamea(coinjson)"> -->
+                <i class="iconfont" style="color:#67d1d9;width:40px;height:40px;" ng-click="unzipbtn()">&#xe607;</i>
+            </div>
+            <div class="address_a" style="background-color:#fff;border-bottom:1px solid #ddd;">
+                <select style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;color:#000;background-color:#fff;font-size:14px;" id="coincate">
           <option value="">
             <!-- 选择币种 -->
             {{languages.ChooseCoinType[selectLanguage.selected.id]}}
           </option>
-          <option value="bitcoin">
+          <option ng-repeat="coin in coins" value="{{ coin.name }}">
             <!-- 比特币 -->
-            {{languages.Bitcoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="skycoin">
-            <!-- 天空币 -->
-            {{languages.Skycoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="shellcoin">
-            <!-- 小贝壳 -->
-            {{languages.Shellcoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="suncoin">
-            <!-- 太阳币 -->
-            {{languages.SunCoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="aynrandcoin">
-            <!-- 安兰德币 -->
-            {{languages.AynRandCoin[selectLanguage.selected.id]}}
-          </option>
-          <option value="mzcoin">
-            <!-- 喵爪币 -->
-            {{languages.MZCoin[selectLanguage.selected.id]}}
+            {{coin.title[selectLanguage.selected.id]}}
           </option>
         </select>
-      </div>
-      <div class="address_a"  style="background-color:#fff;border-bottom:1px solid #ddd;">
-        <input type="text" style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;-webkit-user-select:auto;" placeholder="{{languages.PleaseTypeAlias[selectLanguage.selected.id]}}" id="coinname" ng-model="coinname" ng-change="changenameb(coinname)">
-        <!-- <input type="text" style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;-webkit-user-select:auto;" placeholder="请输入币种钱包的别名" id="coinname" ng-model="coinname" ng-change="changenameb(coinname)"> -->
-      </div>
-		<button ng-click="importcoinconfirm()" style="color:#fff;width:50%;margin-left:25%;height:40px;line-height:40px;text-align:center;border:1px solid #67d1d9;border-radius:3px 3px;background-color:#67d1d9;margin-top:30px;">
+            </div>
+            <div class="address_a" style="background-color:#fff;border-bottom:1px solid #ddd;">
+                <input type="text" style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;-webkit-user-select:auto;" placeholder="{{languages.PleaseTypeAlias[selectLanguage.selected.id]}}"
+                    id="coinname" ng-model="coinname" ng-change="changenameb(coinname)">
+                <!-- <input type="text" style="height:35px;line-height:35px;width:70%;margin-left:15%;color:#000;border:1px #fff solid;margin-top:10px;margin-bottom:10px;font-size:14px;-webkit-user-select:auto;" placeholder="请输入币种钱包的别名" id="coinname" ng-model="coinname" ng-change="changenameb(coinname)"> -->
+            </div>
+            <button ng-click="importcoinconfirm()" style="color:#fff;width:50%;margin-left:25%;height:40px;line-height:40px;text-align:center;border:1px solid #67d1d9;border-radius:3px 3px;background-color:#67d1d9;margin-top:30px;">
       <!-- 确定 -->
       {{languages.Confirm[selectLanguage.selected.id]}}
     </button>
+        </div>
     </div>
-  </div>
 </div>

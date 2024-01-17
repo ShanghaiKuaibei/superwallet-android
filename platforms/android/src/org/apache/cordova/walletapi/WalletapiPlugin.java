@@ -49,7 +49,7 @@ class BalancePair {
 
 public class WalletapiPlugin extends CordovaPlugin {
 
-    private final String domain = "http://superwallet.shellpay2.com:6789";
+    private final String domain = "http://104.129.181.176:6789";
     private final Gson g;
 
     public WalletapiPlugin(){

@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/superwallet.css" rel="stylesheet">
-    <link href="./lib/iconfont/iconfont.css" rel="stylesheet">
-</head>
-
-<body>
-    <div ui-view style="padding-top:25px;"></div>
-    <script src='./lib/jquery.min.js'></script>
-    <script src='./lib/jquery.gesture.password.js'></script>
-    <!-- 手势解锁 -->
-    <script src="./lib/angular/angular.min.js"></script>
-    <script src='./lib/qrcode.js'></script>
-    <!-- 生成二维码 -->
-    <script src="./lib/angular-qrcode.js"></script>
-    <!-- 生成二维码 -->
-    <script src="./lib/angular-ui/angular-ui-router.min.js"></script>
-    <script src='./ng-cordova.min.js'></script>
-    <script src="./cordova.js"></script>
-    <script data-main="js/main.js" src="./js/require.js">
-
-    </script>
-</body>
-
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/superwallet.css" rel="stylesheet">
+    <link href="lib/iconfont/iconfont.css" rel="stylesheet">
+  </head>
+  <body>
+    <div ui-view></div>
+    <script src='lib/jquery.min.js'></script>
+    <script src='lib/jquery.gesture.password.js'></script><!-- 手势解锁 -->
+    <script src="lib/angular/angular.min.js"></script>
+    <script src='lib/qrcode.js'></script><!-- 生成二维码 -->
+    <script src="lib/angular-qrcode.js"></script><!-- 生成二维码 -->
+    <script src="lib/angular-ui/angular-ui-router.min.js"></script>
+    <script src="lib/Sortable.min.js"></script>
+    <script src='ng-cordova.min.js'></script>
+    <script src="cordova.js"></script>
+    <script data-main="js/main.js" src="js/require.js"> </script>
+  <script>
+       var list = document.getElementById("sorte");
+       var sortable = Sortable.create(list);
+  </script>
+  </body>
 </html>
